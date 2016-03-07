@@ -3,10 +3,7 @@ import ReactDOM from 'react-dom';
 
 class LoginApp extends React.Component {
   render(){
-    return <div>
-      This is the login.
-        <img src="images/logo_gisred500x500.png"></img>
-      </div>
+    return <div>This is the login.</div>;
   }
 }
 
