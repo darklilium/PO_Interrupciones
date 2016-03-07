@@ -6,7 +6,7 @@ module.exports = {
   },
   devServer: {
     inline: true,
-    port: 3000,
+    port: 443,
     host: "127.0.0.1"
   },
   module: {
