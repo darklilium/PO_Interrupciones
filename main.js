@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 function genericLogin(genericAccount, username, password){
-  var url = "http://143.47.57.116/arcgis/tokens/";
+  var url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
 
   console.log(genericAccount);
   console.log(username, password);
 
   jQuery.ajax({
-     type: 'GET',
+     type: 'POST',
      url: url,
      data: {
        username: genericAccount.username,
