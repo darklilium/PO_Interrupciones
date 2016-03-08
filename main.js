@@ -2,19 +2,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class LoginApp extends React.Component {
+class LoginApp extends React.Component{
   render(){
-    return <div className="Container">
-            <div className="Login">
-              <img id="imgLogin" src="images/logo_gisred500x500.png" width="150px" height="150px"></img>
-              <input id="txtUsuario" type="text"  />
-              <input id="txtPassword" type="text" />
-              <input id="LoginBtn" type="submit"/>
+    return <div className="wrapper">
+            <img className="wrapper__ImageLogo" src="images/logo_gisred500x500.png"></img>
+            <div className="wrapper__Login">
+              <input className="login__Inputs" id="txtUsuario" type="text"  />
+              <input className="login__Inputs" id="txtPassword" type="text" />
+              <input className="login__Submits" id="LoginBtn" type="submit"/>
             </div>
 
-             <div className="Footer">
-              <h4>Planificación y Gestión de la Información Operacional</h4>
-              <h6>Av. Argentina N°1 Piso 7</h6>
+             <div className="wrapper__Footer">
+               <img className="wrapper__ImageChq" src="images/chq_i.png"></img>
+                <p className="wrapper__Footer__p">Planificación y Gestión</p><p className="wrapper__Footer__p">de la Información Operacional</p>
+                <h6 className="wrapper__Footer__h6">Av. Argentina N°1 Piso 7</h6>
              </div>
           </div>;
   }

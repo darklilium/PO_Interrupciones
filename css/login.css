@@ -13,4 +13,55 @@
  }
 */
 
-.Login__
+.wrapper{
+  margin-top: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  width: 250px;
+  display: block;
+}
+
+  .wrapper__ImageLogo{
+    width: 250px;
+    height:250px;
+
+  }
+
+  .wrapper__Login{
+    width: 250px;
+    padding-top: 10px;
+  }
+
+    .login__Inputs{
+      width: 250px;
+      height: 20px;
+      margin-top:10px;
+
+    }
+
+    .login__Submits{
+      width: 255px;
+      height: 25px;
+      margin-top:10px;
+    }
+
+.wrapper__Footer{
+  width: 255px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.wrapper__ImageChq{
+  width: auto;
+  vertical-align: bottom;
+}
+
+.wrapper__Footer__p{
+  font-size: 8pt;
+  color: inherit;
+  text-align: left;
+}
+
+.wrapper__Footer__h6{
+
+}
