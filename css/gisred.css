@@ -1,0 +1,42 @@
+.GisredApp{
+width: 100%;
+height: 100%
+display: block;
+
+}
+
+.MapContainer{
+width: 40%;
+height: 99vh;
+background-color: azure;
+float: right;
+}
+
+.CurrentWidgetContainer{
+width: 40%;
+height: 99vh;
+background-color: beige;
+float: left;;
+}
+.MyWidgetContainer{
+width: 20%;
+height: 99vh;
+background-color: ghostwhite;
+float: left;
+}
+
+.LogOut{
+
+}
+
+.MyWidget{
+width: auto;
+
+}
+.MyWidgetImage{
+height: 5em;
+}
+
+.LogOut__image{
+  height: 2em;
+}
