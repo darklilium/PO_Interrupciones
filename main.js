@@ -1,29 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-
-function genericLogin(genericAccount, username, password){
+function genericLogin(user, pass){
   var url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
-
-  console.log(genericAccount);
-  console.log(username, password);
+  console.log(user, pass);
 
   jQuery.ajax({
      type: 'POST',
      url: url,
      data: {
-       username: genericAccount.username,
-       password: genericAccount.password,
-       client: genericAccount.client,
+       username: user,
+       password: pass,
+       client: 'requestip',
        format: 'json'
      },
      success: (success) => {
-       //Part 2: if the user has access , go to the next page.
-        console.log("Success :) : The generic account is working, verifying the user permissions... " );
-        console.log(success);
+       console.log('Requesting service access');
+       
      },
      error: (error) => {
-       console.log("Error :( : The main account is having some issue, please notify to the administrator ");
+       console.log("You are not authorized ):");
      }
   });
 
@@ -37,16 +33,10 @@ class LoginApp extends React.Component {
   }
 
   onClick(){
-    var genericAccount = {
-      username: 'vialactea\\ehernanr',
-      password:'Chilquinta5',
-      client: 'requestip'
-    };
-
     var userValue = this.refs.username.value;
     var passValue = this.refs.password.value;
 
-    genericLogin(genericAccount, userValue, passValue);
+    genericLogin(userValue, passValue);
   }
 
   render(){
