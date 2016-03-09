@@ -17,7 +17,12 @@ function genericLogin(genericAccount, username, password){
        format: 'json'
      },
      success: (success) => {
-       console.log("here i need to call to a function for requesting service access");
+       console.log('here i need to call to a function for requesting service access');
+       new esri.Map('myMapForTest', {
+         center: [-118, 34.5],
+         zoom: 8,
+         basemap: "topo"
+       });
      },
      error: (error) => {
        console.log("sumthing happen ):");
