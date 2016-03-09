@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import esri from './arcgis_js_api';
 
 function genericLogin(genericAccount, username, password){
   var url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
@@ -17,10 +18,20 @@ function genericLogin(genericAccount, username, password){
        format: 'json'
      },
      success: (success) => {
-       console.log("here i need to call to a function for requesting service access");
+       //Part 2: if the user has access , go to the next page.
+        console.log("Success :) : The generic account is working, verifying the user permissions... " );
+        console.log(success);
+
+/*
+        define(["esri/tasks/query"
+
+      ], function(Query){
+
+      });
+*/
      },
      error: (error) => {
-       console.log("sumthing happen ):");
+       console.log("Error :( : The main account is having some issue, please notify to the administrator ");
      }
   });
 
