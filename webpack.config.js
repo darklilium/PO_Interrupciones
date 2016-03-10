@@ -3,7 +3,8 @@ var path = require('path');
 module.exports = {
   entry: {
     login: './static/js/bundles/main.js',
-    dashboard: './static/js/bundles/dashboard.js'
+    dashboard: './static/js/bundles/dashboard.js',
+    interruptions: './static/js/bundles/interruptions.js'
   },
   output: {
     path: path.join(__dirname, 'dist'),
