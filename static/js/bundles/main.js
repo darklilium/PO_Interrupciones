@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import token from '../services/token-service';
 import { genericLogin } from '../services/login-service';
 
 class LoginApp extends React.Component {
@@ -12,7 +13,7 @@ class LoginApp extends React.Component {
     var userValue = this.refs.username.value;
     var passValue = this.refs.password.value;
 
-    genericLogin(userValue, passValue);
+    genericLogin(userValue, passValue, token);
   }
 
   render(){
