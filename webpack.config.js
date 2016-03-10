@@ -1,8 +1,13 @@
+var path = require('path');
+
 module.exports = {
-  entry: './main.js',
+  entry: {
+    login: './static/js/bundles/main.js',
+    dashboard: './static/js/bundles/dashboard.js'
+  },
   output: {
-    path: './',
-    filename: 'bundle.js'
+    path: path.join(__dirname, 'dist'),
+    filename: '[name].js'
   },
   devServer: {
     inline: true,
