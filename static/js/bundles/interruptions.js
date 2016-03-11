@@ -8,7 +8,7 @@ class Interruptions extends React.Component {
   constructor(){
     super();
     this.onClick = this.onClick.bind(this);
-    console.log('this is my token', token.read());
+  //  console.log('this is my token', token.read());
   }
 
 
@@ -19,10 +19,19 @@ class Interruptions extends React.Component {
           zoom: 13
         });
 
-    var featureLayer = new esri.layers.FeatureLayer(layers.read_layer_sed(),{
-    token: token.read()
-    });
-    map.addLayer(featureLayer);
+          var esriId = esri.IdentityManager();
+          esriId.registerToken({
+            server:  'http://gisred.chilquinta.cl:5555/arcgis/rest',
+            userId:  'userejemplo',
+            token:   token.read(),
+            expires: 1440,
+            ssl:     false
+          });
+        
+          console.log(esriId.registerToken());
+
+          var myFirstLayer = new esri.layers.FeatureLayer(layers.read_layer_sed());
+          map.addLayer(myFirstLayer);
   }
 
   onClick(){
