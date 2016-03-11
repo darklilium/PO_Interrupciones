@@ -11,7 +11,6 @@ class Interruptions extends React.Component {
   //  console.log('this is my token', token.read());
   }
 
-
   componentDidMount(){
     var map = new esri.Map("myMapDiv", {
           basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
@@ -19,17 +18,7 @@ class Interruptions extends React.Component {
           zoom: 13
         });
 
-          var esriId = esri.IdentityManager();
-          esriId.registerToken({
-            server:  'http://gisred.chilquinta.cl:5555/arcgis/rest',
-            userId:  'userejemplo',
-            token:   token.read(),
-            expires: 1440,
-            ssl:     false
-          });
-        
-          console.log(esriId.registerToken());
-
+          //var url="http://gisred.chilquinta.cl:5555/arcgis/rest/services/Interrupciones/PO/MapServer/0?f=json&token="+token.read();
           var myFirstLayer = new esri.layers.FeatureLayer(layers.read_layer_sed());
           map.addLayer(myFirstLayer);
   }
