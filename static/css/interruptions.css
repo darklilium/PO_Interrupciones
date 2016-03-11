@@ -17,14 +17,25 @@ body{
 width: auto;
 margin-top:15px;
 height: auto;
-background-color: azure;
+background-color: #fff;
 z-index: 2;
 position: absolute;
 right: 1em;
 }
 
 .searchBox__searchInput{
+    width: 7em;
+    height: auto;
+    background: #fff;
+    border: none;
+    color: #FFF;
+    padding-left: 35px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: #000;
 
+    
 }
 
 .searchBox__searchSubmit{
@@ -32,5 +43,15 @@ right: 1em;
 }
 
 .searchResults{
+
+}
+
+.searchBox_icon{
+
+}
+.searchBox__searchSubmit {
+
+}
+.searchBox__searchSubmit:hover {
 
 }

@@ -8,19 +8,27 @@ class Interruptions extends React.Component {
   constructor(){
     super();
     this.onClick = this.onClick.bind(this);
-  //  console.log('this is my token', token.read());
+
   }
 
   componentDidMount(){
     var map = new esri.Map("myMapDiv", {
-          basemap: "topo",  //For full list of pre-defined basemaps, navigate to http://arcg.is/1JVo6Wd
-          center: [-122.45, 37.75], // longitude, latitude
-          zoom: 13
+          basemap: "topo",
+          center:[-71.2905, -33.1009],
+          zoom:9
         });
 
-          //var url="http://gisred.chilquinta.cl:5555/arcgis/rest/services/Interrupciones/PO/MapServer/0?f=json&token="+token.read();
-          var myFirstLayer = new esri.layers.FeatureLayer(layers.read_layer_sed());
-          map.addLayer(myFirstLayer);
+        //  var myFirstLayer = new esri.layers.FeatureLayer(layers.read_layer_sed());
+          var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
+          var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
+          var visibleLayers = [1];
+          myDynamicBTLayer2.setVisibleLayers(visibleLayers);
+
+          //map.addLayer(myDynamicSedLayer);
+          map.addLayer(myDynamicSedLayer,2);
+          map.addLayer(myDynamicBTLayer2,1);
+
+
   }
 
   onClick(){
@@ -31,8 +39,13 @@ class Interruptions extends React.Component {
     return (
       <div className="interruptions_wrapper">
       <div className="searchBox">
+        <span className="searchBox_icon"><i className="fa fa-search"></i></span>
         <input className="searchBox__searchInput" ref="NIS" type="text" />
-        <input className="searchBox__searchSubmit" type="submit" onClick={this.onClick} />
+
+        <input className="searchBox__searchSubmit" type="submit" onClick={this.onClick}  />
+        <button type="button" className="btn btn-default">
+            <span className="glyphicon glyphicon-star"></span>Label
+        </button>
       </div>
         <div className="myMapDiv" id="myMapDiv"></div>
 

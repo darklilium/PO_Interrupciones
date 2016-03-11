@@ -22,8 +22,18 @@ function myLayers(){
 
     read_layer_poOrdenes(){
       return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Interrupciones/PO/MapServer/4?f=json&token="+token.read();
-    }
+    },
 
+    read_dyn_layer_PO(){
+      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Interrupciones/PO/MapServer?token="+token.read();
+    },
+    read_layer_BT(){
+      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Chilquinta_006/Tramos_006/MapServer?token="+ token.read();
+    },
+
+    read_layer_BT2(){
+      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/MapaBase/MapServer?token="+ token.read();
+    }
 
   };
 }

@@ -7,96 +7,16 @@
     <link rel="stylesheet" type="text/css" href="arcgis_js_api/library/3.16/3.16/dijit/themes/tundra/tundra.css"/>
     <link rel="stylesheet" type="text/css" href="arcgis_js_api/library/3.16/3.16/esri/css/esri.css" />
     <link rel="stylesheet" type="text/css" href="static/css/interruptions.css"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
   </head>
   <body>
       <div id="myInterruptions"></div>
       <script type="text/javascript" src="arcgis_js_api/library/3.16/3.16/init.js"></script>
       <script src="static/js/vendor/jquery-2.2.1.min.js"></script>
       <script src="interruptions.js"></script>
-      <script type="text/javascript">
-
-        dojo.require("dojo.parser");
-        dojo.require("esri.IdentityManager");
-        var cred = "esri_jsapi_id_manager_data";
-        var shortLivedTokenValidity=60;
-        function init() {
-            var idBase = new esri.IdentityManagerBase();
-
-            var serverInfo = {
-                "server": "http://localhost:443",
-                "tokenServiceUrl": "http://gisred.chilquinta.cl:5555/arcgis/tokens/",
-                "currentVersion": 10.4
-            };
-            var def = idBase.generateToken(serverInfo, { "username": "ehernanr", "password": "Chilquinta5" });
-            def.addCallback(function (tokenInfo) {
-                var idBase = new esri.IdentityManagerBase();
-                //Short lived token is valid for 60 mins by defult
-                idBase.tokenValidity =shortLivedTokenValidity=60;
-                var serverInfo = {
-                    "server": "http://localhost:443",
-                    "tokenServiceUrl": "http://gisred.chilquinta.cl:5555/arcgis/tokens/",
-                    "currentVersion": 10.04
-                };
-                esri.id.registerServers([serverInfo]);
-    //get token creation time in epoch
-                var creationTime = (new Date).getTime();
-    //calculate the token expiration based on short lived token validity
-                var expirationTime = creationTime + (shortLivedTokenValidity * 60000);
-    //create array of secured services
-                var securedServices = [];
-                for (var services in this.configData.mapService) {
-                    securedServices.push(this.configData.mapService[services]);
-                }
-                var idString = dojo.toJson({ "serverInfos": [serverInfo],
-                    "credentials": [{
-                        "userId": rahul,
-                        "server": "http://gisred.chilquinta.cl:5555/arcgis/rest/",
-                        "token": tokenInfo.token,
-                        "expires": expirationTime,
-                        "ssl": false,
-                        "creationTime": creationTime,
-                        "resources": securedServices
-                    }]
-                });
-                // store it client side
-                if (_supports_local_storage()) {
-                    // use local storage
-                    window.localStorage.setItem(this._jsAPIIDManagerData, idString);
-                } else {
-                    // use a cookie
-                    dojo.cookie(this._jsAPIIDManagerData, idString, { expires: 1 });
-                }
-                this._loadCredentials();
-
-   });
 
 
-        }
 
-   function _supports_local_storage() {
-            try {
-                return "localStorage" in window && window["localStorage"] !== null;
-            } catch (e) {
-                return false;
-            }
-        }
-
-        function _loadCredentials() {
-            var idJson, idObject;
-            if (this._supports_local_storage()) {
-                // read from local storage
-                idJson = window.localStorage.getItem(this._jsAPIIDManagerData);
-            } else {
-                // read from a cookie
-                idJson = dojo.cookie(this._jsAPIIDManagerData);
-            }
-            if (idJson && idJson != "null" && idJson.length > 4) {
-                idObject = dojo.fromJson(idJson);
-                esri.id.initialize(idObject);
-            }
-        }
-        dojo.addOnLoad(init);
-    </script>
   </body>
 
 </html>
