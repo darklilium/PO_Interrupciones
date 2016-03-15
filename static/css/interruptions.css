@@ -1,17 +1,20 @@
 body{
   height: auto;
-  overflow-y: hidden;
+
 }
 .interruptions_wrapper{
   width: 100%;
   height: 100%;
+  overflow-y: hidden;
+
 }
 .myMapDiv{
   width: 100%;
-  height: 99vh;
+  height: 98vh;
   background-color: azure;
   z-index: 1;
-
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 .searchBox{
 width: auto;
@@ -21,35 +24,26 @@ background-color: #fff;
 z-index: 2;
 position: absolute;
 right: 1em;
+}.searchBox__searchInput{
+  height: 2.4em;
+}
+/*for the mytable grid that has to show all the feature results*/
+.mytable-searchBox{
+  width: 100%;
+  height: 3em;
+  display: inline-flex;
+  padding-top: 1em;
 }
 
-.searchBox__searchInput{
-    width: 7em;
-    height: auto;
-    background: #fff;
-    border: none;
-    color: #FFF;
-    padding-left: 35px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    color: #000;
-
-
+.mytable-searchBox__title{
+  margin-top: 2px;
+  margin-right: 10px;
 }
 
-.searchBox__searchSubmit{
-
+.mytable_searchBox__hr{
+  margin-top: 8px
 }
 
-.searchResults{
-
-}
-
-.searchBox_icon{
-
-}
-
-.searchBox__searchSubmit {
-
+.mytable-Wrapper__table{
+  overflow-x: auto;
 }
