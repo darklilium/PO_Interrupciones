@@ -13,48 +13,52 @@ class MyGrid extends React.Component{
   constructor(props){
     super(props);
     this.onClick = this.onClick.bind(this);
-
-    this.state = { empleados: []}
+    this.nowResults = this.nowResults.bind(this);
+    this.state = { empleados: [] };
   }
+
   //before the component is rendered
   componentWillMount(){
     this.currentInterruptions();
-
     this.setState({empleados: results})
-    console.log(results);
   }
+
   //after component is rendered
   componentDidMount(){
-     setInterval(()=>{
-       this.currentInterruptions();
-     },10000);
+    var foo = function(){
+      this.currentInterruptions();
+      setTimeout(foo, 10000);
+    };
+
+    foo = foo.bind(this);
+    setTimeout(foo, 10000);
   }
+
   currentInterruptions(){
       var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_clie());
       var qInterruptions = new esri.tasks.Query();
-        qInterruptions.where = "1=1";
-        qInterruptions.returnGeometry = true;
-        qInterruptions.outFields=["*"];
-        //this guy returns a featureSet with all the interruptions in an object
-        qTaskInterruptions.execute(qInterruptions, this.nowResults, this.nowError);
+      qInterruptions.where = "1=1";
+      qInterruptions.returnGeometry = true;
+      qInterruptions.outFields=["*"];
+
+      //this guy returns a featureSet with all the interruptions in an object
+      qTaskInterruptions.execute(qInterruptions, this.nowResults, this.nowError);
   }
 
   nowResults(currentFs){
     console.log("Getting the results from current interruptions...");
-    //console.log(currentFs);
-    results = [];
-    for (var i = 0; i < currentFs.features.length; i++) {
-        var fs = Object.create(currentFs.features[i]);
-        results.push(fs);
-      }
-    //console.log(results);
+    var results = currentFs.features.map(cf => ({ ...cf }) );
+    this.setState({ empleados: results });
   }
+
   nowError(){
     console.log("Error at getting the results from current interruptions");
   }
+
   onClick(){
     console.log("asd");
   }
+
   render(){
     return (
     <div className="mytable-Wrapper">
@@ -138,6 +142,7 @@ class Interruptions extends React.Component {
     //this guy returns a featureSet object with the queryResult
     queryTaskNIS.execute(queryNIS, this.searchLocation, this.errorInQuery);
   }
+  
   searchLocation(featureSet){
     console.log("searching for location...");
     map.graphics.clear();
