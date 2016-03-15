@@ -41,9 +41,24 @@ right: 1em;
 }
 
 .mytable_searchBox__hr{
-  margin-top: 8px
+  margin-top: 8px;
 }
 
 .mytable-Wrapper__table{
-  overflow-x: auto;
+
+  font-size: 11px;
+}
+
+.mytable-Wrapper__table-tr{
+  font-size: 9px;
+  font-style: normal;
+  font-weight: bold;
+  width: auto;
+}
+
+td{
+  width: auto;
+}
+.td_width{
+  width: 6%;
 }

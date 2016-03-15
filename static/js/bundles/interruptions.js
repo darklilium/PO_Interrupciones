@@ -4,28 +4,27 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 
 var map;
-var searchSymbol;
-var popupTemplate;
 var results = [];
 
 function translator(employee){
-  console.log(employee.attributes);
+  console.log(employee);
   var attr = employee.attributes;
-  console.log(attr);
+  //console.log(attr);
 
   var r = {
     nis: attr['ARCGIS.DBO.CLIENTES_XY_006.nis'],
-    orden: null,
-    idIncidencia: null,
-    tipoOrden: null,
-    estado: null,
-    fechaCreacion: null,
-    fechaAsignacion: null,
-    fechaDespacho: null,
-    tipoEquipo: null,
-    fechaTermino: null,
-    fechaCierre: null,
-    fechaUltModificacion: null
+    orden: attr['ARCGIS.dbo.POWERON_CLIENTES.id_orden'],
+    idIncidencia: attr['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'],
+    tipoOrden: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_orden'],
+    estado: attr['ARCGIS.DBO.POWERON_ORDENES.estado_orden'],
+    fechaCreacion: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_creacion'],
+    fechaAsignacion: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_asignacion'],
+    fechaDespacho: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_despacho'],
+    tipoEquipo: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_equipo'],
+    fechaTermino: attr['ARCGIS.DBO.POWERON_ORDENES.fc_termino_t'],
+    fechaCierre: attr['ARCGIS.DBO.POWERON_ORDENES.fc_cierre'],
+    fechaUltModificacion: attr['ARCGIS.DBO.POWERON_ORDENES.fc_ult_modif'],
+    comentario: attr['ARCGIS.DBO.POWERON_ORDENES.comentario']
   };
 
   return r;
@@ -33,22 +32,23 @@ function translator(employee){
 
 class EmployeeRow extends React.Component {
   render(){
-    console.log(this.props);
+  //  console.log(this.props);
 
     return (
       <tr>
         <td>{this.props.nis}</td>
-        <td>{this.props.orden}</td>
+        <td className="td_width">{this.props.orden}</td>
         <td>{this.props.idIncidencia}</td>
         <td>{this.props.tipoOrden}</td>
         <td>{this.props.estado}</td>
         <td>{this.props.fechaCreacion}</td>
         <td>{this.props.fechaAsignacion}</td>
         <td>{this.props.fechaDespacho}</td>
-        <td>{this.props.tipoEquipo}</td>
+        <td className="td_width">{this.props.tipoEquipo}</td>
         <td>{this.props.fechaTermino}</td>
         <td>{this.props.fechaCierre}</td>
         <td>{this.props.fechaUltModificacion}</td>
+        <td>{this.props.comentario}</td>
       </tr>
     );
   }
@@ -56,7 +56,9 @@ class EmployeeRow extends React.Component {
 
 //for datagrid
 class MyGrid extends React.Component{
+
   constructor(props){
+
     super(props);
     this.onClick = this.onClick.bind(this);
     this.nowResults = this.nowResults.bind(this);
@@ -86,7 +88,6 @@ class MyGrid extends React.Component{
       qInterruptions.where = "1=1";
       qInterruptions.returnGeometry = true;
       qInterruptions.outFields=["*"];
-
       //this guy returns a featureSet with all the interruptions in an object
       qTaskInterruptions.execute(qInterruptions, this.nowResults, this.nowError);
   }
@@ -108,7 +109,7 @@ class MyGrid extends React.Component{
   render(){
     var employees = this.state.empleados.map((employee, index)=>{
       var data = translator(employee);
-      return <EmployeeRow key={"employee" + index} {...data} />;
+      return <EmployeeRow key={"aa" + index} {...data} />;
     });
 
     return (
@@ -123,7 +124,7 @@ class MyGrid extends React.Component{
       </div>
       <hr className="mytable_searchBox__hr"></hr>
       <table className="mytable-Wrapper__table table table-bordered" >
-            <thead>
+            <thead className="mytable-Wrapper__table-tr">
               <tr>
                 <th>NIS</th>
                 <th>ID ORDEN</th>
@@ -137,6 +138,7 @@ class MyGrid extends React.Component{
                 <th>FECHA TERMINO</th>
                 <th>FECHA CIERRE</th>
                 <th>FECHA MODIFICACION</th>
+                <th>COMENTARIO</th>
               </tr>
             </thead>
             <tbody>
