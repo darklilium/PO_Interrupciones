@@ -210,6 +210,7 @@ class Interruptions extends React.Component {
           map.centerAndZoom(featureSet.features[0].geometry,20);
           console.log("Found in isolated interruptions");
           $(".searchNotification").css("visibility","initial");
+            $( "#myNotification" ).empty();
           $("#myNotification").append("<div><strong>NIS presente en falla aislada</strong></div>");
           $("#myNotification").attr("class", "alert alert-info");
 
@@ -234,6 +235,7 @@ class Interruptions extends React.Component {
     //  $("#warning").css("visibility","visible");
     console.log("U must proavide a NIS for searching");
     $(".searchNotification").css("visibility","initial");
+      $( "#myNotification" ).empty();
     $("#myNotification").append("<div><strong>Ingrese un NIS para buscar</strong></div>");
     $("#myNotification").attr("class", "alert alert-warning");
   }
@@ -264,19 +266,23 @@ class Interruptions extends React.Component {
           map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
           map.centerAndZoom(featureSet.features[0].geometry,20);
           console.log("Found in massive interruptions");
+
           $(".searchNotification").css("visibility","initial");
+          $( "#myNotification" ).empty();
           $("#myNotification").append("<div><strong>NIS presente en falla masiva</strong></div>");
           $("#myNotification").attr("class", "alert alert-danger");
         }
       }else {
         console.log("nis is not having any issue");
         $(".searchNotification").css("visibility","initial");
+          $( "#myNotification" ).empty();
         $("#myNotification").append("<div><strong>NIS no presenta problemas</strong></div>");
         $("#myNotification").attr("class", "alert alert-success");
       }
     },(errorMassive)=>{
       console.log("Problems getting the massive interruption");
       $(".searchNotification").css("visibility","initial");
+        $( "#myNotification" ).empty();
       $("#myNotification").append("<div><strong>NIS no presenta problemas</strong></div>");
       $("#myNotification").attr("class", "alert alert-warning");
     });
