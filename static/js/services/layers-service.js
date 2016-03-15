@@ -33,6 +33,9 @@ function myLayers(){
 
     read_layer_BT2(){
       return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/MapaBase/MapServer?token="+ token.read();
+    },
+    read_layer_ClieSED(){
+      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Chilquinta_006/ClientesV2/MapServer/0?f=json&token="+ token.read();
     }
 
   };

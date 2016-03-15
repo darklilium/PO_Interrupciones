@@ -2,12 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
-
+import Statistics from '../bundles/statistics';
 var map;
 var results = [];
 
+
+
+
+
 function translator(employee){
-  console.log(employee);
+//  console.log(employee);
   var attr = employee.attributes;
   //console.log(attr);
 
@@ -121,6 +125,11 @@ class MyGrid extends React.Component{
             <span className="searchBox_icon"><i className="fa fa-search"></i></span></button>
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
+        <div className="mytable-searchBox__symbology">
+          <h5 className="mytable-searchBox-h5">Simbología:  </h5>
+          <img src="images/widget_icons/massive.png" /><h4 className="mytable-searchBox-h4">Falla Masiva</h4>
+          <img src="images/widget_icons/isolated.png" /><h4 className="mytable-searchBox-h4">Falla Aislada</h4>
+        </div>
       </div>
       <hr className="mytable_searchBox__hr"></hr>
       <table className="mytable-Wrapper__table table table-bordered" >
@@ -154,7 +163,7 @@ class Interruptions extends React.Component {
   constructor(){
     super();
     this.onClick = this.onClick.bind(this);
-
+    this.searchMassive = this.searchMassive.bind(this);
 }
   componentDidMount(){
         map = new esri.Map("myMapDiv", {
@@ -172,6 +181,7 @@ class Interruptions extends React.Component {
         map.disableKeyboardNavigation();
   }
 
+
 //NIS: 139035 for reference data
   onClick(){
     console.log(token.read());
@@ -181,36 +191,95 @@ class Interruptions extends React.Component {
     queryNIS.returnGeometry = true;
     queryNIS.outFields=["*"];
     //this guy returns a featureSet object with the queryResult
-    queryTaskNIS.execute(queryNIS, this.searchLocation, this.errorInQuery);
-  }
+    queryTaskNIS.execute(queryNIS, (featureSet)=>{
+      map.graphics.clear();
+      //if NIS is in the layer for isolated orders
+      if (featureSet.features != 0){
+        for (var i = 0; i < featureSet.features.length; i++) {
+            var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
+              esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
+              20,
+              new esri.symbol.SimpleLineSymbol(
+                esri.symbol.SimpleLineSymbol.STYLE_NULL,
+                new esri.Color([0, 255, 255, 0.9]),
+                1
+              ),
+              new esri.Color([0, 255, 255, 0.5])
+            );
+          map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+          map.centerAndZoom(featureSet.features[0].geometry,20);
+          console.log("Found in isolated interruptions");
+          $(".searchNotification").css("visibility","initial");
+          $("#myNotification").append("<div><strong>NIS presente en falla aislada</strong></div>");
+          $("#myNotification").attr("class", "alert alert-info");
 
-  searchLocation(featureSet){
-    console.log("searching for location...");
-    map.graphics.clear();
-    console.log(featureSet);
-
-    if (featureSet.features != 0){
-      for (var i = 0; i < featureSet.features.length; i++) {
-          var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
-            esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
-            20,
-            new esri.symbol.SimpleLineSymbol(
-              esri.symbol.SimpleLineSymbol.STYLE_NULL,
-              new esri.Color([0, 255, 255, 0.9]),
-              1
-            ),
-            new esri.Color([0, 255, 255, 0.5])
-          );
-        map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
-        map.centerAndZoom(featureSet.features[0].geometry,20);
+        }
+      }else {
+          console.log("going to search into massive interruptions");
+          var qTaskMassive = new esri.tasks.QueryTask(layers.read_layer_ClieSED());
+          var qMassive = new esri.tasks.Query();
+          qMassive.where = "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis="+this.refs.NIS.value;
+          qMassive.returnGeometry = true;
+          qMassive.outFields=["*"];
+          qTaskMassive.execute(qMassive, (featureSet)=>{
+          //  console.log(featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed']);
+            var mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
+            this.searchMassive(mySed);
+          },this.errorInQuery)
       }
-    }else {
-      console.log("i dont have anything to show");
-    }
+    }, this.errorInQuery);
   }
+
   errorInQuery(error){
     //  $("#warning").css("visibility","visible");
     console.log("U must proavide a NIS for searching");
+    $(".searchNotification").css("visibility","initial");
+    $("#myNotification").append("<div><strong>Ingrese un NIS para buscar</strong></div>");
+    $("#myNotification").attr("class", "alert alert-warning");
+  }
+
+  searchMassive(sed){
+    console.log(sed + " searching in massive interruptions");
+    var qTMass = new esri.tasks.QueryTask(layers.read_layer_sed());
+    var qMass = new esri.tasks.Query();
+    qMass.where = "ARCGIS.DBO.SED_006.codigo="+sed;
+    qMass.returnGeometry = true;
+    qMass.outFields=["*"];
+    qTMass.execute(qMass, (featureSet)=>{
+
+      map.graphics.clear();
+      if (featureSet.features != 0){
+        console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
+        for (var i = 0; i < featureSet.features.length; i++) {
+            var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
+              esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
+              20,
+              new esri.symbol.SimpleLineSymbol(
+                esri.symbol.SimpleLineSymbol.STYLE_NULL,
+                new esri.Color([0, 255, 255, 0.9]),
+                1
+              ),
+              new esri.Color([0, 255, 255, 0.5])
+            );
+          map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+          map.centerAndZoom(featureSet.features[0].geometry,20);
+          console.log("Found in massive interruptions");
+          $(".searchNotification").css("visibility","initial");
+          $("#myNotification").append("<div><strong>NIS presente en falla masiva</strong></div>");
+          $("#myNotification").attr("class", "alert alert-danger");
+        }
+      }else {
+        console.log("nis is not having any issue");
+        $(".searchNotification").css("visibility","initial");
+        $("#myNotification").append("<div><strong>NIS no presenta problemas</strong></div>");
+        $("#myNotification").attr("class", "alert alert-success");
+      }
+    },(errorMassive)=>{
+      console.log("Problems getting the massive interruption");
+      $(".searchNotification").css("visibility","initial");
+      $("#myNotification").append("<div><strong>NIS no presenta problemas</strong></div>");
+      $("#myNotification").attr("class", "alert alert-warning");
+    });
   }
   render(){
     return (
@@ -221,8 +290,12 @@ class Interruptions extends React.Component {
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
         </button>
       </div>
-        <div className="myMapDiv" id="myMapDiv"></div>
-        <MyGrid />
+      <div className="myMapDiv" id="myMapDiv"></div>
+      <Statistics />
+      <MyGrid />
+      <div className="searchNotification">
+        <div id="myNotification"></div>
+      </div>
     </div>
     );
   }
