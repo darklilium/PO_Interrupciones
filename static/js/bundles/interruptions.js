@@ -8,6 +8,52 @@ var searchSymbol;
 var popupTemplate;
 var results = [];
 
+function translator(employee){
+  console.log(employee.attributes);
+  var attr = employee.attributes;
+  console.log(attr);
+
+  var r = {
+    nis: attr['ARCGIS.DBO.CLIENTES_XY_006.nis'],
+    orden: null,
+    idIncidencia: null,
+    tipoOrden: null,
+    estado: null,
+    fechaCreacion: null,
+    fechaAsignacion: null,
+    fechaDespacho: null,
+    tipoEquipo: null,
+    fechaTermino: null,
+    fechaCierre: null,
+    fechaUltModificacion: null
+  };
+
+  return r;
+}
+
+class EmployeeRow extends React.Component {
+  render(){
+    console.log(this.props);
+
+    return (
+      <tr>
+        <td>{this.props.nis}</td>
+        <td>{this.props.orden}</td>
+        <td>{this.props.idIncidencia}</td>
+        <td>{this.props.tipoOrden}</td>
+        <td>{this.props.estado}</td>
+        <td>{this.props.fechaCreacion}</td>
+        <td>{this.props.fechaAsignacion}</td>
+        <td>{this.props.fechaDespacho}</td>
+        <td>{this.props.tipoEquipo}</td>
+        <td>{this.props.fechaTermino}</td>
+        <td>{this.props.fechaCierre}</td>
+        <td>{this.props.fechaUltModificacion}</td>
+      </tr>
+    );
+  }
+}
+
 //for datagrid
 class MyGrid extends React.Component{
   constructor(props){
@@ -60,6 +106,11 @@ class MyGrid extends React.Component{
   }
 
   render(){
+    var employees = this.state.empleados.map((employee, index)=>{
+      var data = translator(employee);
+      return <EmployeeRow key={"employee" + index} {...data} />;
+    });
+
     return (
     <div className="mytable-Wrapper">
       <div className="mytable-searchBox">
@@ -89,19 +140,7 @@ class MyGrid extends React.Component{
               </tr>
             </thead>
             <tbody>
-              <tr><td>{this.state.empleados.nis}</td>
-              <td>{this.state.empleados.orden}</td>
-              <td>{this.state.empleados.idIncidencia}</td>
-              <td>{this.state.empleados.tipoOrden}</td>
-              <td>{this.state.empleados.estado}</td>
-              <td>{this.state.empleados.fechaCreacion}</td>
-              <td>{this.state.empleados.fechaAsignacion}</td>
-              <td>{this.state.empleados.fechaDespacho}</td>
-              <td>{this.state.empleados.tipoEquipo}</td>
-              <td>{this.state.empleados.fechaTermino}</td>
-              <td>{this.state.empleados.fechaCierre}</td>
-              <td>{this.state.empleados.fechaUltModificacion}</td>
-              </tr>
+              {employees}
             </tbody>
           </table>
     </div>
@@ -142,7 +181,7 @@ class Interruptions extends React.Component {
     //this guy returns a featureSet object with the queryResult
     queryTaskNIS.execute(queryNIS, this.searchLocation, this.errorInQuery);
   }
-  
+
   searchLocation(featureSet){
     console.log("searching for location...");
     map.graphics.clear();
