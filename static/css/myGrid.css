@@ -5,20 +5,20 @@
     bottom: 0px;
     background-color: white;
 }
-.mytable-searchBox__symbology{
-  width: 100%;
-  padding-left: 2em;
-  height: auto;
-  position: relative;
-  display: inherit;
-}
+
 .mytable-searchBox-h4{
-  font-size: 12px;
-  padding-left: 5px;
-  font-family: monospace;
+  font-size: 14px;
+      padding-left: 5px;
+      font-family: monospace;
+      margin: 0em;
+      padding-top: 2px;
 }
 .mytable-searchBox-h5{
   font-family: monospace;
+}
+.mytable-searchBox-img{
+  width: 1em;
+  height: 1em;
 }
 
 /*for the mytable grid that has to show all the feature results*/

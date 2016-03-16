@@ -105,11 +105,15 @@ class MyGrid extends React.Component{
     console.log("valor busqueda");
     var searchValue = this.refs.searchvalue.value;
     var updateList = this.state.interruptionsTemp;
+
+
     console.log("All the items\n", updateList);
-      var myFilteredList = updateList.filter((item)=>{
-        return item.indexOf(searchValue)==1;
-      });
-      this.setState({interruptions: myFilteredList});
+    var fxa = function(){
+      return searchValue;
+    }
+    var myFilteredList = updateList.filter(fxa);
+
+   this.setState({interruptions: myFilteredList});
 
   }
   onClickExport(){
@@ -134,13 +138,6 @@ class MyGrid extends React.Component{
         {/* Button for export to excel */}
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickExport}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
-        {/* Symbology icons */}
-        <div className="mytable-searchBox__symbology">
-          <h5 className="mytable-searchBox-h5">Simbología:  </h5>
-          <img src="images/widget_icons/massive.png" /><h4 className="mytable-searchBox-h4">Falla Masiva</h4>
-          <img src="images/widget_icons/isolated.png" /><h4 className="mytable-searchBox-h4">Falla Aislada</h4>
-        </div>
-
       </div>
       <hr className="mytable_searchBox__hr"></hr>
       {/*Table*/}

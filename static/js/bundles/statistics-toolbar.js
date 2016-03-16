@@ -13,8 +13,12 @@ class StatisticsToolbar extends React.Component {
     return (
       <div className="wrapper_statistics">
         <span><i className="fa fa-signal"></i> Total Interrupciones: </span>
-        <h5 className="interruptions_qty-h5">Nis en Falla Masiva: {this.props.massiveQtty}</h5>
-        <h5 className="interruptions_qty-h5">Nis en Falla Aislada: {this.props.isolatedQtty}</h5>
+        <div className="statistic_toolbar-kind-of-interr">
+          <img className="mytable-searchBox-img" src="images/widget_icons/massive.png" />
+          <h4 className="mytable-searchBox-h4">Falla Masiva:  {this.props.massiveqtty} </h4>
+          <img className="mytable-searchBox-img" src="images/widget_icons/isolated.png" />
+          <h4 className="mytable-searchBox-h4">Falla Aislada: {this.props.isolatedqtty} </h4>
+        </div>
       </div>
 
     );
