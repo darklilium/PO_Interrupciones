@@ -54,13 +54,13 @@ class InterruptionRow extends React.Component {
 }
 
 class MyGrid extends React.Component{
-
   constructor(props){
-
     super(props);
+
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickExport = this.onClickExport.bind(this);
     this.nowResults = this.nowResults.bind(this);
+
     this.state = { interruptions: [], interruptionsTemp: [] };
   }
 
@@ -106,16 +106,16 @@ class MyGrid extends React.Component{
     var searchValue = this.refs.searchvalue.value;
     var updateList = this.state.interruptionsTemp;
 
-
     console.log("All the items\n", updateList);
-    var fxs = function(){
-      return searchValue;
-    };
-    var myFilteredList = updateList.filter(fxs);
 
-   this.setState({interruptions: myFilteredList});
+    var myFilteredList = updateList.filter(x => {
+      return false;
+    });
 
+    console.log('filtered list', myFilteredList);
+    this.setState({ interruptions: myFilteredList });
   }
+
   onClickExport(){
     console.log("asd export");
   }
