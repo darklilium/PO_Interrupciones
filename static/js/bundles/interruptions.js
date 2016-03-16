@@ -157,6 +157,7 @@ class MyGrid extends React.Component{
 }
 
 class Interruptions extends React.Component {
+
   constructor(){
     super();
     this.onClick = this.onClick.bind(this);
@@ -164,19 +165,20 @@ class Interruptions extends React.Component {
 }
   componentDidMount(){
     var map = mymap("myMapDiv");
+      map.disableKeyboardNavigation();
 
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
     var visibleLayers = [1];
-        myDynamicBTLayer2.setVisibleLayers(visibleLayers);
-        map.addLayer(myDynamicSedLayer,2);
-        map.addLayer(myDynamicBTLayer2,1);
-        map.disableKeyboardNavigation();
-  }
+      myDynamicBTLayer2.setVisibleLayers(visibleLayers);
+      map.addLayer(myDynamicSedLayer,2);
+      map.addLayer(myDynamicBTLayer2,1);
 
+  }
 
 //NIS: 139035 for reference data
   onClick(){
+    var map = mymap("myMapDiv");
     console.log(token.read());
     var queryTaskNIS = new esri.tasks.QueryTask(layers.read_layer_clie());
     var queryNIS = new esri.tasks.Query();
@@ -204,7 +206,7 @@ class Interruptions extends React.Component {
           console.log("Found in isolated interruptions");
           $(".searchNotification").css("visibility","initial");
             $( "#myNotification" ).empty();
-          $("#myNotification").append("<div><strong>NIS presente en falla aislada</strong></div>");
+          $("#myNotification").append("<div><strong>NIS :" + this.refs.NIS.value +" presente en falla aislada</strong></div>");
           $("#myNotification").attr("class", "alert alert-info");
 
         }
