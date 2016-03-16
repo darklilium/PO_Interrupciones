@@ -3,12 +3,9 @@ import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import Statistics from '../bundles/statistics';
-var map;
+import mymap from '../bundles/map';
+
 var results = [];
-
-
-
-
 
 function translator(employee){
 //  console.log(employee);
@@ -166,12 +163,8 @@ class Interruptions extends React.Component {
     this.searchMassive = this.searchMassive.bind(this);
 }
   componentDidMount(){
-        map = new esri.Map("myMapDiv", {
-              basemap: "topo",
-              center:[-71.2905, -33.1009],
-              zoom:9,
-              logo: false
-            });
+    var map = mymap("myMapDiv");
+
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
     var visibleLayers = [1];
