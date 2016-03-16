@@ -1,19 +1,22 @@
 .wrapper_statistics{
-  width: 20%;
-  height: 20%;
-  background-color: aquamarine;
+  background-color: ghostwhite;
   position: absolute;
-  bottom: 50%;
+  top: 0;
+  padding-left: 1em;
+  padding-top: 0.2em;
+  padding-bottom: 0.2em;
+  display: inline-flex;
+  width: 50%;
+}
+.interruptions_qty-h5{
+  padding-left: 4em;
+  top: 0;
+  width: 35%;
+  padding: 0.2em 1em;
+  margin: 0em;
 }
 
-.searchNotification{
-  width: 16em;
-  margin-top: 4em;
-  padding-right: 1em;
-  position: fixed;
-  top: 0px;
-  z-index: 2;
-  right: 0;
-  visibility: hidden;
-  
+.esriSimpleSliderTL {
+    top: 35px;
+    
 }

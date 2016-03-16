@@ -6,13 +6,13 @@ import Statistics from '../bundles/statistics';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
 
-
-
 class Interruptions extends React.Component {
 
   constructor(){
     super();
     this.onClick = this.onClick.bind(this);
+    this.onClickToggle = this.onClickToggle.bind(this);
+    this.onClickStatistics = this.onClickStatistics.bind(this);
     this.searchMassive = this.searchMassive.bind(this);
 }
   componentDidMount(){
@@ -27,7 +27,21 @@ class Interruptions extends React.Component {
       map.addLayer(myDynamicBTLayer2,1);
 
   }
-
+  onClickToggle(mouseEvent){
+    console.log("toggling table");
+    /*
+    //it has to be fixed.
+    console.log("toggling");
+    if ( $("#demo").hasClass(".collapse") ){
+        console.log("collapse");
+    }else if ( $("#demo").hasClass(".collapse in") ){
+        console.log("collapse in");
+    }
+*/
+  }
+  onClickStatistics(mouseEvent){
+    console.log("toggling statistics");
+  }
 //NIS: 139035 for reference data
   onClick(){
     var map = mymap.getMap();
@@ -152,14 +166,26 @@ class Interruptions extends React.Component {
     return (
     <div className="interruptions_wrapper">
       <div className="searchBox">
-        <input className="searchBox__searchInput" ref="NIS" type="text" placeholder="NIS" />
+
+        <input className="searchBox__searchInput" ref="NIS" type="text" placeholder=" NIS" />
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
+        </button>
+        <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickToggle}>
+            <span className="searchBox_icon"><i className="fa fa-bars"></i> Ver Tabla</span>
+        </button>
+        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickStatistics}>
+            <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
         </button>
       </div>
       <div className="myMapDiv" id="myMapDiv"></div>
       <Statistics />
-      <MyGrid />
+      <div className="collapse" id="collapseStatistics">
+        
+      </div>
+      <div id="collapseMyGrid" className="collapse">
+        <MyGrid />
+      </div>
       <div className="searchNotification">
         <div id="myNotification"></div>
       </div>
