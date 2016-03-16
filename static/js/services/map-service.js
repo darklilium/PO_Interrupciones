@@ -26,6 +26,11 @@ function mymap(){
     },
     getMap(){
       return map;
+    },
+    onClick(){
+      map.on("click",(mouseEvent)=>{
+        return console.log("thinking on map onClick for infowindow");
+      });
     }
   };
 }

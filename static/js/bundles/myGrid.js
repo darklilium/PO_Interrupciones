@@ -108,10 +108,10 @@ class MyGrid extends React.Component{
 
 
     console.log("All the items\n", updateList);
-    var fxa = function(){
+    var fxs = function(){
       return searchValue;
-    }
-    var myFilteredList = updateList.filter(fxa);
+    };
+    var myFilteredList = updateList.filter(fxs);
 
    this.setState({interruptions: myFilteredList});
 

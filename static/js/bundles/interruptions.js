@@ -17,7 +17,8 @@ class Interruptions extends React.Component {
 }
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
-      map.disableKeyboardNavigation();
+    var mapOnClick = mymap.onClick();
+    map.disableKeyboardNavigation();
 
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
