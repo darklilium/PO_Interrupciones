@@ -5,7 +5,7 @@ import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
 
-class Statistics extends React.Component {
+class StatisticsToolbar extends React.Component {
   constructor(props){
     super(props);
   }
@@ -21,4 +21,4 @@ class Statistics extends React.Component {
   }
 }
 
-export default Statistics;
+export default StatisticsToolbar;

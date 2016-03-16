@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
-import Statistics from '../bundles/statistics';
+import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
 
@@ -29,15 +29,6 @@ class Interruptions extends React.Component {
   }
   onClickToggle(mouseEvent){
     console.log("toggling table");
-    /*
-    //it has to be fixed.
-    console.log("toggling");
-    if ( $("#demo").hasClass(".collapse") ){
-        console.log("collapse");
-    }else if ( $("#demo").hasClass(".collapse in") ){
-        console.log("collapse in");
-    }
-*/
   }
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
@@ -166,7 +157,6 @@ class Interruptions extends React.Component {
     return (
     <div className="interruptions_wrapper">
       <div className="searchBox">
-
         <input className="searchBox__searchInput" ref="NIS" type="text" placeholder=" NIS" />
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
@@ -179,9 +169,9 @@ class Interruptions extends React.Component {
         </button>
       </div>
       <div className="myMapDiv" id="myMapDiv"></div>
-      <Statistics />
+        <StatisticsToolbar />
       <div className="collapse" id="collapseStatistics">
-        
+
       </div>
       <div id="collapseMyGrid" className="collapse">
         <MyGrid />

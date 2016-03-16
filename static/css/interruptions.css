@@ -2,11 +2,15 @@ body{
   height: auto;
 
 }
+/*this edit the css map from default esri.css*/
+.esriSimpleSliderTL {
+    top: 35px;
+
+}
+
 .interruptions_wrapper{
   width: 100%;
   height: 100%;
-
-
 }
 
 .myMapDiv{

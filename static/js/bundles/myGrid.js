@@ -15,13 +15,13 @@ function translator(employee){
     idIncidencia: attr['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'],
     tipoOrden: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_orden'],
     estado: attr['ARCGIS.DBO.POWERON_ORDENES.estado_orden'],
-    fechaCreacion: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_creacion'],
-    fechaAsignacion: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_asignacion'],
-    fechaDespacho: attr['ARCGIS.DBO.POWERON_ORDENES.fecha_despacho'],
+    fechaCreacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_creacion']).toLocaleDateString(),
+    fechaAsignacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_asignacion']).toLocaleDateString(),
+    fechaDespacho: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_despacho']).toLocaleDateString(),
     tipoEquipo: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_equipo'],
-    fechaTermino: attr['ARCGIS.DBO.POWERON_ORDENES.fc_termino_t'],
-    fechaCierre: attr['ARCGIS.DBO.POWERON_ORDENES.fc_cierre'],
-    fechaUltModificacion: attr['ARCGIS.DBO.POWERON_ORDENES.fc_ult_modif'],
+    fechaTermino: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_termino_t']).toLocaleDateString(),
+    fechaCierre: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_cierre']).toLocaleDateString(),
+    fechaUltModificacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_ult_modif']).toLocaleDateString(),
     comentario: attr['ARCGIS.DBO.POWERON_ORDENES.comentario']
   };
 
@@ -114,18 +114,24 @@ class MyGrid extends React.Component{
     <div className="mytable-Wrapper">
       <div className="mytable-searchBox">
         <h3 className="mytable-searchBox__title">Interrupciones</h3>
-        <input className="mytable-searchBox__input" ref="NIS" type="text" />
+
+        <input className="mytable-searchBox__input" ref="searchValue" type="text" placeholder="Busque NIS u Orden" />
+
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span></button>
+
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
+
         <div className="mytable-searchBox__symbology">
           <h5 className="mytable-searchBox-h5">Simbología:  </h5>
           <img src="images/widget_icons/massive.png" /><h4 className="mytable-searchBox-h4">Falla Masiva</h4>
           <img src="images/widget_icons/isolated.png" /><h4 className="mytable-searchBox-h4">Falla Aislada</h4>
         </div>
+
       </div>
       <hr className="mytable_searchBox__hr"></hr>
+      /*Table*/
       <table className="mytable-Wrapper__table table table-bordered" >
             <thead className="mytable-Wrapper__table-tr">
               <tr>
@@ -149,6 +155,7 @@ class MyGrid extends React.Component{
             </tbody>
           </table>
     </div>
+      /*End Table*/
     );
   }
 }
