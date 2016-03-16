@@ -4,9 +4,9 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 
 var results = [];
-function translator(employee){
+function translator(interruption){
 //  console.log(employee);
-  var attr = employee.attributes;
+  var attr = interruption.attributes;
   //console.log(attr);
 
   var r = {
@@ -29,7 +29,7 @@ function translator(employee){
 }
 
 //for datagrid
-class EmployeeRow extends React.Component {
+class InterruptionRow extends React.Component {
   render(){
   //  console.log(this.props);
 
@@ -58,15 +58,16 @@ class MyGrid extends React.Component{
   constructor(props){
 
     super(props);
-    this.onClick = this.onClick.bind(this);
+    this.onClickSearch = this.onClickSearch.bind(this);
+    this.onClickExport = this.onClickExport.bind(this);
     this.nowResults = this.nowResults.bind(this);
-    this.state = { empleados: [] };
+    this.state = { interruptions: [], interruptionsTemp: [] };
   }
 
   //before the component is rendered
   componentWillMount(){
     this.currentInterruptions();
-    this.setState({empleados: results})
+    this.setState({interruptions: results, interruptionsTemp: results});
   }
 
   //after component is rendered
@@ -93,36 +94,47 @@ class MyGrid extends React.Component{
   nowResults(currentFs){
     console.log("Getting the results from current interruptions...");
     var results = currentFs.features.map(cf => ({ ...cf }) );
-    this.setState({ empleados: results });
+    this.setState({ interruptions: results , interruptionsTemp: results});
   }
 
   nowError(){
     console.log("Error at getting the results from current interruptions");
   }
 
-  onClick(){
-    console.log("asd");
+  onClickSearch(){
+    console.log("valor busqueda");
+    var searchValue = this.refs.searchvalue.value;
+    var updateList = this.state.interruptionsTemp;
+    console.log("All the items\n", updateList);
+      var myFilteredList = updateList.filter((item)=>{
+        return item.indexOf(searchValue)==1;
+      });
+      this.setState({interruptions: myFilteredList});
+
+  }
+  onClickExport(){
+    console.log("asd export");
   }
 
   render(){
-    var employees = this.state.empleados.map((employee, index)=>{
-    var data = translator(employee);
-      return <EmployeeRow key={"aa" + index} {...data} />;
+    var interruptions = this.state.interruptions.map((interruption, index)=>{
+      var data = translator(interruption);
+      return <InterruptionRow key={"inte" + index} {...data}/>;
     });
 
     return (
     <div className="mytable-Wrapper">
       <div className="mytable-searchBox">
         <h3 className="mytable-searchBox__title">Interrupciones</h3>
-
-        <input className="mytable-searchBox__input" ref="searchValue" type="text" placeholder="Busque NIS u Orden" />
-
-        <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClick}>
+        {/* Search for filter */}
+        <input className="mytable-searchBox__input" ref="searchvalue" type="text" placeholder="Busque NIS u Orden" />
+        {/* Button for searching */}
+        <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickSearch}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span></button>
-
-        <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClick}>
+        {/* Button for export to excel */}
+        <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickExport}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
-
+        {/* Symbology icons */}
         <div className="mytable-searchBox__symbology">
           <h5 className="mytable-searchBox-h5">Simbología:  </h5>
           <img src="images/widget_icons/massive.png" /><h4 className="mytable-searchBox-h4">Falla Masiva</h4>
@@ -131,7 +143,7 @@ class MyGrid extends React.Component{
 
       </div>
       <hr className="mytable_searchBox__hr"></hr>
-      /*Table*/
+      {/*Table*/}
       <table className="mytable-Wrapper__table table table-bordered" >
             <thead className="mytable-Wrapper__table-tr">
               <tr>
@@ -151,11 +163,11 @@ class MyGrid extends React.Component{
               </tr>
             </thead>
             <tbody>
-              {employees}
+              {interruptions}
             </tbody>
           </table>
     </div>
-      /*End Table*/
+
     );
   }
 }
