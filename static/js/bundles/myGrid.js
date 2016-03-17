@@ -5,10 +5,9 @@ import layers from '../services/layers-service';
 import exportToExcel from '../services/exportToExcel';
 
 var results = [];
+
 function translator(interruption){
-//  console.log(employee);
   var attr = interruption.attributes;
-  //console.log(attr);
 
   var r = {
     nis: attr['ARCGIS.DBO.CLIENTES_XY_006.nis'],
@@ -29,10 +28,28 @@ function translator(interruption){
   return r;
 }
 
+function isTermInRow(obj, searchTerm){
+  var coincidence = false;
+  var translatedObject = translator(obj);
+
+  [ "nis", "orden", "idIncidencia",
+    "tipoOrden", "estado", "fechaCreacion",
+    "fechaAsignacion", "fechaDespacho", "tipoEquipo",
+    "fechaTermino", "fechaCierre", "fechaUltModificacion",
+    "comentario"
+  ].forEach(function(field){
+    var str = String(translatedObject[field]);
+    if(str.indexOf(searchTerm) > -1){
+      coincidence = true;
+    }
+  });
+
+  return coincidence;
+}
+
 //for datagrid
 class InterruptionRow extends React.Component {
   render(){
-  //  console.log(this.props);
 
     return (
       <tr>
@@ -103,39 +120,36 @@ class MyGrid extends React.Component{
   }
 
   onClickSearch(){
-    console.log("valor busqueda");
     var searchValue = this.refs.searchvalue.value;
     var updateList = this.state.interruptionsTemp;
 
-    console.log("All the items\n", updateList);
-
     var myFilteredList = updateList.filter(x => {
-      return false;
+      return isTermInRow(x, searchValue);
     });
 
-    console.log('filtered list', myFilteredList);
     this.setState({ interruptions: myFilteredList });
   }
 
   onClickExport(){
-    //console.log("asd export");
     var data = this.state.interruptions;
+    var exportResults = data.map(data => translator(data));
 
-    var exportResults = [];
-    for (var i = 0; i < data.length; i++) {
-      exportResults.push(translator(data[i]));
-    }
-    console.log(exportResults);
     var d = new Date();
-    d = d.getDate() + "/" + (d.getMonth() +1) + "/" + d.getFullYear()+ ', '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+    var str = "day/month/year, hour:minute:second"
+      .replace('day', d.getDate())
+      .replace('month', d.getMonth() + 1)
+      .replace('year', d.getFullYear())
+      .replace('hour', d.getHours())
+      .replace('minute', d.getMinutes())
+      .replace('second', d.getSeconds());
 
-    exportToExcel(exportResults, "Interrupciones " + d , true);
+    exportToExcel(exportResults, "Interrupciones " + str, true);
   }
 
   render(){
     var interruptions = this.state.interruptions.map((interruption, index)=>{
       var data = translator(interruption);
-      return <InterruptionRow key={"inte" + index} {...data}/>;
+      return <InterruptionRow key={"inte" + index} {...data} />;
     });
 
     return (
@@ -176,7 +190,6 @@ class MyGrid extends React.Component{
             </tbody>
           </table>
     </div>
-
     );
   }
 }

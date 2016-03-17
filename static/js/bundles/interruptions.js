@@ -15,7 +15,8 @@ class Interruptions extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.searchMassive = this.searchMassive.bind(this);
-}
+  }
+
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
     var mapOnClick = mymap.onClick();
@@ -27,14 +28,16 @@ class Interruptions extends React.Component {
       myDynamicBTLayer2.setVisibleLayers(visibleLayers);
       map.addLayer(myDynamicSedLayer,2);
       map.addLayer(myDynamicBTLayer2,1);
-
   }
+
   onClickToggle(mouseEvent){
     console.log("toggling table");
   }
+
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
   }
+
 //NIS: 139035 for reference data
   onClick(){
     var map = mymap.getMap();
@@ -155,6 +158,7 @@ class Interruptions extends React.Component {
       $("#myNotification").attr("class", "alert alert-warning");
     });
   }
+
   render(){
     return (
     <div className="interruptions_wrapper">
