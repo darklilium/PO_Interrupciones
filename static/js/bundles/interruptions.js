@@ -6,6 +6,7 @@ import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
 
+
 class Interruptions extends React.Component {
 
   constructor(){

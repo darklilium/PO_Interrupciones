@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
+import exportToExcel from '../services/exportToExcel';
 
 var results = [];
 function translator(interruption){
@@ -117,7 +118,18 @@ class MyGrid extends React.Component{
   }
 
   onClickExport(){
-    console.log("asd export");
+    //console.log("asd export");
+    var data = this.state.interruptions;
+
+    var exportResults = [];
+    for (var i = 0; i < data.length; i++) {
+      exportResults.push(translator(data[i]));
+    }
+    console.log(exportResults);
+    var d = new Date();
+    d = d.getDate() + "/" + (d.getMonth() +1) + "/" + d.getFullYear()+ ', '+d.getHours()+':'+d.getMinutes()+':'+d.getSeconds();
+
+    exportToExcel(exportResults, "Interrupciones " + d , true);
   }
 
   render(){
