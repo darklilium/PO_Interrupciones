@@ -15,7 +15,8 @@ class Interruptions extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.searchMassive = this.searchMassive.bind(this);
-}
+  }
+
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
         map.infoWindow.setTitle("Interrupción");
@@ -28,27 +29,26 @@ class Interruptions extends React.Component {
       myDynamicBTLayer2.setVisibleLayers(visibleLayers);
       map.addLayer(myDynamicSedLayer,2);
       map.addLayer(myDynamicBTLayer2,1);
-
       map.on("click",(evt)=>{
-
         // show info window
         var content =
         "<div style=padding-top: 10px;>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}<br></div>" +
         "<div style=display:inline-block;width:8px;></div>"+
         "<div style=padding-top: 10px;>ID Orden: ${ARCGIS.dbo.POWERON_CLIENTES.id_orden}<br></div>";
-
-
             map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(evt.mapPoint), content));
             map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
-
       });
+
   }
+
   onClickToggle(mouseEvent){
     console.log("toggling table");
   }
+
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
   }
+
 //NIS: 139035 for reference data
   onClick(){
     var map = mymap.getMap();
@@ -169,6 +169,7 @@ class Interruptions extends React.Component {
       $("#myNotification").attr("class", "alert alert-warning");
     });
   }
+
   render(){
     return (
     <div className="interruptions_wrapper">
