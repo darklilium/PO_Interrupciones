@@ -19,9 +19,7 @@ class Interruptions extends React.Component {
 
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
-        map.infoWindow.setTitle("Interrupción");
-        map.infoWindow.resize(200, 100);
-        map.disableKeyboardNavigation();
+    map.disableKeyboardNavigation();
 
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
@@ -29,7 +27,7 @@ class Interruptions extends React.Component {
       myDynamicBTLayer2.setVisibleLayers(visibleLayers);
       map.addLayer(myDynamicSedLayer,2);
       map.addLayer(myDynamicBTLayer2,1);
-      map.on("click",(evt)=>{
+      /*map.on("click",(evt)=>{
         // show info window
         var content =
         "<div style=padding-top: 10px;>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}<br></div>" +
@@ -38,7 +36,7 @@ class Interruptions extends React.Component {
             map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(evt.mapPoint), content));
             map.infoWindow.show(evt.screenPoint, map.getInfoWindowAnchor(evt.screenPoint));
       });
-
+*/
   }
 
   onClickToggle(mouseEvent){

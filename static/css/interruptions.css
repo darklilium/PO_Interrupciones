@@ -33,6 +33,7 @@ right: 1em;
 
 }.searchBox__searchInput{
   height: 2.4em;
+  width: 8em;
 }
 .searchNotification{
   width: 16em;

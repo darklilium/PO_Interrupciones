@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import exportToExcel from '../services/exportToExcel';
-
+import nisLocation from '../services/nis-location-service';
 var results = [];
 
 function translator(interruption){
@@ -53,9 +53,9 @@ class InterruptionRow extends React.Component {
     super();
       this.onClickRow = this.onClickRow.bind(this);
   }
-  onClickRow(row){
-    console.log("clickeando fila");
-    console.log(row);
+  onClickRow(){
+  //  console.log(this.props.nis);
+    nisLocation(this.props.nis);
   }
   render(){
 
@@ -165,7 +165,7 @@ class MyGrid extends React.Component{
       <div className="mytable-searchBox">
         <h3 className="mytable-searchBox__title">Interrupciones</h3>
         {/* Search for filter */}
-        <input className="mytable-searchBox__input" ref="searchvalue" type="text" placeholder="Busque NIS u Orden" />
+        <input className="mytable-searchBox__input" ref="searchvalue" type="text" placeholder="Busque cualquier parametro" />
         {/* Button for searching */}
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickSearch}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span></button>
