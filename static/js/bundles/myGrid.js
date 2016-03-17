@@ -31,11 +31,19 @@ function translator(interruption){
 
 //for datagrid
 class InterruptionRow extends React.Component {
+  constructor(){
+    super();
+      this.onClickRow = this.onClickRow.bind(this);
+  }
+  onClickRow(row){
+    console.log("clickeando fila");
+    console.log(row);
+  }
   render(){
   //  console.log(this.props);
 
     return (
-      <tr>
+      <tr onClick={this.onClickRow}>
         <td>{this.props.nis}</td>
         <td className="td_width">{this.props.orden}</td>
         <td>{this.props.idIncidencia}</td>
@@ -109,7 +117,7 @@ class MyGrid extends React.Component{
 
     console.log("All the items\n", updateList);
 
-    var myFilteredList = updateList.filter(x => {
+    var myFilteredList = updateList.filter( x => {
       return false;
     });
 

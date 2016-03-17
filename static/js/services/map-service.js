@@ -21,6 +21,7 @@ function mymap(){
             center:[-71.2905, -33.1009],
             zoom:9,
             logo: false
+
           });
       return map;
     },
@@ -32,6 +33,7 @@ function mymap(){
         return console.log("thinking on map onClick for infowindow");
       });
     }
+
   };
 }
 
