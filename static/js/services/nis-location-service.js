@@ -6,17 +6,17 @@ import mymap from '../services/map-service';
 
 //for getting some info about the nis, i mean the customers
 function nisInformation(){
-  var qTNISInfo = new esri.tasks.QueryTask(layers.read_layer_ClieSED());
+  var qTNISInfo = new esri.tasks.QueryTask(layers.read_layer_clie());
   var qNISInfo  = new esri.tasks.Query();
 }
 //for getting the nis location when the user clicks on the grid/table
-function nisLocation (nis){
+function nisLocation (idorden){
   var map = mymap.getMap();
-  console.log("searching for nis clicked location ");
+  console.log("searching for nis for the current order locations");
 //  console.log(nis);
   var qTNISLocation = new esri.tasks.QueryTask(layers.read_layer_clie());
   var qNISLocation = new esri.tasks.Query();
-  qNISLocation.where = "ARCGIS.dbo.POWERON_CLIENTES.nis="+nis;
+  qNISLocation.where = "ARCGIS.dbo.POWERON_CLIENTES.id_orden='"+idorden+"'";
   qNISLocation.returnGeometry = true;
   qNISLocation.outFields=["*"];
   qTNISLocation.execute(qNISLocation,(featureSet)=>{
@@ -53,7 +53,7 @@ function nisLocation (nis){
       console.log("No results for nis?");
     }
   },(errorInQuery)=>{
-    console.log("An error performing the query\n",errorInQuery);
+    console.log("An error performing the query for locating the nis\n",errorInQuery);
   });
 }
 

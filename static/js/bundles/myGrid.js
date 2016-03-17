@@ -10,19 +10,23 @@ function translator(interruption){
   var attr = interruption.attributes;
 
   var r = {
-    nis: attr['ARCGIS.DBO.CLIENTES_XY_006.nis'],
-    orden: attr['ARCGIS.dbo.POWERON_CLIENTES.id_orden'],
-    idIncidencia: attr['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'],
-    tipoOrden: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_orden'],
-    estado: attr['ARCGIS.DBO.POWERON_ORDENES.estado_orden'],
-    fechaCreacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_creacion']).toLocaleDateString(),
-    fechaAsignacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_asignacion']).toLocaleDateString(),
-    fechaDespacho: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fecha_despacho']).toLocaleDateString(),
-    tipoEquipo: attr['ARCGIS.DBO.POWERON_ORDENES.tipo_equipo'],
-    fechaTermino: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_termino_t']).toLocaleDateString(),
-    fechaCierre: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_cierre']).toLocaleDateString(),
-    fechaUltModificacion: new Date(attr['ARCGIS.DBO.POWERON_ORDENES.fc_ult_modif']).toLocaleDateString(),
-    comentario: attr['ARCGIS.DBO.POWERON_ORDENES.comentario']
+    id_orden: attr['id_orden'],
+    tipo_orden: attr['tipo_orden'],
+    estado_orden: attr['estado_orden'],
+    fecha_creacion: new Date(attr['fecha_creacion']).toLocaleDateString(),
+    fecha_asignacion: new Date(attr['fecha_asignacion']).toLocaleDateString(),
+    fecha_despacho: new Date(attr['fecha_despacho']).toLocaleDateString(),
+    fecha_ruta: new Date(attr['fecha_ruta']).toLocaleDateString(),
+    fecha_llegada: new Date(attr['fecha_llegada']).toLocaleDateString(),
+    id_incidencia: attr['id_incidencia'],
+    causa: attr['causa'],
+    subcausa: attr['subcausa'],
+    comentario: attr['comentario'],
+    tipo_equipo: attr['tipo_equipo'],
+    fc_termino_t : new Date(attr['fc_termino_t']).toLocaleDateString(),
+    fc_cierre: new Date(attr['fc_cierre']).toLocaleDateString(),
+    fc_ult_modif: new Date(attr['fc_ult_modif']).toLocaleDateString(),
+    id_owned: attr['id_owned']
   };
 
   return r;
@@ -32,11 +36,11 @@ function isTermInRow(obj, searchTerm){
   var coincidence = false;
   var translatedObject = translator(obj);
 
-  [ "nis", "orden", "idIncidencia",
-    "tipoOrden", "estado", "fechaCreacion",
-    "fechaAsignacion", "fechaDespacho", "tipoEquipo",
-    "fechaTermino", "fechaCierre", "fechaUltModificacion",
-    "comentario"
+  [ "id_orden", "tipo_orden", "estado_orden",
+    "fecha_creacion", "fecha_asignacion", "fecha_despacho",
+    "fecha_ruta", "fecha_llegada", "id_incidencia",
+    "causa", "subcausa", "comentario",
+    "tipo_equipo","fc_termino_t","fc_cierre","fc_ult_modif","id_owned"
   ].forEach(function(field){
     var str = String(translatedObject[field]);
     if(str.indexOf(searchTerm) > -1){
@@ -55,25 +59,29 @@ class InterruptionRow extends React.Component {
   }
   onClickRow(){
   //  console.log(this.props.nis);
-    nisLocation(this.props.nis);
+    nisLocation(this.props.id_orden);
   }
   render(){
 
     return (
       <tr onClick={this.onClickRow}>
-        <td>{this.props.nis}</td>
-        <td className="td_width">{this.props.orden}</td>
-        <td>{this.props.idIncidencia}</td>
-        <td>{this.props.tipoOrden}</td>
-        <td>{this.props.estado}</td>
-        <td>{this.props.fechaCreacion}</td>
-        <td>{this.props.fechaAsignacion}</td>
-        <td>{this.props.fechaDespacho}</td>
-        <td className="td_width">{this.props.tipoEquipo}</td>
-        <td>{this.props.fechaTermino}</td>
-        <td>{this.props.fechaCierre}</td>
-        <td>{this.props.fechaUltModificacion}</td>
+        <td>{this.props.id_orden}</td>
+        <td>{this.props.tipo_orden}</td>
+        <td>{this.props.estado_orden}</td>
+        <td>{this.props.fecha_creacion}</td>
+        <td>{this.props.fecha_asignacion}</td>
+        <td>{this.props.fecha_despacho}</td>
+        <td>{this.props.fecha_ruta}</td>
+        <td>{this.props.fecha_llegada}</td>
+        <td className="td_width">{this.props.id_incidencia}</td>
+        <td>{this.props.causa}</td>
+        <td>{this.props.subcausa}</td>
         <td>{this.props.comentario}</td>
+        <td>{this.props.tipo_equipo}</td>
+        <td>{this.props.fc_termino_t}</td>
+        <td>{this.props.fc_cierre}</td>
+        <td>{this.props.fc_ult_modif}</td>
+        <td>{this.props.id_owned }</td>
       </tr>
     );
   }
@@ -108,7 +116,7 @@ class MyGrid extends React.Component{
   }
 
   currentInterruptions(){
-      var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_clie());
+      var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_poOrdenes());
       var qInterruptions = new esri.tasks.Query();
       qInterruptions.where = "1=1";
       qInterruptions.returnGeometry = true;
@@ -178,19 +186,23 @@ class MyGrid extends React.Component{
       <table className="mytable-Wrapper__table table table-bordered" >
             <thead className="mytable-Wrapper__table-tr">
               <tr>
-                <th>NIS</th>
                 <th>ID ORDEN</th>
-                <th>ID INCIDENCIA</th>
-                <th>TIPO ORDEN</th>
+                <th>TIPO</th>
                 <th>ESTADO</th>
-                <th>FECHA CREACION</th>
-                <th>FECHA ASIGNACION</th>
-                <th>FECHA DESPACHO</th>
-                <th>TIPO EQUIPO</th>
-                <th>FECHA TERMINO</th>
-                <th>FECHA CIERRE</th>
-                <th>FECHA MODIFICACION</th>
+                <th>FECHA CREA</th>
+                <th>FECHA ASIG</th>
+                <th>FECHA DESP</th>
+                <th>FECHA RUTA</th>
+                <th>FECHA LLEGADA</th>
+                <th>ID INDICENCIA</th>
+                <th>CAUSA</th>
+                <th>SUB CAUSA</th>
                 <th>COMENTARIO</th>
+                <th>TIPO EQUIPO</th>
+                <th>FECHA TERM</th>
+                <th>FECHA CIERRE</th>
+                <th>FECHA ULT MODIF</th>
+                <th>ID OWNED</th>
               </tr>
             </thead>
             <tbody>
