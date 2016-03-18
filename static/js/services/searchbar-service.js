@@ -4,17 +4,45 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
+function createQueryTask({url, whereClause, outFields = ['*']}){
+  var map = mymap.getMap();
+  var queryTaskNIS = new ersi.tasks.QueryTask(url);
+  var queryNIS = new esri.tasks.Query();
+  queryNIS.where = whereClause;
+  queryNIS.returnGeometry = true;
+  queryNIS.outFields = ['*'];
+
+  return function(success, failure){
+    var ok = success.bind(null, map);
+    queryTaskNIS.execute(queryNIS, ok, failure);
+  };
+}
+
+function sendNotification(level='warning', message){
+  $('.searchNotification').css('visibility','initial');
+
+  $('#myNotification')
+    .empty()
+    .append('<div><strong>${message}</strong></div>')
+    .attr('class', 'alert alert-${alertType}');
+}
 
 function searchBar_NIS(nis){
-var map = mymap.getMap();
-var queryTaskNIS = new esri.tasks.QueryTask(layers.read_layer_clie());
-var queryNIS = new esri.tasks.Query();
-queryNIS.where = "ARCGIS.dbo.POWERON_CLIENTES.nis="+nis;
-queryNIS.returnGeometry = true;
-queryNIS.outFields=["*"];
-queryTaskNIS.execute(queryNIS,
-  (featureSet)=>{
+  // var map = mymap.getMap();
+  // var queryTaskNIS = new esri.tasks.QueryTask(layers.read_layer_clie());
+  // var queryNIS = new esri.tasks.Query();
+  // queryNIS.where = "ARCGIS.dbo.POWERON_CLIENTES.nis=${nis}";
+  // queryNIS.returnGeometry = true;
+  // queryNIS.outFields = ["*"];
+
+  var service = createQueryTask({
+    url: layers.read_layer_clie(),
+    whereClause: "ARCGIS.dbo.POWERON_CLIENTES.nis=${nis}"
+  });
+
+  service((map, featureSet) => {
     map.graphics.clear();
+
     //if NIS is in the layer for isolated orders
     if (featureSet.features.length != 0){
       for (var i = 0; i < featureSet.features.length; i++) {
@@ -31,10 +59,11 @@ queryTaskNIS.execute(queryNIS,
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in isolated interruptions");
-        $(".searchNotification").css("visibility","initial");
-        $( "#myNotification" ).empty();
-        $("#myNotification").append("<div><strong>NIS: " + nis +" presente en falla aislada</strong></div>");
-        $("#myNotification").attr("class", "alert alert-info");
+        sendNotification('info', "NIS: ${nis} presente en falla aislada");
+        // $(".searchNotification").css("visibility","initial");
+        // $( "#myNotification" ).empty();
+        // $("#myNotification").append("<div><strong>NIS: " + nis +" presente en falla aislada</strong></div>");
+        // $("#myNotification").attr("class", "alert alert-info");
 
         var myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
         var myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
@@ -48,44 +77,112 @@ queryTaskNIS.execute(queryNIS,
             map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(featureSet.features[0].geometry), content));
             map.infoWindow.show(featureSet.features[0].geometry, map.getInfoWindowAnchor(featureSet.features[0].geometry));
       }
-    }else {
+    } else {
       console.log("going to search into massive interruptions");
       var qTaskMassive = new esri.tasks.QueryTask(layers.read_layer_ClieSED());
       var qMassive = new esri.tasks.Query();
-      qMassive.where = "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis="+nis;
+      qMassive.where = "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}";
       qMassive.returnGeometry = true;
-      qMassive.outFields=["*"];
+      qMassive.outFields = ["*"];
+
       qTaskMassive.execute(qMassive,
         (featureSet)=>{
           if(featureSet.features.length != 0){
             var mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
             searchMassive(mySed, nis);
           }else {
-            $(".searchNotification").css("visibility","initial");
-            $( "#myNotification" ).empty();
-            $("#myNotification").append("<div><strong>NIS: " + nis +" no se ha encontrado o no existe</strong></div>");
-            $("#myNotification").attr("class", "alert alert-info");
+            sendNotification('info', "NIS: ${nis} no se ha encontrado o no existe")
+            // $(".searchNotification").css("visibility","initial");
+            // $( "#myNotification" ).empty();
+            // $("#myNotification").append("<div><strong>NIS: " + nis +" no se ha encontrado o no existe</strong></div>");
+            // $("#myNotification").attr("class", "alert alert-info");
           }
         },(massiveError)=>{
           console.log("Error al ejecutar la query en Falla Masiva");
-          $(".searchNotification").css("visibility","initial");
-          $( "#myNotification" ).empty();
-          $("#myNotification").append("<div><strong>Error al buscar el NIS: " + nis +"</strong></div>");
-          $("#myNotification").attr("class", "alert alert-info");
+          sendNotification('info', "Error al buscar el NIS: " + nis);
+          // $(".searchNotification").css("visibility","initial");
+          // $( "#myNotification" ).empty();
+          // $("#myNotification").append("<div><strong>Error al buscar el NIS: " + nis +"</strong></div>");
+          // $("#myNotification").attr("class", "alert alert-info");
         }
       );
-    }
-}, errorInQuery());
+    }, sendNotification.bind(null, 'error'));
 
+  // queryTaskNIS.execute(queryNIS,(featureSet) => {
+  //   map.graphics.clear();
+  //
+  //   //if NIS is in the layer for isolated orders
+  //   if (featureSet.features.length != 0){
+  //     for (var i = 0; i < featureSet.features.length; i++) {
+  //       var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
+  //         esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
+  //         20,
+  //         new esri.symbol.SimpleLineSymbol(
+  //           esri.symbol.SimpleLineSymbol.STYLE_NULL,
+  //           new esri.Color([0, 255, 255, 0.9]),
+  //           1
+  //         ),
+  //         new esri.Color([0, 255, 255, 0.5])
+  //       );
+  //       map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+  //       map.centerAndZoom(featureSet.features[0].geometry,20);
+  //       console.log("Found in isolated interruptions");
+  //       $(".searchNotification").css("visibility","initial");
+  //       $( "#myNotification" ).empty();
+  //       $("#myNotification").append("<div><strong>NIS: " + nis +" presente en falla aislada</strong></div>");
+  //       $("#myNotification").attr("class", "alert alert-info");
+  //
+  //       var myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
+  //       var myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
+  //       var myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'];
+  //       map.infoWindow.setTitle("Orden : "+myOrder);
+  //       map.infoWindow.resize(200, 100);
+  //       var content =
+  //       "<div style=padding-top: 10px;>NIS:"+myNis+"<br></div>" +
+  //       "<div style=display:inline-block;width:8px;></div>"+
+  //       "<div style=padding-top: 10px;>ID Incidencia:"+myIncidence+"<br></div>";
+  //           map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(featureSet.features[0].geometry), content));
+  //           map.infoWindow.show(featureSet.features[0].geometry, map.getInfoWindowAnchor(featureSet.features[0].geometry));
+  //     }
+  //   } else {
+  //     console.log("going to search into massive interruptions");
+  //     var qTaskMassive = new esri.tasks.QueryTask(layers.read_layer_ClieSED());
+  //     var qMassive = new esri.tasks.Query();
+  //     qMassive.where = "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}";
+  //     qMassive.returnGeometry = true;
+  //     qMassive.outFields = ["*"];
+  //
+  //     qTaskMassive.execute(qMassive,
+  //       (featureSet)=>{
+  //         if(featureSet.features.length != 0){
+  //           var mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
+  //           searchMassive(mySed, nis);
+  //         }else {
+  //           $(".searchNotification").css("visibility","initial");
+  //           $( "#myNotification" ).empty();
+  //           $("#myNotification").append("<div><strong>NIS: " + nis +" no se ha encontrado o no existe</strong></div>");
+  //           $("#myNotification").attr("class", "alert alert-info");
+  //         }
+  //       },(massiveError)=>{
+  //         console.log("Error al ejecutar la query en Falla Masiva");
+  //         $(".searchNotification").css("visibility","initial");
+  //         $( "#myNotification" ).empty();
+  //         $("#myNotification").append("<div><strong>Error al buscar el NIS: " + nis +"</strong></div>");
+  //         $("#myNotification").attr("class", "alert alert-info");
+  //       }
+  //     );
+  //   }
+  // }, errorInQuery);
 }
 
 function errorInQuery(error){
-  //  $("#warning").css("visibility","visible");
-  console.log("U must proavide a NIS for searching");
-  $(".searchNotification").css("visibility","initial");
-  $( "#myNotification" ).empty();
-  $("#myNotification").append("<div><strong>Ingrese un NIS para buscar</strong></div>");
-  $("#myNotification").attr("class", "alert alert-warning");
+  console.log("U must provide a NIS for searching");
+
+  $(".searchNotification").css("visibility", "initial");
+
+  $("#myNotification").empty()
+  .append("<div><strong>Ingrese un NIS para buscar</strong></div>")
+  .attr("class", "alert alert-warning");
 }
 
 function searchMassive(sed, nis){
