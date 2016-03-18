@@ -23,15 +23,20 @@ class Interruptions extends React.Component {
 
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
+    var myDynamicPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
+
     var visibleLayers = [1];
       myDynamicBTLayer2.setVisibleLayers(visibleLayers);
+      myDynamicPtoLayer.setVisibleLayers(visibleLayers);
       map.addLayer(myDynamicSedLayer,2);
       map.addLayer(myDynamicBTLayer2,1);
+      map.addLayer(myDynamicPtoLayer,3);
+
   }
 
   onClickToggle(mouseEvent){
     console.log("toggling table");
-    
+
   }
 
   onClickStatistics(mouseEvent){
@@ -67,6 +72,9 @@ class Interruptions extends React.Component {
       </div>
       <div className="searchNotification">
         <div id="myNotification"></div>
+      </div>
+      <div className="orderNotification">
+        <div id="myorderNotification"></div>
       </div>
     </div>
     );
