@@ -31,7 +31,7 @@ class Interruptions extends React.Component {
 
   onClickToggle(mouseEvent){
     console.log("toggling table");
-    
+
   }
 
   onClickStatistics(mouseEvent){
@@ -67,6 +67,9 @@ class Interruptions extends React.Component {
       </div>
       <div className="searchNotification">
         <div id="myNotification"></div>
+      </div>
+      <div className="orderNotification">
+        <div id="myorderNotification"></div>
       </div>
     </div>
     );

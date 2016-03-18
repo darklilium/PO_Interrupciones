@@ -4,6 +4,9 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import exportToExcel from '../services/exportToExcel';
 import nisLocation from '../services/nis-location-service';
+import mymap from '../services/map-service';
+
+
 var results = [];
 
 function translator(interruption){
@@ -56,11 +59,13 @@ class InterruptionRow extends React.Component {
   constructor(){
     super();
       this.onClickRow = this.onClickRow.bind(this);
+
   }
   onClickRow(){
   //  console.log(this.props.nis);
-    nisLocation(this.props.id_orden);
+    nisLocation(this.props.id_orden, this.props.id_incidencia);
   }
+
   render(){
 
     return (
@@ -94,6 +99,7 @@ class MyGrid extends React.Component{
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickExport = this.onClickExport.bind(this);
     this.nowResults = this.nowResults.bind(this);
+      this.onClickClearMap = this.onClickClearMap.bind(this);
 
     this.state = { interruptions: [], interruptionsTemp: [] };
   }
@@ -161,6 +167,11 @@ class MyGrid extends React.Component{
 
     exportToExcel(exportResults, "Interrupciones " + str, true);
   }
+  onClickClearMap(){
+    console.log("clearing map");
+    var map = mymap.getMap();
+    map.graphics.clear();
+  }
 
   render(){
     var interruptions = this.state.interruptions.map((interruption, index)=>{
@@ -180,6 +191,11 @@ class MyGrid extends React.Component{
         {/* Button for export to excel */}
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickExport}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
+        {/* Button for clear graphics*/}
+        <button type="button" className="mytable-searchBox__clear btn btn-default" onClick={this.onClickClearMap}>
+            <span className="searchBox_icon"><i className="fa fa-eraser"></i></span>Limpiar Mapa</button>
+
+
       </div>
       <hr className="mytable_searchBox__hr"></hr>
       {/*Table*/}

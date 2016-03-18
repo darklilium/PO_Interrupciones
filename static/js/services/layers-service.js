@@ -36,6 +36,10 @@ function myLayers(){
     },
     read_layer_ClieSED(){
       return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Chilquinta_006/ClientesV2/MapServer/0?f=json&token="+ token.read();
+    },
+
+    read_layer_tramosBT(){
+      return "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Chilquinta_006/Tramos_006/MapServer/1/?f=json&token="+ token.read();
     }
 
   };
