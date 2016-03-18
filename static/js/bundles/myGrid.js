@@ -108,11 +108,11 @@ class MyGrid extends React.Component{
   componentDidMount(){
     var foo = function(){
       this.currentInterruptions();
-      setTimeout(foo, 10000);
+      setTimeout(foo, 80000);
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 10000);
+    setTimeout(foo, 80000);
   }
 
   currentInterruptions(){
