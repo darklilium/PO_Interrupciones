@@ -5,11 +5,7 @@ import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 import makeSymbol from '../services/makeSymbol-service';
 import makeInfoWindow from '../services/makeinfowindow-service';
-
-
-function errorQuery(error){
-  console.log("Error performing the query for: "+ error);
-}
+import createQueryTask from '../services/createquerytask-service';
 
 //for getting some info about the nis, i mean the customers
 function nisInformation(){
@@ -18,38 +14,36 @@ function nisInformation(){
 
  //Draw SED's trail
 function makeTrail(sed){
-  var map = mymap.getMap();
-  console.log("Making the trail for BT\n", sed);
-  var qTSearchTrailBT = new esri.tasks.QueryTask(layers.read_layer_tramosBT());
-  var qSearchTrailBT= new esri.tasks.Query();
-  qSearchTrailBT.where = "sed="+sed;
-  qSearchTrailBT.returnGeometry=true;
-  qTSearchTrailBT.execute(qSearchTrailBT,(featureSet)=>{
+  var serviceTrail = createQueryTask({
+    url: layers.read_layer_tramosBT(),
+    whereClause: "sed="+sed
+  });
+  serviceTrail((map,featureSet)=>{
+    console.log("Making the trail for BT\n", sed);
+    if (featureSet.features.length != 0){
 
-      if (featureSet.features.length != 0){
-
-          for (var i = 0; i < featureSet.features.length; i++) {
-            var lineSymbol = makeSymbol.makeLine();
-            map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,lineSymbol));
-          }
-
-      }else{
-        console.log("bt trail not found for this nis");
-
-      }
-
-  },errorQuery);
+        for (let i = 0; i < featureSet.features.length; i++) {
+          let lineSymbol = makeSymbol.makeLine();
+          map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,lineSymbol));
+        }
+    }else{
+      console.log("bt trail not found for this nis");
+    }
+  }, (errorTrail)=>{
+    console.log("Error doing the tracing for this sed: "+ sed);
+  });
 }
 
 //search for nis's sed
 function nisStretch(nis,order,incident_id,pointGeometry){
-  var qTSearchSED = new esri.tasks.QueryTask(layers.read_layer_ClieSED());
-  var qSearchSED= new esri.tasks.Query();
-  qSearchSED.where = "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis="+nis;
-  qSearchSED.returnGeometry = false;
-  qSearchSED.outFields=["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed"];
-  qTSearchSED.execute(qSearchSED, (featureSet)=>{
+  var serviceNIS = createQueryTask({
+    url: layers.read_layer_ClieSED(),
+    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis="+nis,
+    returnGeometry: false,
+    outFields: ["ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed"]
+  });
 
+  serviceNIS((map,featureSet)=>{
     if (featureSet.features.length != 0){
        var sed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
        //Draw SED's trail
@@ -58,47 +52,49 @@ function nisStretch(nis,order,incident_id,pointGeometry){
     }else{
        console.log("Sed for nis not found, we cannot make the stretch for BT");
     }
-  },errorQuery);
-
+  },(errorNIS)=>{
+    console.log("Error doing the tracing for this sed: "+ sed);
+  });
 }
 //for getting the nis location when the user clicks on the grid/table.
 // note: order and nis = 1:1
 function nisLocation (idorder,incident_id){
-  var map = mymap.getMap();
-  map.graphics.clear();
-  $( "#myorderNotification" ).empty();
-  $(".orderNotification").css("visibility","hidden");
-  console.log(idorder);
-    console.log(incident_id);
-  console.log("searching for nis for the current order locations");
-  var qTNISLocation = new esri.tasks.QueryTask(layers.read_layer_interr_clie());
-  var qNISLocation = new esri.tasks.Query();
-  qNISLocation.where = "ARCGIS.dbo.POWERON_CLIENTES.id_orden='"+idorder+"'";
-  qNISLocation.returnGeometry = true;
-  qNISLocation.outFields=["*"];
-  qTNISLocation.execute(qNISLocation,(featureSet)=>{
-
-    if (featureSet.features.length != 0){
-        var searchSymbol = makeSymbol.makePoint();
-        map.graphics.add(new esri.Graphic(featureSet.features[0].geometry,searchSymbol));
-        map.centerAndZoom(featureSet.features[0].geometry,20);
-        var nis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
-        var pointGeometry = featureSet.features[0].geometry;
-        //just in case if additional information for nis is required.
-        nisInformation();
-        //shows the relation about SED and BT electric connection
-        nisStretch(nis,idorder,incident_id,pointGeometry);
-        console.log("NIS Found");
-    }else{
-      console.log("no results for nis?");
-      $(".orderNotification").css("visibility","initial");
-      $( "#myorderNotification" ).empty();
-      $("#myorderNotification").append("<div><strong>No hay nis asociado a la orden seleccionada</strong></div>");
-      $("#myorderNotification").attr("class", "alert alert-info");
-    }
-  },(errorInQuery)=>{
-    console.log("An error performing the query for locating the nis\n",errorInQuery);
+  console.log("searching for nis for the current order locations...");
+  var serviceLocation = createQueryTask({
+    url: layers.read_layer_interr_clie(),
+    whereClause: "ARCGIS.dbo.POWERON_CLIENTES.id_orden='"+idorder+"'"
   });
+
+  serviceLocation((map,featureSet)=>{
+      map.graphics.clear();
+
+      $( "#myorderNotification" ).empty();
+      $(".orderNotification").css("visibility","hidden");
+
+      if (featureSet.features.length != 0){
+          var searchSymbol = makeSymbol.makePoint();
+          map.graphics.add(new esri.Graphic(featureSet.features[0].geometry,searchSymbol));
+          map.centerAndZoom(featureSet.features[0].geometry,20);
+          var nis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
+          var pointGeometry = featureSet.features[0].geometry;
+          //just in case if additional information for nis is required.
+          nisInformation();
+          //shows the relation about SED and BT electric connection
+          nisStretch(nis,idorder,incident_id,pointGeometry);
+          console.log("NIS Found");
+      }else{
+        console.log("no results for nis?");
+        $(".orderNotification").css("visibility","initial");
+        $("#myorderNotification")
+                                .empty()
+                                .append("<div><strong>No hay nis asociado a la orden seleccionada</strong></div>")
+                                .attr("class", "alert alert-info")
+      }
+
+  },(errorLocation)=>{
+    console.log("An error performing the query for locating the nis\n",errorLocation);
+  });
+
 }
 
 export default nisLocation;
