@@ -94,25 +94,11 @@ function searchMassive(sed, nis){
     if (featureSet.features != 0){
       console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
       for (var i = 0; i < featureSet.features.length; i++) {
-          var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
-            esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
-            20,
-            new esri.symbol.SimpleLineSymbol(
-              esri.symbol.SimpleLineSymbol.STYLE_NULL,
-              new esri.Color([0, 255, 255, 0.9]),
-              1
-            ),
-            new esri.Color([0, 255, 255, 0.5])
-          );
-        map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+        let pointSymbol = makeSymbol.makePoint();
+        map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in massive interruptions");
         sendNotification('danger','NIS: " + nis +" presente en falla masiva');
-        /*$(".searchNotification").css("visibility","initial");
-        $( "#myNotification" ).empty();
-        $("#myNotification").append("<div><strong>NIS: " + nis +" presente en falla masiva</strong></div>");
-        $("#myNotification").attr("class", "alert alert-danger");
-        */
       }
     }else {
       console.log("nis is not having any issue");
