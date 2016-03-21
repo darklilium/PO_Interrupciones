@@ -90,7 +90,8 @@ function searchMassive(sed, nis){
   qMass.returnGeometry = true;
   qMass.outFields=["*"];
   qTMass.execute(qMass, (featureSet)=>{
-  map.graphics.clear();
+    map.graphics.clear();
+
     if (featureSet.features != 0){
       console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
       for (var i = 0; i < featureSet.features.length; i++) {
@@ -102,17 +103,11 @@ function searchMassive(sed, nis){
       }
     }else {
       console.log("nis is not having any issue");
-      $(".searchNotification").css("visibility","initial");
-      $( "#myNotification" ).empty();
-      $("#myNotification").append("<div><strong>NIS: " + nis +" no presenta problemas</strong></div>");
-      $("#myNotification").attr("class", "alert alert-success");
+      sendNotification('success', "<div><strong>NIS: " + nis +" no presenta problemas</strong></div>")
     }
   },(errorMassive)=>{
     console.log("Problems getting the sed for massive interruption ");
-    $(".searchNotification").css("visibility","initial");
-    $( "#myNotification" ).empty();
-    $("#myNotification").append("<div><strong>Error tratando de obtener la SED del NIS:" + nis +"</strong></div>");
-    $("#myNotification").attr("class", "alert alert-warning");
+    sendNotification('warning', "<div><strong>Error tratando de obtener la SED del NIS:" + nis +"</strong></div>");
   });
 }
 
