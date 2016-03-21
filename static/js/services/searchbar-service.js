@@ -5,21 +5,7 @@ import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 import makeSymbol from '../services/makeSymbol-service';
 import makeInfoWindow from '../services/makeinfowindow-service';
-
-
-function createQueryTask({url, whereClause, returnGeometry = true, outFields = ['*']}){
-  var map = mymap.getMap();
-  var queryTaskNIS = new esri.tasks.QueryTask(url);
-  var queryNIS = new esri.tasks.Query();
-  queryNIS.where = whereClause;
-  queryNIS.returnGeometry = returnGeometry;
-  queryNIS.outFields = outFields;
-
-  return function(success, failure){
-    var ok = success.bind(null, map);
-    queryTaskNIS.execute(queryNIS, ok, failure);
-  };
-}
+import createQueryTask from '../services/createquerytask-service';
 
 function sendNotification(level='warning', message){
   $('.searchNotification').css('visibility','initial');
@@ -33,7 +19,7 @@ function sendNotification(level='warning', message){
 
 function searchBar_NIS(nis){
   var service = createQueryTask({
-    url: layers.read_layer_clie(),
+    url: layers.read_layer_interr_clie(),
     whereClause: `ARCGIS.dbo.POWERON_CLIENTES.nis=${nis}`
   });
 
@@ -102,7 +88,7 @@ function searchBar_NIS(nis){
 function searchMassive(sed, nis){
 
   var serviceSearchMassive = createQueryTask({
-    url: layers.read_layer_sed(),
+    url: layers.read_layer_interr_sed(),
     whereClause: `ARCGIS.DBO.SED_006.codigo=${sed}`
   });
 
@@ -110,7 +96,7 @@ function searchMassive(sed, nis){
     map.graphics.clear();
       if (featureSet.features != 0){
           console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
-          for (var i = 0; i < featureSet.features.length; i++) {
+          for (let i = 0; i < featureSet.features.length; i++) {
             let pointSymbol = makeSymbol.makePoint();
             map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
             map.centerAndZoom(featureSet.features[0].geometry,20);
@@ -120,6 +106,7 @@ function searchMassive(sed, nis){
       }else {
         console.log("nis is not having any issue");
         sendNotification('success', "NIS: " + nis + " no presenta problemas");
+
 
       }
 

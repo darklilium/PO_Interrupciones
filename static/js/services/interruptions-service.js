@@ -2,7 +2,7 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 
 function getCurrentInterruptions(){
-  var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_clie());
+  var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_interr_clie());
   var qInterruptions = new esri.tasks.Query();
     qInterruptions.where = "1=1";
     qInterruptions.returnGeometry = true;

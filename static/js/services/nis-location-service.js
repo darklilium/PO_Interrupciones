@@ -71,7 +71,7 @@ function nisLocation (idorder,incident_id){
   console.log(idorder);
     console.log(incident_id);
   console.log("searching for nis for the current order locations");
-  var qTNISLocation = new esri.tasks.QueryTask(layers.read_layer_clie());
+  var qTNISLocation = new esri.tasks.QueryTask(layers.read_layer_interr_clie());
   var qNISLocation = new esri.tasks.Query();
   qNISLocation.where = "ARCGIS.dbo.POWERON_CLIENTES.id_orden='"+idorder+"'";
   qNISLocation.returnGeometry = true;

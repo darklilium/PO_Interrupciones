@@ -22,15 +22,15 @@ class Interruptions extends React.Component {
     map.disableKeyboardNavigation();
 
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
-    var myDynamicBTLayer2 = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_BT());
-    var myDynamicPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
+    var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
+    var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
 
     var visibleLayers = [1];
-      myDynamicBTLayer2.setVisibleLayers(visibleLayers);
-      myDynamicPtoLayer.setVisibleLayers(visibleLayers);
+      dyn_Tramos.setVisibleLayers(visibleLayers);
+      dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
       map.addLayer(myDynamicSedLayer,2);
-      map.addLayer(myDynamicBTLayer2,1);
-      map.addLayer(myDynamicPtoLayer,3);
+      map.addLayer(dyn_Tramos,1);
+      map.addLayer(dyn_EquiposPtoLayer,3);
 
   }
 
