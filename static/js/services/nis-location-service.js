@@ -4,25 +4,8 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 import makeSymbol from '../services/makeSymbol-service';
+import makeInfoWindow from '../services/makeinfowindow-service';
 
-function makeInfoWindow(nis,order,incident_id,sed, point){
-  var map = mymap.getMap();
-  var contentVars = {
-    nis: nis,
-    order: order,
-    incident_id: incident_id,
-    sed: sed,
-    pointGeometry: point
-  };
-  map.infoWindow.setTitle("Orden : "+contentVars.order);
-  map.infoWindow.resize(200, 100);
-  var content =
-  "<div style=padding-top: 10px;>NIS: "+contentVars.nis+"<br></div>" +
-  "<div style=padding-top: 10px;>SED: "+contentVars.sed+"<br></div>"+
-  "<div style=padding-top: 10px;>ID Incidencia: "+contentVars.incident_id+"<br></div>";
-  map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(point), content));
-  map.infoWindow.show(point, map.getInfoWindowAnchor(point));
-}
 
 function errorQuery(error){
   console.log("Error performing the query for: "+ error);
@@ -85,7 +68,8 @@ function nisLocation (idorder,incident_id){
   map.graphics.clear();
   $( "#myorderNotification" ).empty();
   $(".orderNotification").css("visibility","hidden");
-
+  console.log(idorder);
+    console.log(incident_id);
   console.log("searching for nis for the current order locations");
   var qTNISLocation = new esri.tasks.QueryTask(layers.read_layer_clie());
   var qNISLocation = new esri.tasks.Query();
@@ -93,7 +77,6 @@ function nisLocation (idorder,incident_id){
   qNISLocation.returnGeometry = true;
   qNISLocation.outFields=["*"];
   qTNISLocation.execute(qNISLocation,(featureSet)=>{
-
 
     if (featureSet.features.length != 0){
         var searchSymbol = makeSymbol.makePoint();

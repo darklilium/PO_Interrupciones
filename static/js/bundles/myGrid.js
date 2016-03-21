@@ -62,8 +62,10 @@ class InterruptionRow extends React.Component {
 
   }
   onClickRow(){
+  
   //  console.log(this.props.nis);
     nisLocation(this.props.id_orden, this.props.id_incidencia);
+
   }
 
   render(){
