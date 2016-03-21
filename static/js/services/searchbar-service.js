@@ -4,13 +4,13 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
-function createQueryTask({url, whereClause, outFields = ['*']}){
+function createQueryTask({url, whereClause, returnGeometry = true, outFields = ['*']}){
   var map = mymap.getMap();
   var queryTaskNIS = new ersi.tasks.QueryTask(url);
   var queryNIS = new esri.tasks.Query();
   queryNIS.where = whereClause;
-  queryNIS.returnGeometry = true;
-  queryNIS.outFields = ['*'];
+  queryNIS.returnGeometry = returnGeometry;
+  queryNIS.outFields = outFields;
 
   return function(success, failure){
     var ok = success.bind(null, map);
@@ -106,7 +106,8 @@ function searchBar_NIS(nis){
           // $("#myNotification").attr("class", "alert alert-info");
         }
       );
-    }, sendNotification.bind(null, 'error'));
+    }
+  }, sendNotification.bind(null, 'error'));
 
   // queryTaskNIS.execute(queryNIS,(featureSet) => {
   //   map.graphics.clear();
