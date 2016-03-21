@@ -6,7 +6,7 @@ import mymap from '../services/map-service';
 
 function createQueryTask({url, whereClause, returnGeometry = true, outFields = ['*']}){
   var map = mymap.getMap();
-  var queryTaskNIS = new ersi.tasks.QueryTask(url);
+  var queryTaskNIS = new esri.tasks.QueryTask(url);
   var queryNIS = new esri.tasks.Query();
   queryNIS.where = whereClause;
   queryNIS.returnGeometry = returnGeometry;
@@ -27,6 +27,21 @@ function sendNotification(level='warning', message){
     .attr('class', 'alert alert-${alertType}');
 }
 
+function createSimpleMarkerSimbol(){
+  var obj = new esri.symbol.SimpleMarkerSymbol(
+    esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
+    20,
+    new esri.symbol.SimpleLineSymbol(
+      esri.symbol.SimpleLineSymbol.STYLE_NULL,
+      new esri.Color([0, 255, 255, 0.9]),
+      1
+    ),
+    new esri.Color([0, 255, 255, 0.5])
+  );
+
+  return obj;
+}
+
 function searchBar_NIS(nis){
   // var map = mymap.getMap();
   // var queryTaskNIS = new esri.tasks.QueryTask(layers.read_layer_clie());
@@ -45,25 +60,14 @@ function searchBar_NIS(nis){
 
     //if NIS is in the layer for isolated orders
     if (featureSet.features.length != 0){
-      for (var i = 0; i < featureSet.features.length; i++) {
-        var searchSymbol = new esri.symbol.SimpleMarkerSymbol(
-          esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
-          20,
-          new esri.symbol.SimpleLineSymbol(
-            esri.symbol.SimpleLineSymbol.STYLE_NULL,
-            new esri.Color([0, 255, 255, 0.9]),
-            1
-          ),
-          new esri.Color([0, 255, 255, 0.5])
-        );
+      for (let i = 0; i < featureSet.features.length; i++) {
+        let searchSymbol = createSimpleMarkerSimbol();
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
+
         console.log("Found in isolated interruptions");
+
         sendNotification('info', "NIS: ${nis} presente en falla aislada");
-        // $(".searchNotification").css("visibility","initial");
-        // $( "#myNotification" ).empty();
-        // $("#myNotification").append("<div><strong>NIS: " + nis +" presente en falla aislada</strong></div>");
-        // $("#myNotification").attr("class", "alert alert-info");
 
         var myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
         var myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
