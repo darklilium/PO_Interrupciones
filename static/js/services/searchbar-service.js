@@ -100,6 +100,7 @@ function searchBar_NIS(nis){
 }
 
 function searchMassive(sed, nis){
+
   var serviceSearchMassive = createQueryTask({
     url: layers.read_layer_sed(),
     whereClause: `ARCGIS.DBO.SED_006.codigo=${sed}`
