@@ -83,7 +83,7 @@ function nisLocation (idorder,incident_id){
         map.graphics.add(new esri.Graphic(featureSet.features[0].geometry,searchSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         var nis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
-        var pointGeometry = featureSet.features[0].geometry
+        var pointGeometry = featureSet.features[0].geometry;
         //just in case if additional information for nis is required.
         nisInformation();
         //shows the relation about SED and BT electric connection
