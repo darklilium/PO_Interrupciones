@@ -55,14 +55,17 @@ function isTermInRow(obj, searchTerm){
 
 //for datagrid
 class InterruptionRow extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
       this.onClickRow = this.onClickRow.bind(this);
 
   }
   onClickRow(){
+
   $(".mytable-searchBox__relatedNIS").css("visibility","hidden");
+  //$(".row_clicked").css("background-color","blue");
   //  console.log(this.props.nis);
+    console.log(this.props.key);
     nisLocation(this.props.id_orden, this.props.id_incidencia);
 
   }
@@ -70,7 +73,7 @@ class InterruptionRow extends React.Component {
   render(){
 
     return (
-      <tr onClick={this.onClickRow}>
+      <tr className="row_clicked" onClick={this.onClickRow}>
         <td>{this.props.id_orden}</td>
         <td>{this.props.tipo_orden}</td>
         <td>{this.props.estado_orden}</td>

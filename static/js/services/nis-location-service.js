@@ -48,7 +48,7 @@ function nisStretch(nis,order,incident_id,pointGeometry){
        makeInfoWindow(nis,order,incident_id,sed, pointGeometry);
        console.log("Adding related NIS in the SED");
        //see related nis for that sed
-       relatedNISperSED(sed, nis);
+       //relatedNISperSED(sed, nis);
     }else{
        console.log("Sed for nis not found, we cannot make the stretch for BT");
     }
@@ -60,6 +60,7 @@ function nisStretch(nis,order,incident_id,pointGeometry){
 // note: order and nis = 1:1 (for chilquinta)
 function nisLocation (idorder,incident_id){
   console.log("searching for nis for the current order locations...");
+  console.log(idorder);
   var serviceLocation = createQueryTask({
     url: layers.read_layer_interr_clie(),
     whereClause: "ARCGIS.dbo.POWERON_CLIENTES.id_orden='"+idorder+"'"
@@ -78,18 +79,23 @@ function nisLocation (idorder,incident_id){
           var nis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
           var pointGeometry = featureSet.features[0].geometry;
           //just in case if additional information for nis is required.
-          nisInformation();
+          //nisInformation();
           //shows the relation about SED and BT electric connection
           nisStretch(nis,idorder,incident_id,pointGeometry);
           console.log("NIS Found");
 
+          //makeInfoWindow(nis,idorder,incident_id,sed, pointGeometry);
+
       }else{
-        console.log("no results for nis?");
+        console.log("Searching in sed interruptions");
+        searchSEDInterruptions(idorder);
+        /*
         $(".orderNotification").css("visibility","initial");
         $("#myorderNotification")
                                 .empty()
                                 .append("<div><strong>No hay nis asociado a la orden seleccionada</strong></div>")
                                 .attr("class", "alert alert-info")
+                                */
       }
 
   },(errorLocation)=>{
@@ -97,15 +103,47 @@ function nisLocation (idorder,incident_id){
   });
 
 }
+
+function searchSEDInterruptions(order_id){
+  console.log(order_id);
+  var serviceSEDLocation = createQueryTask({
+    url: layers.read_layer_interr_sed(),
+    whereClause: "ARCGIS.DBO.POWERON_ORDENES.id_orden='"+order_id+"'"
+  });
+
+  serviceSEDLocation((map,featureSet)=>{
+    if (featureSet.features.length != 0){
+      var searchSymbol = makeSymbol.makePoint();
+      map.graphics.add(new esri.Graphic(featureSet.features[0].geometry,searchSymbol));
+      map.centerAndZoom(featureSet.features[0].geometry,20);
+      var cod_sed = featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo'];
+      var pointGeometry = featureSet.features[0].geometry;
+      makeTrail(cod_sed);
+      relatedNISperSED(cod_sed);
+    }
+    else{
+      console.log();
+      $(".orderNotification").css("visibility","initial");
+      $("#myorderNotification")
+                              .empty()
+                              .append("<div><strong>No hay nada relacionado a la orden.</strong></div>")
+                              .attr("class", "alert alert-info")
+
+    }
+  },(errorSEDLocation)=>{
+
+  });
+
+}
+
+
 //search for nis related to SED interruption
-function relatedNISperSED(sed, nis){
-
-
+function relatedNISperSED(sed){
   $(".mytable-searchBox__relatedNIS").css("visibility","visible");
 
   var serviceRelatedNIS = createQueryTask({
     url: layers.read_layer_ClieSED(),
-    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"' AND ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis!="+nis
+    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"'"
   });
   serviceRelatedNIS((map,featureSet)=>{
     //  map.graphics.clear();
@@ -118,10 +156,10 @@ function relatedNISperSED(sed, nis){
           }
 
         }else{
-          console.log("there are not more nis that can be affected by interruption");
+          console.log("there are not nis that can be affected by interruption");
         }
   },(errorRelated)=>{
-    console.log("Error doing related query for this SED");
+    console.log("Error doing related query for getting NIS for this SED");
   })
 
 }

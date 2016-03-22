@@ -15,7 +15,9 @@ function sendNotification(level='warning', message){
 }
 
 function searchBar_NIS(nis, company){
-var urlCustomersCompany, urlSEDCompany;
+var url_iso_interruptions, url_mass_interruptions;
+
+var companyNumber;
 
     if (company=='Litoral'){
         console.log("Searching NIS in Litoral");
@@ -24,27 +26,25 @@ var urlCustomersCompany, urlSEDCompany;
     }else if(company=='Casablanca'){
         console.log("Searching NIS in Casablanca");
         //has to be all the setup for Casablanca queries
-        //urlCustomersCompany = layers.read_layer_interr_clie_litoral();
+        urlCustCompanyInterr=layers.read_layer_casablanca_interr_clie();
+        urlNisSed = layers.read_layer_casablanca_ClieSED();
+        urlInterrSED = layers.read_layer_casablanca_interr_sed();
         return;
     }else if (company=='Linares') {
         //has to be all the setup for Linares queries
         console.log("Searching NIS in Linares");
         return;
+
+    //for parral
     }else if (company=='Parral'){
         console.log("Searching NIS in Parral");
         //has to be all the setup for Parral queries
         return;
-    //Chilquinta
-    }else {
-        console.log("Searching NIS in Chilquinta");
-        //all the setup for chilquinta queries
-        urlCustomersCompany=layers.read_layer_interr_clie();
-        urlSEDCompany = layers.read_layer_ClieSED();
-        url
-    }
 
+    }
+  //FIRST: search in isolated orders for current nis
   var service = createQueryTask({
-    url: urlCustomersCompany,
+    url: urlCustCompanyInterr,
     whereClause: `ARCGIS.dbo.POWERON_CLIENTES.nis=${nis}`
   });
 
@@ -64,9 +64,9 @@ var urlCustomersCompany, urlSEDCompany;
         let myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
         let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'];
-
+        //get information about nis's SED
         let serviceSED = createQueryTask({
-          url: urlSEDCompany,
+          url: urlNisSed,
           whereClause: `ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}`,
           outFields: [`ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed`]
         });
@@ -93,7 +93,7 @@ var urlCustomersCompany, urlSEDCompany;
         if(featureSet.features.length != 0){
           let mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
 
-          searchMassive(mySed, nis, urlSED);
+          searchMassive(mySed, nis, urlInterrSED);
         }else {
           sendNotification('info', "NIS: " + nis+ " no se ha encontrado o no existe");
         }

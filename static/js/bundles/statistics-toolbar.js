@@ -61,11 +61,11 @@ class StatisticsToolbar extends React.Component {
         <div className="statistic_kind">
           <div className="statistic___massive">
             <img className="statistic-img" src="images/widget_icons/massive.png" />
-            <h4 className="statistic-h4"> Falla Masiva: {this.state.massiveqtty} </h4>
+            <h4 className="statistic-h4"> Falla Subestación: {this.state.massiveqtty} </h4>
           </div>
           <div className="statistic___isolated">
             <img className="statistic-img" src="images/widget_icons/isolated.png" />
-            <h4 className="statistic-h4"> Falla Aislada:{this.state.isolatedqtty} </h4>
+            <h4 className="statistic-h4"> Falla Clientes:{this.state.isolatedqtty} </h4>
           </div>
         </div>
       </div>
