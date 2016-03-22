@@ -6,9 +6,7 @@ import exportToExcel from '../services/exportToExcel';
 import nisLocation from '../services/nis-location-service';
 import relatedNISperSED from '../services/nis-location-service';
 import mymap from '../services/map-service';
-
-
-var results = [];
+import createQueryTask from '../services/createquerytask-service';
 
 function translator(interruption){
   var attr = interruption.attributes;
@@ -101,50 +99,44 @@ class MyGrid extends React.Component{
 
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickExport = this.onClickExport.bind(this);
-    this.nowResults = this.nowResults.bind(this);
+  //  this.nowResults = this.nowResults.bind(this);
     this.onClickClearSearch = this.onClickClearSearch.bind(this);
     this.onClickRelated = this.onClickRelated.bind(this);
+
+    this.currentInterruptions();
     this.state = { interruptions: [], interruptionsTemp: [] };
   }
 
-  //before the component is rendered
-  componentWillMount(){
-    this.currentInterruptions();
-    this.setState({interruptions: results, interruptionsTemp: results});
-  }
 
   //after component is rendered
   componentDidMount(){
     var foo = function(){
       this.currentInterruptions();
-      setTimeout(foo, 80000);
+      setTimeout(foo, 8000);
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 80000);
+    setTimeout(foo, 8000);
   }
 
   currentInterruptions(){
-      var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_poOrdenes());
-      var qInterruptions = new esri.tasks.Query();
-      qInterruptions.where = "1=1";
-      qInterruptions.returnGeometry = true;
-      qInterruptions.outFields=["*"];
-      //this guy returns a featureSet with all the interruptions in an object
-      qTaskInterruptions.execute(qInterruptions, this.nowResults, this.nowError);
-  }
-
-  nowResults(currentFs){
     console.log("Getting the results from current interruptions...");
-    var results = currentFs.features.map(cf => ({ ...cf }) );
+      var serviceCurr = createQueryTask({
+        url: layers.read_layer_poOrdenes(),
+        whereClause: "1=1",
+        returnGeometry: true
+      });
 
-    this.setState({ interruptions: results , interruptionsTemp: results});
+      serviceCurr((map,featureSet)=>{
+          var results = featureSet.features.map(fs => ({ ...fs }) );
+          this.setState({ interruptions: results , interruptionsTemp: results});
+
+      },(errorCurrMass)=>{
+          console.log("Error at getting the results from current interruptions");
+
+      });
+
   }
-
-  nowError(){
-    console.log("Error at getting the results from current interruptions");
-  }
-
   onClickSearch(){
     var searchValue = this.refs.searchvalue.value;
     var updateList = this.state.interruptionsTemp;
@@ -185,7 +177,7 @@ class MyGrid extends React.Component{
       var data = translator(interruption);
       return <InterruptionRow key={"inte" + index} {...data} />;
     });
-    console.log("How many data i have?\n" + interruptions.length);
+    //console.log("How many data i have?\n" + interruptions.length);
     var slicedInterr = interruptions.slice(0,5);
     var otherInterr = interruptions.slice(5,interruptions.length);
     return (
