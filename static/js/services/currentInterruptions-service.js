@@ -1,6 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import token from '../services/token-service';
 import layers from '../services/layers-service';
 
 function currentInterruptions(){
@@ -22,6 +19,6 @@ function nowResults(currentFs){
 
 function nowError(){
   var error = "error";
-  return error;
   console.log("Error at getting the results from current interruptions");
+  return error;
 }

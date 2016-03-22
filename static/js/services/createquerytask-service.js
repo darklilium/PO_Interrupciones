@@ -1,7 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import token from '../services/token-service';
-import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
 function createQueryTask({url, whereClause, returnGeometry = true, outFields = ['*']}){

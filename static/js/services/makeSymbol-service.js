@@ -1,12 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import mymap from '../services/map-service';
-
 function makeSymbol(){
-var mySymbol;
   return {
     makePoint(){
-      mySymbol = new esri.symbol.SimpleMarkerSymbol(
+      var mySymbol = new esri.symbol.SimpleMarkerSymbol(
         esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
         20,
         new esri.symbol.SimpleLineSymbol(
@@ -16,6 +11,7 @@ var mySymbol;
         ),
         new esri.Color([0, 255, 255, 0.5])
       );
+
       return mySymbol;
     },
     makeLine(){
@@ -25,6 +21,7 @@ var mySymbol;
         esri.symbol.CartographicLineSymbol.CAP_ROUND,
         esri.symbol.CartographicLineSymbol.JOIN_MITER, 5
       );
+
       return mySymbol;
     },
     makePolygon(){
