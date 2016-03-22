@@ -18,6 +18,19 @@ var mySymbol;
       );
       return mySymbol;
     },
+    makePointRelated(){
+      mySymbol = new esri.symbol.SimpleMarkerSymbol(
+        esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
+        10,
+        new esri.symbol.SimpleLineSymbol(
+          esri.symbol.SimpleLineSymbol.STYLE_SOLID,
+          new esri.Color([255, 89, 0, 0.9]),
+          1
+        ),
+        new esri.Color([255, 89, 0, 0.5])
+      );
+      return mySymbol;
+    },
     makeLine(){
       var mySymbol = new esri.symbol.CartographicLineSymbol(
         esri.symbol.CartographicLineSymbol.STYLE_SOLID,

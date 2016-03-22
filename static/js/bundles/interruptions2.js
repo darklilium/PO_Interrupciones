@@ -5,7 +5,7 @@ import layers from '../services/layers-service';
 import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
-import searchBar_NIS from '../services/searchbar-service';
+import searchBar_NIS from '../services/searchbar_companies-service';
 
 class Interruptions extends React.Component {
 
@@ -14,7 +14,7 @@ class Interruptions extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
-
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount(){
@@ -44,16 +44,22 @@ class Interruptions extends React.Component {
   }
 
   onClick(){
-    searchBar_NIS(this.refs.NIS.value);
+    //console.log(this.refs.company.value);
+    searchBar_NIS(this.refs.NIS.value, this.refs.company.value);
+  }
+
+  onChange(){
+  //  console.log("this is for changing layers\n" , this.refs.company.value);
   }
 
   render(){
     return (
     <div className="interruptions_wrapper">
       <div className="searchBox">
-        <select className="searchbox__combobox">
-          <option value="Linares">Casablanca</option>
-          <option value="Casablanca">Linares</option>
+        <select className="searchbox__combobox" ref="company" onChange={this.onChange}>
+          <option value="Chilquinta">Chilquinta</option>
+          <option value="Casablanca">Casablanca</option>
+          <option value="Linares">Linares</option>
           <option value="Litoral">Litoral</option>
           <option value="Parral">Parral</option>
         </select>
@@ -75,7 +81,7 @@ class Interruptions extends React.Component {
         <div className="searchNotification">
           <div id="myNotification"></div>
         </div>
-        
+
         <div className="orderNotification">
           <div id="myorderNotification"></div>
         </div>

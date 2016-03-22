@@ -49,6 +49,8 @@ function nisStretch(nis,order,incident_id,pointGeometry){
        //Draw SED's trail
        makeTrail(sed);
        makeInfoWindow(nis,order,incident_id,sed, pointGeometry);
+       console.log("Adding related NIS in the SED");
+       relatedNISperSED(sed);
     }else{
        console.log("Sed for nis not found, we cannot make the stretch for BT");
     }
@@ -82,6 +84,7 @@ function nisLocation (idorder,incident_id){
           //shows the relation about SED and BT electric connection
           nisStretch(nis,idorder,incident_id,pointGeometry);
           console.log("NIS Found");
+
       }else{
         console.log("no results for nis?");
         $(".orderNotification").css("visibility","initial");
@@ -94,6 +97,26 @@ function nisLocation (idorder,incident_id){
   },(errorLocation)=>{
     console.log("An error performing the query for locating the nis\n",errorLocation);
   });
+
+}
+//search for nis related to SED interruption
+function relatedNISperSED(sed){
+  var serviceRelatedNIS = createQueryTask({
+    url: layers.read_layer_ClieSED(),
+    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"'"
+  });
+  serviceRelatedNIS((map,featureSet)=>{
+      map.graphics.clear();
+        if (featureSet.features.length != 0){
+            console.log("Drawing nis that could be affected with the interruption");
+          for (let i = 0; i < featureSet.features.length; i++) {
+            let searchSymbol = makeSymbol.makePointRelated();
+            map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+          }
+        }else{
+          console.log("there are not more nis that can be affected by interruption");
+        }
+  },(errorRelated)=>{})
 
 }
 
