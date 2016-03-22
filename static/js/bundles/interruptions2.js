@@ -4,8 +4,8 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
-import MyGrid from '../bundles/myGrid';
-import searchBar_NIS from '../services/searchbar_companies-service';
+import MyGridFiliales from '../bundles/myGridFiliales';
+import searchBar_NIS from '../services/othercompanies/searchbar_companies-service';
 
 class Interruptions extends React.Component {
 
@@ -15,12 +15,14 @@ class Interruptions extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onChange = this.onChange.bind(this);
+
+
   }
 
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
     map.disableKeyboardNavigation();
-
+    //set default layers for casablanca as default
     var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
     var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
     var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
@@ -50,14 +52,15 @@ class Interruptions extends React.Component {
 
   onChange(){
   //  console.log("this is for changing layers\n" , this.refs.company.value);
+  this.setState({myCompanySelected : this.refs.company.value});
   }
 
   render(){
+    var myCompanySelected;
     return (
     <div className="interruptions_wrapper">
       <div className="searchBox">
         <select className="searchbox__combobox" ref="company" onChange={this.onChange}>
-          <option value="Chilquinta">Chilquinta</option>
           <option value="Casablanca">Casablanca</option>
           <option value="Linares">Linares</option>
           <option value="Litoral">Litoral</option>
@@ -92,7 +95,7 @@ class Interruptions extends React.Component {
 
       </div>
       <div id="collapseMyGrid" className="collapse">
-        <MyGrid />
+        <MyGridFiliales />
       </div>
 
     </div>

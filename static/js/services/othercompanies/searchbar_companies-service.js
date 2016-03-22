@@ -1,11 +1,8 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import token from '../services/token-service';
-import layers from '../services/layers-service';
-import mymap from '../services/map-service';
-import makeSymbol from '../services/makeSymbol-service';
-import makeInfoWindow from '../services/makeinfowindow-service';
-import createQueryTask from '../services/createquerytask-service';
+import layers from '../../services/layers-service';
+import mymap from '../../services/map-service';
+import makeSymbol from '../../services/makeSymbol-service';
+import makeInfoWindow from '../../services/makeinfowindow-service';
+import createQueryTask from '../../services/createquerytask-service';
 
 function sendNotification(level='warning', message){
   $('.searchNotification').css('visibility','initial');
@@ -17,7 +14,7 @@ function sendNotification(level='warning', message){
     .attr('class', "alert alert-"+level);
 }
 
-function searchBar_NIS(nis, company = 'Chilquinta'){
+function searchBar_NIS(nis, company){
 var urlCustomersCompany, urlSEDCompany;
 
     if (company=='Litoral'){

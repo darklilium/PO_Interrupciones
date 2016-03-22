@@ -93,10 +93,9 @@ class InterruptionRow extends React.Component {
   }
 }
 
-class MyGrid extends React.Component{
+class MyGridFiliales extends React.Component{
   constructor(props){
     super(props);
-
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickExport = this.onClickExport.bind(this);
     this.onClickClearSearch = this.onClickClearSearch.bind(this);
@@ -234,4 +233,4 @@ class MyGrid extends React.Component{
   }
 }
 
-export default MyGrid;
+export default MyGridFiliales;
