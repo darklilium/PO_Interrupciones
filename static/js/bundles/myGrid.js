@@ -136,6 +136,7 @@ class MyGrid extends React.Component{
   nowResults(currentFs){
     console.log("Getting the results from current interruptions...");
     var results = currentFs.features.map(cf => ({ ...cf }) );
+
     this.setState({ interruptions: results , interruptionsTemp: results});
   }
 
@@ -178,9 +179,14 @@ class MyGrid extends React.Component{
   render(){
     var interruptions = this.state.interruptions.map((interruption, index)=>{
       var data = translator(interruption);
-      return <InterruptionRow key={"inte" + index} {...data} />;
-    });
 
+
+      return <InterruptionRow key={"inte" + index} {...data} />;
+
+    });
+    console.log("How many data i have?\n" + interruptions.length);
+    var slicedInterr = interruptions.slice(0,5);
+    var otherInterr = interruptions.slice(5,interruptions.length);
     return (
     <div className="mytable-Wrapper">
       <div className="mytable-searchBox">
