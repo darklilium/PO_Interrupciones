@@ -57,23 +57,21 @@ function isTermInRow(obj, searchTerm){
 class InterruptionRow extends React.Component {
   constructor(props){
     super(props);
-      this.onClickRow = this.onClickRow.bind(this);
-
+    this.onClickRow = this.onClickRow.bind(this);
   }
+
   onClickRow(){
-
-  $(".mytable-searchBox__relatedNIS").css("visibility","hidden");
-  //$(".row_clicked").css("background-color","blue");
-  //  console.log(this.props.nis);
-    console.log(this.props.key);
-    nisLocation(this.props.id_orden, this.props.id_incidencia);
-
+    $(".mytable-searchBox__relatedNIS").css("visibility","hidden");
+    //$(".row_clicked").css("background-color","blue");
+    //  console.log(this.props.nis);
+      console.log(this.props.key);
+      nisLocation(this.props.id_orden, this.props.id_incidencia);
   }
 
   render(){
 
     return (
-      <tr className="row_clicked" onClick={this.onClickRow}>
+      <tr className={this.props.styleClass} onClick={this.onClickRow}>
         <td>{this.props.id_orden}</td>
         <td>{this.props.tipo_orden}</td>
         <td>{this.props.estado_orden}</td>
@@ -104,11 +102,18 @@ class MyGrid extends React.Component{
     this.onClickExport = this.onClickExport.bind(this);
     this.onClickClearSearch = this.onClickClearSearch.bind(this);
     this.onClickRelated = this.onClickRelated.bind(this);
-
+    this.paginateElements = this.paginateElements.bind(this);
     this.currentInterruptions();
-    this.state = { interruptions: [], interruptionsTemp: [] };
+    this.state = {
+      interruptions: [],
+      interruptionsTemp: [],
+      index: 0
+    };
   }
 
+  paginateElements(num){
+    this.setState({ index : num });
+  }
 
   //after component is rendered
   componentDidMount(){
@@ -132,13 +137,12 @@ class MyGrid extends React.Component{
       serviceCurr((map,featureSet)=>{
           var results = featureSet.features.map(fs => ({ ...fs }) );
           this.setState({ interruptions: results , interruptionsTemp: results});
-
       },(errorCurrMass)=>{
           console.log("Error at getting the results from current interruptions");
 
       });
-
   }
+
   onClickSearch(){
     var searchValue = this.refs.searchvalue.value;
     var updateList = this.state.interruptionsTemp;
@@ -165,10 +169,11 @@ class MyGrid extends React.Component{
 
     exportToExcel(exportResults, "Interrupciones " + str, true);
   }
+
   onClickClearSearch(){
     console.log("clearing search");
     this.currentInterruptions();
-    txtBusqueda.value ="";
+    txtBusqueda.value = "";
   }
 
   onClickRelated(){
@@ -176,15 +181,14 @@ class MyGrid extends React.Component{
   }
 
   render(){
-    var interruptions = this.state.interruptions.map((interruption, index)=>{
-      var className = index < 5 ? "" : "u-hidden";
-      var data = translator(interruption);
-      return <InterruptionRow key={"inte" + index} styleClass= {...data} />;
-
+    let interruptions = this.state.interruptions.map((interruption, index) => {
+      let ceil = Math.floor(index / 5);
+      let className = (ceil == this.state.index) ? '' : 'u-hidden';
+      let data = translator(interruption);
+      return <InterruptionRow key={"inte" + index} styleClass={className} {...data} />;
     });
-    //console.log("How many data i have?\n" + interruptions.length);
-    var slicedInterr = interruptions.slice(0,5);
-    var otherInterr = interruptions.slice(5,interruptions.length);
+
+    let pages = Math.floor(interruptions.length / 5);
 
     return (
     <div className="mytable-Wrapper">
@@ -233,9 +237,35 @@ class MyGrid extends React.Component{
             <tbody>
               {interruptions}
             </tbody>
-          </table>
+        </table>
+        <Paginator pages={pages} clickHandler={this.paginateElements} />
     </div>
     );
+  }
+}
+
+class Paginator extends React.Component {
+  moveNextPage(i){
+    var that = this;
+    return function(){
+      that.props.clickHandler(i);
+    };
+  }
+
+  render(){
+    var pages = [];
+
+    var styles = {
+      padding: "0.5em",
+      border: "1px solid black",
+      cursor: "pointer"
+    };
+
+    for(let i = 0; i < this.props.pages; i++){
+      pages.push(<span style={styles} onClick={this.moveNextPage(i)}>{i + 1}</span>);
+    }
+
+    return <div>{pages}</div>;
   }
 }
 
