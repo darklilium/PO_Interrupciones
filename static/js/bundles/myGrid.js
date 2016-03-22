@@ -4,6 +4,7 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import exportToExcel from '../services/exportToExcel';
 import nisLocation from '../services/nis-location-service';
+import relatedNISperSED from '../services/nis-location-service';
 import mymap from '../services/map-service';
 
 
@@ -62,7 +63,7 @@ class InterruptionRow extends React.Component {
 
   }
   onClickRow(){
-
+  $(".mytable-searchBox__relatedNIS").css("visibility","hidden");
   //  console.log(this.props.nis);
     nisLocation(this.props.id_orden, this.props.id_incidencia);
 
@@ -101,8 +102,8 @@ class MyGrid extends React.Component{
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickExport = this.onClickExport.bind(this);
     this.nowResults = this.nowResults.bind(this);
-      this.onClickClearMap = this.onClickClearMap.bind(this);
-
+    this.onClickClearSearch = this.onClickClearSearch.bind(this);
+    this.onClickRelated = this.onClickRelated.bind(this);
     this.state = { interruptions: [], interruptionsTemp: [] };
   }
 
@@ -170,19 +171,19 @@ class MyGrid extends React.Component{
 
     exportToExcel(exportResults, "Interrupciones " + str, true);
   }
-  onClickClearMap(){
-    console.log("clearing map");
-    var map = mymap.getMap();
-    map.graphics.clear();
+  onClickClearSearch(){
+    console.log("clearing search");
+    this.currentInterruptions();
+  }
+
+  onClickRelated(){
+      //show a list for related nis
   }
 
   render(){
     var interruptions = this.state.interruptions.map((interruption, index)=>{
       var data = translator(interruption);
-
-
       return <InterruptionRow key={"inte" + index} {...data} />;
-
     });
     console.log("How many data i have?\n" + interruptions.length);
     var slicedInterr = interruptions.slice(0,5);
@@ -190,7 +191,7 @@ class MyGrid extends React.Component{
     return (
     <div className="mytable-Wrapper">
       <div className="mytable-searchBox">
-        <h3 className="mytable-searchBox__title">Interrupciones</h3>
+        <h3 className="mytable-searchBox__title">Interrupciones: Ordenes</h3>
         {/* Search for filter */}
         <input className="mytable-searchBox__input" ref="searchvalue" type="text" placeholder="Busque cualquier parametro" />
         {/* Button for searching */}
@@ -199,10 +200,12 @@ class MyGrid extends React.Component{
         {/* Button for export to excel */}
         <button type="button" className="mytable-searchBox__submit btn btn-default" onClick={this.onClickExport}>
             <span className="searchBox_icon"><i className="fa fa-file-excel-o"></i></span></button>
-        {/* Button for clear graphics*/}
-        <button type="button" className="mytable-searchBox__clear btn btn-default" onClick={this.onClickClearMap}>
-            <span className="searchBox_icon"><i className="fa fa-eraser"></i></span>Limpiar Mapa</button>
-
+        {/* Button for clear search values*/}
+        <button type="button" className="mytable-searchBox__clear btn btn-default" onClick={this.onClickClearSearch}>
+            <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
+        {/* Button for see related nis asociated to the SED*/}
+        <button type="button" className="mytable-searchBox__relatedNIS btn btn-default" onClick={this.onClickRelated}>
+            <span className="searchBox_icon"><i className="fa fa-users"></i></span> Ver Resultados Relacionados</button>
 
       </div>
       <hr className="mytable_searchBox__hr"></hr>

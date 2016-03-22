@@ -14,7 +14,7 @@ class Interruptions extends React.Component {
     this.onClick = this.onClick.bind(this);
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
-
+    this.onClickClearMap = this.onClickClearMap.bind(this);
   }
 
   componentDidMount(){
@@ -47,32 +47,49 @@ class Interruptions extends React.Component {
     searchBar_NIS(this.refs.NIS.value);
   }
 
+  onClickClearMap(){
+    console.log("clearing map");
+    var map = mymap.getMap();
+    map.graphics.clear();
+  }
+
   render(){
     return (
     <div className="interruptions_wrapper">
       <div className="searchBox">
+      {/* Input for searching NIS */}
         <input className="searchBox__searchInput" ref="NIS" type="text" placeholder=" NIS" />
+      {/* Button for searching NIS */}
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
         </button>
+      {/* Button for cleaning map */}
+        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
+          <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
+      {/* Button for toggle grid */}
         <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickToggle}>
             <span className="searchBox_icon"><i className="fa fa-bars"></i> Ver Tabla</span>
         </button>
+      {/* Button for statistics widget (not done yet)*/}
         <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickStatistics}>
             <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
         </button>
       </div>
+      {/* The map*/}
       <div className="myMapDiv" id="myMapDiv"></div>
-        <StatisticsToolbar />
-      <div className="collapse" id="collapseStatistics">
-
-      </div>
+      {/* StatisticsToolbar on top*/}
+      <StatisticsToolbar />
+      {/* Statistics widget (not done yet)*/}
+      <div className="collapse" id="collapseStatistics"></div>
+      {/* For collapsing grid*/}
       <div id="collapseMyGrid" className="collapse">
         <MyGrid />
       </div>
+      {/* For notifications about NIS found in the searchbar*/}
       <div className="searchNotification">
         <div id="myNotification"></div>
       </div>
+      {/* For notifications about ORDER clicked and related NIS found in the grid*/}
       <div className="orderNotification">
         <div id="myorderNotification"></div>
       </div>

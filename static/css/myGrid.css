@@ -59,3 +59,7 @@ td{
 .td_width{
   width: 6%;
 }
+
+.mytable-searchBox__relatedNIS{
+    visibility: hidden;
+}

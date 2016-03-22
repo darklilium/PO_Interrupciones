@@ -15,7 +15,7 @@ function makeSymbol(){
       return mySymbol;
     },
     makePointRelated(){
-      mySymbol = new esri.symbol.SimpleMarkerSymbol(
+      var mySymbol = new esri.symbol.SimpleMarkerSymbol(
         esri.symbol.SimpleMarkerSymbol.STYLE_CIRCLE,
         10,
         new esri.symbol.SimpleLineSymbol(

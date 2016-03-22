@@ -9,6 +9,18 @@ class StatisticsToolbar extends React.Component {
   constructor(props){
     super(props);
   }
+  componentDidMount(){
+    var foo = function(){
+    
+      setTimeout(foo, 80000);
+    };
+
+    foo = foo.bind(this);
+    setTimeout(foo, 80000);
+  }
+
+
+
   render(){
     return (
       <div className="wrapper_statistics">

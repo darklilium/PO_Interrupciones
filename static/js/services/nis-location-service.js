@@ -8,7 +8,7 @@ function nisInformation(){
   //still not defined.
 }
 
- //Draw SED's trail
+ //Draw SED's trail for chilquinta
 function makeTrail(sed){
   var serviceTrail = createQueryTask({
     url: layers.read_layer_tramosBT(),
@@ -30,7 +30,7 @@ function makeTrail(sed){
   });
 }
 
-//search for nis's sed
+//search for nis's sed in chilquinta
 function nisStretch(nis,order,incident_id,pointGeometry){
   var serviceNIS = createQueryTask({
     url: layers.read_layer_ClieSED(),
@@ -42,11 +42,13 @@ function nisStretch(nis,order,incident_id,pointGeometry){
   serviceNIS((map,featureSet)=>{
     if (featureSet.features.length != 0){
        var sed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
-       //Draw SED's trail
+       //Draw SED's trail for chilquinta
        makeTrail(sed);
+       //make infowindow (generic)
        makeInfoWindow(nis,order,incident_id,sed, pointGeometry);
        console.log("Adding related NIS in the SED");
-       relatedNISperSED(sed);
+       //see related nis for that sed
+       relatedNISperSED(sed, nis);
     }else{
        console.log("Sed for nis not found, we cannot make the stretch for BT");
     }
@@ -55,7 +57,7 @@ function nisStretch(nis,order,incident_id,pointGeometry){
   });
 }
 //for getting the nis location when the user clicks on the grid/table.
-// note: order and nis = 1:1
+// note: order and nis = 1:1 (for chilquinta)
 function nisLocation (idorder,incident_id){
   console.log("searching for nis for the current order locations...");
   var serviceLocation = createQueryTask({
@@ -96,23 +98,31 @@ function nisLocation (idorder,incident_id){
 
 }
 //search for nis related to SED interruption
-function relatedNISperSED(sed){
+function relatedNISperSED(sed, nis){
+
+
+  $(".mytable-searchBox__relatedNIS").css("visibility","visible");
+
   var serviceRelatedNIS = createQueryTask({
     url: layers.read_layer_ClieSED(),
-    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"'"
+    whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"' AND ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis!="+nis
   });
   serviceRelatedNIS((map,featureSet)=>{
-      map.graphics.clear();
+    //  map.graphics.clear();
         if (featureSet.features.length != 0){
             console.log("Drawing nis that could be affected with the interruption");
           for (let i = 0; i < featureSet.features.length; i++) {
             let searchSymbol = makeSymbol.makePointRelated();
             map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+
           }
+
         }else{
           console.log("there are not more nis that can be affected by interruption");
         }
-  },(errorRelated)=>{})
+  },(errorRelated)=>{
+    console.log("Error doing related query for this SED");
+  })
 
 }
 
