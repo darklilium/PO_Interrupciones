@@ -22,23 +22,22 @@ body{
   overflow-y: hidden;
 }
 .searchBox{
-width: auto;
-margin-top:15px;
+    width: auto;
+margin-top: 0.1em;
+padding: 0;
 height: auto;
-background-color: #fff;
+background-color: ghostwhite;
 z-index: 2;
 position: absolute;
-right: 1em;
-
+right: 0;
 
 }.searchBox__searchInput{
-  height: 2.4em;
-  width: 8em;
+    height: 1.6em;
+       width: 8em;
 }
 .searchNotification{
-  width: 16em;
-  margin-top: 4em;
-  padding-right: 1em;
+  width: auto;
+  margin-top: 1.8em;
   position: fixed;
   top: 0px;
   z-index: 2;
@@ -55,4 +54,28 @@ position: fixed;
 top: 0em;
 z-index: 2;
 visibility: hidden;
+}
+
+
+/*THIS IS FOR SOME INTERRUPTION 2 HTML CONTROLS NOT AVAILABLES IN INTERRUPTIONS.HTML*/
+.searchbox__combobox{
+    height: 1.6em;
+padding: 0;
+margin: 0px;
+}
+
+.searchBox__searchSubmit{
+height: auto;
+width: 2.5em;
+text-align: center;
+padding: 0;
+margin: 0;
+}
+
+.searchBox__tableToggle{
+height: auto;
+width: 8em;
+text-align: center;
+padding: 0;
+margin: 0;
 }

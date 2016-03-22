@@ -20,7 +20,7 @@ function genericLogin(user, pass, token){
        console.log('Logging in to gisred');
        console.log('writing token into system');
        token.write(myToken);
-      window.location.href = "interrupciones.html";
+      window.location.href = "interrupciones2.html";
     },
      error: (error) => {
        console.log("You are not authorized ):");
