@@ -16,8 +16,11 @@ function mymap(){
       return map;
     },
     onClick(){
-      map.on("click", mouseEvent => console.log("thinking on map onClick for infowindow"));
+      map.on("click",(mouseEvent)=>{
+         return console.log("thinking on map onClick for infowindow");
+      });
     }
+
   };
 
   return wrapper;

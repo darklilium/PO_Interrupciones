@@ -177,8 +177,10 @@ class MyGrid extends React.Component{
 
   render(){
     var interruptions = this.state.interruptions.map((interruption, index)=>{
+      var className = index < 5 ? "" : "u-hidden";
       var data = translator(interruption);
-      return <InterruptionRow key={"inte" + index} {...data} />;
+      return <InterruptionRow key={"inte" + index} styleClass= {...data} />;
+
     });
     //console.log("How many data i have?\n" + interruptions.length);
     var slicedInterr = interruptions.slice(0,5);
