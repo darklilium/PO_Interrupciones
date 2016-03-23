@@ -6,6 +6,8 @@ import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
 import searchBar_NIS from '../services/searchbar-service';
+import maponclicksearch from '../services/searchbar-service';
+
 
 class Interruptions extends React.Component {
 
@@ -18,21 +20,51 @@ class Interruptions extends React.Component {
   }
 
   componentDidMount(){
-    var map = mymap.createMap("myMapDiv");
-var mmap = mymap.onClick(); 
+    var sls = new esri.symbol.SimpleLineSymbol("solid", new esri.Color("#444444"), 3);
+    var sfs = new esri.symbol.SimpleFillSymbol("solid", sls, new esri.Color([68, 68, 68, 0.25]));
+
+    var popup = new esri.dijit.Popup({
+        fillSymbol: sfs,
+        lineSymbol: null,
+        markerSymbol: null
+      }, document.createElement('div'));
+
+    var map = mymap.createMap("myMapDiv","topo",-71.2905 ,-33.1009,9,popup);
+    map.on("click",(event)=>{
+      console.log("doing click on map");
+      console.log(event.mapPoint);
+    });
     map.disableKeyboardNavigation();
+  /**/
+  var chqNISTemp= new esri.InfoTemplate();
+    chqNISTemp.setTitle("<b>Codigo: ${ARCGIS.DBO.SED_006.codigo}</b>");
 
+  var chqNISInfoContent = "<div style=padding-top: 10px;>Alimentador: ${ARCGIS.DBO.SED_006.alimentador}<br></div>";
+    chqNISTemp.setContent(chqNISInfoContent);
 
-    var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
+    var myDynamicSedLayerOptions = {
+           "id": "ORDENES PO",
+           "opacity": 0.8,
+           "showAttribution": false
+         };
+    var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO(),myDynamicSedLayerOptions);
+    myDynamicSedLayer.setInfoTemplates({
+      0: {InfoTemplate: chqNISTemp}
+    });
+    map.addLayer(myDynamicSedLayer,2);
+    
+    myDynamicSedLayer.setVisibleLayers([0,1]);
     var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
     var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
+
 
     var visibleLayers = [1];
       dyn_Tramos.setVisibleLayers(visibleLayers);
       dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
-      map.addLayer(myDynamicSedLayer,2);
-      map.addLayer(dyn_Tramos,1);
-      map.addLayer(dyn_EquiposPtoLayer,3);
+
+    map.addLayer(myDynamicSedLayer,2);
+    map.addLayer(dyn_Tramos,1);
+    map.addLayer(dyn_EquiposPtoLayer,3);
 
   }
 

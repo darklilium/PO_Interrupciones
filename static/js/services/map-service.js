@@ -1,5 +1,24 @@
+
+//AÑADIR MAPSERVER TRAMOS
+
+var map ={
+    createMap: function(div,basemap,centerx,centery,zoom, popup){
+        this.map = new esri.Map(div, {
+          basemap: basemap,
+          center:[centerx, centery],
+          zoom:zoom,
+          logo: false,
+          infoWindow: popup
+        });
+        return this.map;
+    },
+    getMap: function(){
+      return this.map;
+    }
+};
+/*
 function mymap(){
-  var map;
+    var map;
 
   var wrapper = {
     createMap(div){
@@ -25,5 +44,5 @@ function mymap(){
 
   return wrapper;
 }
-
-export default mymap();
+*/
+export default map;
