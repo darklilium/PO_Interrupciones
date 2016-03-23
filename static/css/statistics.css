@@ -1,6 +1,6 @@
 .wrapper_statistics{
     background-color: ghostwhite;
-    position: absolute;
+    position: fixed;
     top: 0;
     padding-left: 1em;
     padding-top: 0.2em;

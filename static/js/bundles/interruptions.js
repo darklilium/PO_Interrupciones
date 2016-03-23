@@ -21,13 +21,7 @@ class Interruptions extends React.Component {
 
   componentDidMount(){
     var map = mymap.createMap("myMapDiv","topo",-71.2905 ,-33.1009,9);
-    map.on("click",(event)=>{
-      console.log("doing click on map");
-      console.log(event.mapPoint);
-      clickSearch(event.mapPoint);
 
-
-    });
     map.disableKeyboardNavigation();
     var myDynamicSedLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{
        mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
@@ -51,6 +45,11 @@ class Interruptions extends React.Component {
     map.addLayer(dyn_EquiposPtoLayer,3);
     map.addLayer(myDynamicNISLayer,4);
 
+    map.on("click",(event)=>{
+      console.log("doing click on map");
+      //console.log(event.mapPoint);
+      clickSearch(event.mapPoint);
+    });
   }
 
   onClickToggle(mouseEvent){

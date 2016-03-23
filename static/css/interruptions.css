@@ -28,7 +28,7 @@ padding: 0;
 height: auto;
 background-color: ghostwhite;
 z-index: 2;
-position: absolute;
+position: fixed;
 right: 0;
 
 }.searchBox__searchInput{

@@ -62,10 +62,7 @@ class InterruptionRow extends React.Component {
 
   onClickRow(){
     $(".mytable-searchBox__relatedNIS").css("visibility","hidden");
-    //$(".row_clicked").css("background-color","blue");
-    //  console.log(this.props.nis);
-      console.log(this.props.key);
-      nisLocation(this.props.id_orden, this.props.id_incidencia);
+    nisLocation(this.props.id_orden, this.props.id_incidencia);
   }
 
   render(){
@@ -185,7 +182,7 @@ class MyGrid extends React.Component{
       let ceil = Math.floor(index / 5);
       let className = (ceil == this.state.index) ? '' : 'u-hidden';
       let data = translator(interruption);
-      return <InterruptionRow key={"inte" + index} styleClass={className} {...data} />;
+      return <InterruptionRow key={"inte"+ index} styleClass={className} {...data} />;
     });
 
     let pages = Math.floor(interruptions.length / 5);
