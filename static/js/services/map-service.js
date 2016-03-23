@@ -2,13 +2,13 @@
 //AÑADIR MAPSERVER TRAMOS
 
 var map ={
-    createMap: function(div,basemap,centerx,centery,zoom, popup){
+    createMap: function(div,basemap,centerx,centery,zoom){
         this.map = new esri.Map(div, {
           basemap: basemap,
           center:[centerx, centery],
           zoom:zoom,
-          logo: false,
-          infoWindow: popup
+          logo: false
+
         });
         return this.map;
     },

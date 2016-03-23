@@ -81,7 +81,7 @@ function nisLocation (idorder,incident_id){
           //just in case if additional information for nis is required.
           //nisInformation();
           //shows the relation about SED and BT electric connection
-          nisStretch(nis,idorder,incident_id,pointGeometry);
+        //  nisStretch(nis,idorder,incident_id,pointGeometry);
           console.log("NIS Found");
 
           //makeInfoWindow(nis,idorder,incident_id,sed, pointGeometry);
@@ -118,8 +118,8 @@ function searchSEDInterruptions(order_id){
       map.centerAndZoom(featureSet.features[0].geometry,20);
       var cod_sed = featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo'];
       var pointGeometry = featureSet.features[0].geometry;
-      makeTrail(cod_sed);
-      relatedNISperSED(cod_sed);
+    //  makeTrail(cod_sed);
+      //relatedNISperSED(cod_sed);
     }
     else{
       console.log();
