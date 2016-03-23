@@ -6,7 +6,7 @@ import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
 import MyGrid from '../bundles/myGrid';
 import searchBar_NIS from '../services/searchbar-service';
-import maponclicksearch from '../services/searchbar-service';
+import clickSearch from '../services/map_onclicksearch-service';
 import myinfotemplate from '../services/infotemplates-service';
 
 class Interruptions extends React.Component {
@@ -24,6 +24,9 @@ class Interruptions extends React.Component {
     map.on("click",(event)=>{
       console.log("doing click on map");
       console.log(event.mapPoint);
+      clickSearch(event.mapPoint);
+
+
     });
     map.disableKeyboardNavigation();
     var myDynamicSedLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{

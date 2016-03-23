@@ -8,7 +8,12 @@ function getInfoTemplate(){
       let chqSubInfoContent =
       "<div style=padding-top: 10px;>ID Orden: ${ARCGIS.DBO.POWERON_ORDENES.id_orden}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
-      "<div style=padding-top: 10px;>Alimentador: ${ARCGIS.DBO.SED_006.alimentador}<br></div>";
+      "<div style=padding-top: 10px;>Alimentador: ${ARCGIS.DBO.SED_006.alimentador}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Causa: ${  ARCGIS.DBO.POWERON_ORDENES.causa}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Comentario: ${ARCGIS.DBO.POWERON_ORDENES.comentario}<br></div>";
+
       chqSubInfoTemp.setContent(chqSubInfoContent);
       return chqSubInfoTemp;
     },
@@ -22,11 +27,14 @@ function getInfoTemplate(){
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>ID Incidencia: ${ARCGIS.dbo.POWERON_CLIENTES.id_incidencia}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
-      "<div style=padding-top: 10px;>Causa: ${ARCGIS.DBO.POWERON_ORDENES.causa}<br></div>";
+      "<div style=padding-top: 10px;>Causa: ${ARCGIS.DBO.POWERON_ORDENES.causa}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Comentario: ${ARCGIS.DBO.POWERON_ORDENES.comentario}<br></div>";
 
       chqIsolatedNisTemp.setContent(chqIsolatedNisInfoContent);
       return chqIsolatedNisTemp;
     }
+
   }
 }
 
