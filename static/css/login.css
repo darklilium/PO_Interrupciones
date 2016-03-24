@@ -1,67 +1,15 @@
-/*BEM METODOLOGY .BLOCK__ELEMENT
-* My blocks for Login are:
-  formLogin {
-    logoImg,
-    txtUser,
-    txtPass,
-    LoginBtn
-},
-   footer{
-   companyImg,
-   h4,
-   h3
- }
-*/
+.wrapper { margin-top: 3em; margin-left: auto; margin-right: auto; width: 250px; display: block; }
 
-.wrapper{
-  margin-top: 3em;
-  margin-left: auto;
-  margin-right: auto;
-  width: 250px;
-  display: block;
-}
+.logo { width: 100%; }
 
-.logo{
-    width: 100%;
-}
+.login { width: 250px; padding-top: 10px; }
 
-.login{
-    width: 250px;
-    padding-top: 10px;
-}
+.login__input { height: 1em; margin-top: 1em; width: 90%; }
 
-.login__input{
-    height: 1em;
-    margin-top: 1em;
-    width: 90%;
-}
+.login__submit { border: 1px solid #eaeaea; border-radius: 0.5em; cursor: pointer; margin-top: 1em; padding: 0.5em; width: 90%; }
 
-.login__submit{
-    border: 1px solid #eaeaea;
-    border-radius: 0.5em;
-    cursor: pointer;
-    margin-top: 1em;
-    padding: 0.5em;
-    width: 90%;
-}
+.footer { width: 255px; height: auto; margin-top: 10px; }
 
-.footer{
-    width: 255px;
-    height: auto;
-    margin-top: 10px;
-}
+.image-chq { width: auto; vertical-align: bottom; }
 
-.image-chq{
-    width: auto;
-    vertical-align: bottom;
-}
-
-.footer__p{
-    font-size: 8pt;
-    color: inherit;
-    text-align: left;
-}
-
-.footer__h6{
-
-}
+.footer__p { font-size: 8pt; color: inherit; text-align: left; }

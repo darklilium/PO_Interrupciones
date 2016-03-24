@@ -4,7 +4,7 @@
   "description": "Para proyecto inicial de Clientes Interrumpidos.",
   "main": "server.js",
   "scripts": {
-    "start": "npm run dev:server",
+    "start": "start npm run dev:server & start npm run gulp",
     "dev:server": "webpack-dev-server",
     "dev:build": "webpack --progress --colors",
     "prod:build": "webpack --optimize-minimize --progress --colors",
@@ -35,9 +35,8 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "gulp": "^3.9.1",
-    "gulp-notify": "^2.2.0",
-    "gulp-stylus": "^2.3.0",
-    "vinyl-source-stream": "^1.1.0",
+    "gulp-sass": "^2.2.0",
+    "node-sass": "^3.4.2",
     "webpack": "^1.12.14",
     "webpack-dev-server": "^1.14.1"
   }
