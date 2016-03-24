@@ -1,0 +1,40 @@
+/*THIS IS FOR SOME INTERRUPTION 2 HTML CONTROLS NOT AVAILABLES IN INTERRUPTIONS.HTML*/
+$search-box-bg: ghostwhite;
+
+.searchBox{
+  width: auto;
+  margin-top: 0.1em;
+  padding: 0;
+  height: auto;
+  background-color: $search-box-bg;
+  z-index: 2;
+  position: fixed;
+  right: 0;
+}
+
+.searchBox__searchInput{
+  height: 1.6em;
+  width: 8em;
+}
+
+.searchbox__combobox{
+  height: 1.6em;
+  padding: 0;
+  margin: 0px;
+}
+
+.searchBox__searchSubmit{
+  height: auto;
+  width: 2.5em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.searchBox__tableToggle{
+  height: auto;
+  width: 8em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}

@@ -23,8 +23,8 @@ function realPath(xs){
 }
 
 var styles = [
-  'css/styles.scss',
-  'css/login.scss'
+  'css/login.scss',
+  'css/interruptions.scss'
 ].map(realPath);
 
 gulp.task('sass', function(){
