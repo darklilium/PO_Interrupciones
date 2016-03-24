@@ -21,13 +21,14 @@ class Interruptions extends React.Component {
 
   componentDidMount(){
     var map = mymap.createMap("myMapDiv","topo",-71.2905 ,-33.1009,9);
-
     map.disableKeyboardNavigation();
+
     var myDynamicSedLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{
        mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
        infoTemplate: myinfotemplate.getSubFailure(),
        outFields: ["*"]
     });
+
     var myDynamicNISLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_clie(),{
        mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
        infoTemplate: myinfotemplate.getIsolatedNisFailure(),
@@ -37,24 +38,28 @@ class Interruptions extends React.Component {
     var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
     var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
     var visibleLayers = [1];
-      dyn_Tramos.setVisibleLayers(visibleLayers);
-      dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
+    dyn_Tramos.setVisibleLayers(visibleLayers);
+    dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
 
     map.addLayer(dyn_Tramos,1);
     map.addLayer(myDynamicSedLayer,2);
     map.addLayer(dyn_EquiposPtoLayer,3);
     map.addLayer(myDynamicNISLayer,4);
 
-    map.on("click",(event)=>{
-      console.log("doing click on map");
-      //console.log(event.mapPoint);
-      clickSearch(event.mapPoint);
+    myDynamicSedLayer.on("click",(event)=>{
+      console.log("for sed");
+    //  console.log(event.graphic.attributes);
+      clickSearch(event.graphic.attributes['ARCGIS.DBO.SED_006.codigo'],"SED");
+
+    });
+    myDynamicNISLayer.on("click",(event)=>{
+      console.log("for nis");
+      console.log(event.graphic.attributes);
     });
   }
 
   onClickToggle(mouseEvent){
     console.log("toggling table");
-
   }
 
   onClickStatistics(mouseEvent){
@@ -69,6 +74,8 @@ class Interruptions extends React.Component {
     console.log("clearing map");
     var map = mymap.getMap();
     map.graphics.clear();
+
+    map.removeLayer(layers.read_graphicLayer());
   }
 
   render(){

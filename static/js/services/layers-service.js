@@ -1,12 +1,8 @@
 import token from '../services/token-service';
 
 function myLayers(){
-  // var sedLayer;
-  // var clientesLayer;
-  // var poTransLayer;
-  // var poClieLayer;
-  // var poOrdenesLayer;
   const serviceURL = 'http://gisred.chilquinta.cl:5555/arcgis/rest/services/';
+  var graphicLayer = new esri.layers.GraphicsLayer();
 
   return {
   //The following layers and services are just for Chilquinta APP. (interrupciones.html and interruptions.js)
@@ -88,7 +84,16 @@ function myLayers(){
     read_layer_casablanca_ClieSED(){
       //http://gisred.chilquinta.cl:5555/arcgis/rest/services/Chilquinta_028/Clientes_028/MapServer/0
       return serviceURL + "Chilquinta_028/Clientes_028/MapServer/0?f=json&token=" + token.read();
+    },
+    save_graphicLayer(myGraphicsLayer){
+    //  console.log(arguments);
+      graphicLayer = myGraphicsLayer;
+    },
+    read_graphicLayer(){
+      return graphicLayer;
     }
+
+
   };
 }
 export default myLayers();

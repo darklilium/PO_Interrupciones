@@ -105,7 +105,11 @@ function searchMassive(sed, nis){
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in massive interruptions");
+        
+        let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
+        let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'];
         sendNotification('danger',"NIS: " + nis +" presente en falla masiva");
+        makeInfoWindow(nis,myOrder,myIncidence,sed, featureSet.features[0].geometry);
       }
   },(error)=>{
     console.log("Problems getting the sed for massive interruption ");

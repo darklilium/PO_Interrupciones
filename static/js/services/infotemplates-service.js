@@ -33,6 +33,24 @@ function getInfoTemplate(){
 
       chqIsolatedNisTemp.setContent(chqIsolatedNisInfoContent);
       return chqIsolatedNisTemp;
+    },
+    getNisInfo(){
+
+      let chqNisInfoTemp= new esri.InfoTemplate();
+      chqNisInfoTemp.setTitle("<b>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}</b>");
+
+      let chqNisInfoContent =
+      "<div style=padding-top: 10px;>Estado Suministro: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_estado_suministro}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Categoría: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.categoria}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+        "<div style=padding-top: 10px;>Dirección: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Comuna: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_comuna}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>";
+
+      chqNisInfoTemp.setContent(chqNisInfoContent);
+      return chqNisInfoTemp;
     }
 
   }

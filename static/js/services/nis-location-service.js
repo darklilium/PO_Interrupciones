@@ -2,6 +2,8 @@ import layers from '../services/layers-service';
 import makeSymbol from '../services/makeSymbol-service';
 import makeInfoWindow from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
+import myinfotemplate from '../services/infotemplates-service';
+import mymap from '../services/map-service';
 
 //for getting some info about the nis, i mean the customers
 function nisInformation(){
@@ -118,7 +120,7 @@ function searchSEDInterruptions(order_id){
       map.centerAndZoom(featureSet.features[0].geometry,20);
       var cod_sed = featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo'];
       var pointGeometry = featureSet.features[0].geometry;
-    //  makeTrail(cod_sed);
+      //  makeTrail(cod_sed);
       //relatedNISperSED(cod_sed);
     }
     else{
@@ -139,29 +141,41 @@ function searchSEDInterruptions(order_id){
 
 //search for nis related to SED interruption
 function relatedNISperSED(sed){
+ var graphicLayer = layers.read_graphicLayer();
+  graphicLayer.clear();
+  var map = mymap.getMap();
+  map.graphics.clear();
   $(".mytable-searchBox__relatedNIS").css("visibility","visible");
+
+
 
   var serviceRelatedNIS = createQueryTask({
     url: layers.read_layer_ClieSED(),
     whereClause: "ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed='"+sed+"'"
   });
+
   serviceRelatedNIS((map,featureSet)=>{
     //  map.graphics.clear();
+
+       var searchSymbol = makeSymbol.makePointRelated();
         if (featureSet.features.length != 0){
             console.log("Drawing nis that could be affected with the interruption");
-          for (let i = 0; i < featureSet.features.length; i++) {
-            let searchSymbol = makeSymbol.makePointRelated();
-            map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,searchSymbol));
+            featureSet.features.forEach(function(item, index) {
+                item.setSymbol(searchSymbol);
+                item.setInfoTemplate(myinfotemplate.getNisInfo());
+                graphicLayer.add(item);
 
-          }
-
+            });
+              map.addLayer(graphicLayer);
+              layers.save_graphicLayer(graphicLayer);
         }else{
           console.log("there are not nis that can be affected by interruption");
         }
+  //layers.write_graphicLayer(graphicLayer);
   },(errorRelated)=>{
     console.log("Error doing related query for getting NIS for this SED");
   })
 
 }
 
-export default nisLocation;
+export {nisLocation, relatedNISperSED, makeTrail};

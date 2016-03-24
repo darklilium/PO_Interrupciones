@@ -20,17 +20,17 @@ function makeSymbol(){
         10,
         new esri.symbol.SimpleLineSymbol(
           esri.symbol.SimpleLineSymbol.STYLE_SOLID,
-          new esri.Color([255, 89, 0, 0.9]),
+          new esri.Color([128, 0, 255, 0.9]),
           1
         ),
-        new esri.Color([255, 89, 0, 0.5])
+        new esri.Color([128, 0, 255, 0.5])
       );
       return mySymbol;
     },
     makeLine(){
       var mySymbol = new esri.symbol.CartographicLineSymbol(
         esri.symbol.CartographicLineSymbol.STYLE_SOLID,
-        new esri.Color([255,0,0]), 5,
+        new esri.Color([64, 0, 255]), 5,
         esri.symbol.CartographicLineSymbol.CAP_ROUND,
         esri.symbol.CartographicLineSymbol.JOIN_MITER, 5
       );

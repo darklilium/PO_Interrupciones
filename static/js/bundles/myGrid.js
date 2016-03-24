@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import exportToExcel from '../services/exportToExcel';
-import nisLocation from '../services/nis-location-service';
-import relatedNISperSED from '../services/nis-location-service';
+import {nisLocation} from '../services/nis-location-service';
+
 import mymap from '../services/map-service';
 import createQueryTask from '../services/createquerytask-service';
 
@@ -148,6 +148,7 @@ class MyGrid extends React.Component{
       return isTermInRow(x, searchValue);
     });
 
+    console.log(myFilteredList);
     this.setState({ interruptions: myFilteredList });
   }
 
