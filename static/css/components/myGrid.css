@@ -67,3 +67,7 @@ td{
 .mytable-searchBox__relatedNIS{
     visibility: hidden;
 }
+
+.mytable_paginator{
+float: right;
+}

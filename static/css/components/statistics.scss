@@ -1,5 +1,6 @@
+$backg-color: ghostwhite;
 .wrapper_statistics{
-    background-color: ghostwhite;
+    background-color: $$backg-color;
     position: fixed;
     top: 0;
     padding-left: 1em;
@@ -11,8 +12,8 @@
 
 .statistic_kind{
     width: 40%;
-        height: initial;
-        display: inherit;
+    height: initial;
+    display: inherit;
 }
 
 .statistic___massive{
@@ -33,9 +34,9 @@
 }
 
 .statistic-h4{
-font-size: 14px;
-padding-left: 2em;
-font-family: monospace;
-margin: 0em;
-padding-top: 2px;
+    font-size: 14px;
+    padding-left: 2em;
+    font-family: monospace;
+    margin: 0em;
+    padding-top: 2px;
 }

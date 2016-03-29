@@ -1,5 +1,13 @@
-/*THIS IS FOR SOME INTERRUPTION 2 HTML CONTROLS NOT AVAILABLES IN INTERRUPTIONS.HTML*/
+/*CSS for searchBox on top.
+*author: Evelyn Hernández. 2016.
+*29/03/2016
+*/
 $search-box-bg: ghostwhite;
+
+.searchBox__searchInput{
+  height: 1.6em;
+  width: 8em;
+}
 
 .searchBox{
   width: auto;
@@ -10,17 +18,6 @@ $search-box-bg: ghostwhite;
   z-index: 2;
   position: fixed;
   right: 0;
-}
-
-.searchBox__searchInput{
-  height: 1.6em;
-  width: 8em;
-}
-
-.searchbox__combobox{
-  height: 1.6em;
-  padding: 0;
-  margin: 0px;
 }
 
 .searchBox__searchSubmit{
@@ -38,3 +35,11 @@ $search-box-bg: ghostwhite;
   padding: 0;
   margin: 0;
 }
+
+/*start: css for interruption2*/
+.searchbox__combobox{
+  height: 1.6em;
+  padding: 0;
+  margin: 0px;
+}
+/*end*/
