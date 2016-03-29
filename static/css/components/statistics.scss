@@ -12,7 +12,7 @@ $backg-color: ghostwhite;
 }
 
 .statistic_kind{
-    width: 40%;
+    width: 50%;
     height: initial;
     display: inherit;
 }
@@ -25,7 +25,9 @@ $backg-color: ghostwhite;
 .statistic___isolated{
     @extend .statistic___massive;
 }
-
+.statistic___total{
+    @extend .statistic___massive;
+}
 .statistic-img{
     width: 1em;
     margin: auto;
@@ -34,9 +36,9 @@ $backg-color: ghostwhite;
 }
 
 .statistic-h4{
-    font-size: 14px;
+    font-size: 12px;
     padding-left: 2em;
-    font-family: monospace;
+
     margin: 0em;
     padding-top: 2px;
 }

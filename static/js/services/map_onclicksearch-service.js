@@ -10,8 +10,8 @@ function clickSearch(element, type){
 //console.log(arguments);
   if(type=='SED'){
     //this fx doesnt add elements to the graphiclayer. Direct to the map graphiclayer (by default)
-    makeTrail(element);
-    relatedNISperSED(element);
+    //makeTrail(element);
+    //relatedNISperSED(element);
   }else{
     //for nis , not defined yet.
   }

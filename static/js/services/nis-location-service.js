@@ -110,7 +110,7 @@ function searchSEDInterruptions(order_id){
   console.log(order_id);
   var serviceSEDLocation = createQueryTask({
     url: layers.read_layer_interr_sed(),
-    whereClause: "ARCGIS.DBO.POWERON_ORDENES.id_orden='"+order_id+"'"
+    whereClause: "ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden='"+order_id+"'"
   });
 
   serviceSEDLocation((map,featureSet)=>{
@@ -133,7 +133,7 @@ function searchSEDInterruptions(order_id){
 
     }
   },(errorSEDLocation)=>{
-
+    console.log("Impossible to make the query related to orders feature service");
   });
 
 }

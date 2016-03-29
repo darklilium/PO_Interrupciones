@@ -13,12 +13,14 @@ class StatisticsToolbar extends React.Component {
 
     this.currentMassive();
     this.currentIsolated();
-    this.state = { massiveqtty: 0, isolatedqtty: 0 };
+    this.currentTotal();
+    this.state = { massiveqtty: '...', isolatedqtty:'...', totalqtty: '...' };
   }
   componentDidMount(){
     var foo = function(){
       this.currentMassive();
       this.currentIsolated();
+      this.currentTotal();
       setTimeout(foo, 10000);
     };
 
@@ -54,6 +56,21 @@ class StatisticsToolbar extends React.Component {
     });
   }
 
+  currentTotal(){
+
+    var serviceCurrTotal = createQueryTask({
+      url: layers.read_layer_countTotal(),
+      whereClause: "1=1"
+    });
+
+    serviceCurrTotal((map,featureSet)=>{
+
+      this.setState({ totalqtty: featureSet.features[0].attributes['Cantidad']});
+    },(errorCount)=>{
+      console.log("error getting the current total");
+    });
+  }
+
   render(){
     return (
       <div className="wrapper_statistics">
@@ -61,11 +78,16 @@ class StatisticsToolbar extends React.Component {
         <div className="statistic_kind">
           <div className="statistic___massive">
             <img className="statistic-img" src="images/widget_icons/massive.png" />
-            <h4 className="statistic-h4"> Falla Subestación: {this.state.massiveqtty} </h4>
+            <span className="statistic-h4">Falla Subestación: {this.state.massiveqtty}</span>
           </div>
           <div className="statistic___isolated">
             <img className="statistic-img" src="images/widget_icons/isolated.png" />
-            <h4 className="statistic-h4"> Falla Clientes:{this.state.isolatedqtty} </h4>
+
+            <span className="statistic-h4">Falla Clientes: {this.state.isolatedqtty}</span>
+          </div>
+          <div className="statistic___total">
+            <span><i className="fa fa-user"></i> Total Clientes: {this.state.totalqtty}</span>
+
           </div>
         </div>
       </div>

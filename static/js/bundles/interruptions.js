@@ -35,15 +35,15 @@ class Interruptions extends React.Component {
        outFields: ["*"]
     });
 
-    var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
-    var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
-    var visibleLayers = [1];
-    dyn_Tramos.setVisibleLayers(visibleLayers);
-    dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
+    var dyn_Tramos = new esri.layers.FeatureLayer(layers.read_layer_tramosBT());
+    var dyn_ClienteSED = new esri.layers.FeatureLayer(layers.read_layer_ClienteSED());
+  //var visibleLayers = [1];
+  //dyn_Tramos.setVisibleLayers(visibleLayers);
+  //dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
 
-    map.addLayer(dyn_Tramos,1);
+    map.addLayer(dyn_Tramos);
     map.addLayer(myDynamicSedLayer,2);
-    map.addLayer(dyn_EquiposPtoLayer,3);
+    map.addLayer(dyn_ClienteSED);
     map.addLayer(myDynamicNISLayer,4);
 
     myDynamicSedLayer.on("click",(event)=>{

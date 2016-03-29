@@ -6,7 +6,7 @@ function getInfoTemplate(){
       chqSubInfoTemp.setTitle("<b>Codigo Subestación: ${ARCGIS.DBO.SED_006.codigo}</b>");
 
       let chqSubInfoContent =
-      "<div style=padding-top: 10px;>ID Orden: ${ARCGIS.DBO.POWERON_ORDENES.id_orden}<br></div>"+
+      "<div style=padding-top: 10px;>ID Orden: ${ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Alimentador: ${ARCGIS.DBO.SED_006.alimentador}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+

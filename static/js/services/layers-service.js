@@ -24,7 +24,7 @@ function myLayers(){
     },
     //Table for PO Orders (without graphics)
     read_layer_poOrdenes(){
-      return serviceURL + "Interrupciones/PO/MapServer/4?f=json&token=" + token.read();
+      return serviceURL + "Interrupciones/Interrupciones_clientes/MapServer/6?f=json&token=" + token.read();
     },
     //Dynamic layer for PowerOn, ordenes de clientes segun: SED(0) Clientes (1)
     read_dyn_layer_PO(){
@@ -44,11 +44,18 @@ function myLayers(){
     },
     //Feature layer for BT: Red BT (1)
     read_layer_tramosBT(){
-      return serviceURL + "Chilquinta_006/Tramos_006/MapServer/1?f=json&token=" + token.read();
+      return serviceURL + "Interrupciones/PO/MapServer/2?f=json&token=" + token.read();
     },
     //Dynamic layer: Equipos Pto : SSEE(0), Subestaciones de Dist (1), Salida Alimentador (2), Equipos (3)
     read_layer_EquiposPto(){
       return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?token=" + token.read();
+    },
+    read_layer_ClienteSED(){ /*using*/
+      return serviceURL + "Interrupciones/PO/MapServer/3?token=" + token.read();
+    },
+
+    read_layer_countTotal(){ /*using*/
+      return serviceURL + "Interrupciones/PO/MapServer/8?token=" + token.read();
     },
 
     //The following layers and services are just for subsidiaries (filiales). (nterrupciones2.html and interruptions2.js)
