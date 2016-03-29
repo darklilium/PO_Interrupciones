@@ -8,7 +8,7 @@ module.exports = {
     interruptions2: './static/js/bundles/interruptions2.js'
   },
   output: {
-    path: path.join(__dirname, 'dist'),
+    path: path.join(path.join(__dirname, 'dist'), 'js'),
     filename: '[name].js'
   },
   devServer: {
