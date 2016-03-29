@@ -23,8 +23,7 @@ $backg-color: ghostwhite;
 }
 
 .statistic___isolated{
-    width: 50%;
-    padding-left: 1em;
+    @extend .statistic___massive;
 }
 
 .statistic-img{
