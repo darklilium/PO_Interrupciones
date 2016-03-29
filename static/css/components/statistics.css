@@ -1,0 +1,42 @@
+
+.wrapper_statistics{
+    background-color: ghostwhite;
+    position: fixed;
+    top: 0;
+    padding-left: 1em;
+    padding-top: 0.2em;
+    display: inline-flex;
+    width: 100%;
+    height: 1.8em;
+}
+
+.statistic_kind{
+    width: 40%;
+    height: initial;
+    display: inherit;
+}
+
+.statistic___massive{
+    width: 50%;
+    padding-left: 1em;
+}
+
+.statistic___isolated{
+    width: 50%;
+    padding-left: 1em;
+}
+
+.statistic-img{
+    width: 1em;
+    margin: auto;
+    display: inline;
+    position: absolute;
+}
+
+.statistic-h4{
+    font-size: 14px;
+    padding-left: 2em;
+    font-family: monospace;
+    margin: 0em;
+    padding-top: 2px;
+}
