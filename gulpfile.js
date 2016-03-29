@@ -1,5 +1,6 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
+var swig = require('gulp-swig');
 
 function defaultError(type){
   return function(err){
@@ -22,8 +23,15 @@ gulp.task('sass', function(){
     .pipe(gulp.dest(dist('css')));
 });
 
-gulp.task('watch', function(){
-  gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
+gulp.task('templates', function(){
+  return gulp.src(['./*.html','!./base.html'])
+    .pipe(swig())
+    .pipe(gulp.dest('dist/templates'));
 });
 
-gulp.task('default', ['sass', 'watch']);
+gulp.task('watch', function(){
+  gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
+  gulp.watch(['*.html'], ['templates']);
+});
+
+gulp.task('default', ['sass', 'templates', 'watch']);
