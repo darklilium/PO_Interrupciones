@@ -1,6 +1,6 @@
-$backg-color: ghostwhite;
+
 .wrapper_statistics{
-    background-color: $$backg-color;
+    background-color: ghostwhite;
     position: fixed;
     top: 0;
     padding-left: 1em;
