@@ -14,7 +14,7 @@ function nisInformation(){
 function makeTrail(sed){
   var serviceTrail = createQueryTask({
     url: layers.read_layer_tramosBT(),
-    whereClause: "sed="+sed
+    whereClause: "ARCGIS.DBO.Tramos_BT_006.sed="+sed
   });
   serviceTrail((map,featureSet)=>{
     console.log("Making the trail for BT\n", sed);

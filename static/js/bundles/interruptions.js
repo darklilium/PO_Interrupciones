@@ -23,39 +23,29 @@ class Interruptions extends React.Component {
     var map = mymap.createMap("myMapDiv","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
 
-    var myDynamicSedLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{
+    var sedInterrLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{
        mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
        infoTemplate: myinfotemplate.getSubFailure(),
        outFields: ["*"]
     });
 
-    var myDynamicNISLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_clie(),{
+    var clieInterrLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_clie(),{
        mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
        infoTemplate: myinfotemplate.getIsolatedNisFailure(),
        outFields: ["*"]
     });
 
-    var dyn_Tramos = new esri.layers.FeatureLayer(layers.read_layer_tramosBT());
-    var dyn_ClienteSED = new esri.layers.FeatureLayer(layers.read_layer_ClienteSED());
-  //var visibleLayers = [1];
-  //dyn_Tramos.setVisibleLayers(visibleLayers);
-  //dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
+    var interrTramos = new esri.layers.FeatureLayer(layers.read_layer_tramosBT());
 
-    map.addLayer(dyn_Tramos);
-    map.addLayer(myDynamicSedLayer,2);
-    map.addLayer(dyn_ClienteSED);
-    map.addLayer(myDynamicNISLayer,4);
-
-    myDynamicSedLayer.on("click",(event)=>{
-      console.log("for sed");
-    //  console.log(event.graphic.attributes);
-      clickSearch(event.graphic.attributes['ARCGIS.DBO.SED_006.codigo'],"SED");
-
+    var interrClienteSED = new esri.layers.FeatureLayer(layers.read_layer_ClienteSED(),{
+      infoTemplate: myinfotemplate.getNisInfo(),
+      outFields: ["*"]
     });
-    myDynamicNISLayer.on("click",(event)=>{
-      console.log("for nis");
-      console.log(event.graphic.attributes);
-    });
+
+    map.addLayer(interrTramos);
+    map.addLayer(sedInterrLayer);
+    map.addLayer(interrClienteSED);
+    map.addLayer(clieInterrLayer);
   }
 
   onClickToggle(mouseEvent){

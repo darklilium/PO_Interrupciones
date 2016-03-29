@@ -22,17 +22,7 @@ class Interruptions extends React.Component {
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
     map.disableKeyboardNavigation();
-    //set default layers for casablanca as default
-    var myDynamicSedLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layer_PO());
-    var dyn_Tramos = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_Tramos());
-    var dyn_EquiposPtoLayer = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layer_EquiposPto());
-
-    var visibleLayers = [1];
-      dyn_Tramos.setVisibleLayers(visibleLayers);
-      dyn_EquiposPtoLayer.setVisibleLayers(visibleLayers);
-      map.addLayer(myDynamicSedLayer,2);
-      map.addLayer(dyn_Tramos,1);
-      map.addLayer(dyn_EquiposPtoLayer,3);
+  
 
   }
 

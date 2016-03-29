@@ -3,16 +3,6 @@ import makeSymbol from '../services/makeSymbol-service';
 import makeInfoWindow from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
 
-function sendNotification(level='warning', message){
-  $('.searchNotification').css('visibility','initial');
-
-  $('#myNotification')
-    .empty()
-    //.append('<div><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'+message+'</strong></div>')
-    .append('<div><strong>' + message + '</strong></div>')
-    .attr('class', "alert alert-" + level);
-}
-
 function searchBar_NIS(nis){
   var service = createQueryTask({
     url: layers.read_layer_interr_clie(),
@@ -84,6 +74,18 @@ function searchBar_NIS(nis){
 
 }
 
+function sendNotification(level='warning', message){
+  $('.searchNotification').css('visibility','initial');
+
+  $('#myNotification')
+    .empty()
+    .append('<div><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'+message+'</strong></div>')
+  //  .append('<div><strong>' + message + '</strong></div>')
+    .attr('class', "alert alert-" + level);
+}
+
+
+
 function searchMassive(sed, nis){
   var serviceSearchMassive = createQueryTask({
     url: layers.read_layer_interr_sed(),
@@ -105,7 +107,7 @@ function searchMassive(sed, nis){
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in massive interruptions");
-        
+
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
         let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'];
         sendNotification('danger',"NIS: " + nis +" presente en falla masiva");

@@ -40,7 +40,7 @@ function getInfoTemplate(){
       chqNisInfoTemp.setTitle("<b>NIS: ${ARCGIS.DBO.CLIENTES_XY_006.nis}</b>");
 
       let chqNisInfoContent =
-      "<div style=padding-top: 10px;>Estado Suministro: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_estado_suministro}<br></div>"+
+      "<div style=padding-top: 10px;>Tipo Suministro: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_tipo_suministro}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Categoría: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.categoria}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
