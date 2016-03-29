@@ -24,14 +24,13 @@ class LoginApp extends React.Component {
         <div className="login">
           <input className="login__input" ref="username" type="text" defaultValue="vialactea\ehernanr" />
           <input className="login__input" ref="password" type="password" defaultValue="Chilquinta5"/>
-          <input className="login__submit" type="submit" onClick={this.onClick} />
+          <input className="login__submit" type="submit" onClick={this.onClick} defaultValue="Entrar" />
         </div>
 
         <div className="footer">
           <img className="image-chq" src="images/chq_i.png" />
-          <p className="footer__p">Planificación y Gestión</p>
-          <p className="footer__p">de la Información Operacional</p>
-          <h6 className="footer__h6">Av. Argentina N°1 Piso 7</h6>
+          <p className="footer__p">Planificación y Gestión de la Información Operacional</p>
+          <h6 className="footer__p-br">Av. Argentina N°1 Piso 7</h6>
         </div>
       </div>
     );

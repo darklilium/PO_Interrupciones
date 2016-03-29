@@ -22,7 +22,7 @@ body {
 .login__input{
   height: 1em;
   margin-top: 1em;
-  width: 90%;
+  width: 100%;
 }
 
 .login__submit{
@@ -31,7 +31,7 @@ body {
   cursor: pointer;
   margin-top: 1em;
   padding: 0.5em;
-  width: 90%;
+  width: 100%;
 }
 
 .footer{
@@ -42,11 +42,16 @@ body {
 
 .image-chq{
   width: auto;
-  vertical-align: bottom;
+  padding-left: 45%;
 }
 
 .footer__p{
   font-size: 8pt;
   color: inherit;
   text-align: left;
+}
+.footer__p-br{
+  font-size: 8pt;
+  color: inherit;
+  text-align: center;
 }
