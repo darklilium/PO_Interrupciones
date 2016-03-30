@@ -6,7 +6,7 @@ import myinfotemplate from '../services/infotemplates-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import MyGrid from './MyGrid.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
-import getStatisticsSummary from '../services/getstatistics-summary';
+import {getStatisticsSummary} from '../services/getstatistics-summary';
 class Interruptions extends React.Component {
   constructor(){
     super();
@@ -43,9 +43,9 @@ class Interruptions extends React.Component {
       this.setState({ staClic : 1 });
       $('.statisticsSummary').css('visibility', 'visible');
       $('.wrapper_statistics-summary').css('visibility', 'visible');
-      var mysummary = getStatisticsSummary();
-      this.setState({regionsSummary : mysummary});
-    
+      getStatisticsSummary();
+
+
     }else{
       this.setState({ staClic : 0 });
       $('.statisticsSummary').css('visibility', 'hidden');

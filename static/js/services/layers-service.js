@@ -45,6 +45,9 @@ function myLayers(){
     },
     read_qtty_comuna(){  /*using*/
         return serviceURL + "Interrupciones/PO/MapServer/9?f=json&token=" + token.read();;
+    },
+    read_qtty_office(){  /*using*/
+        return serviceURL + "Interrupciones/PO/MapServer/10?f=json&token=" + token.read();;
     }
 
 

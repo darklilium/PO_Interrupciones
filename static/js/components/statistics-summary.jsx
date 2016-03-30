@@ -4,8 +4,8 @@ import token from '../services/token-service';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 import createQueryTask from '../services/createquerytask-service';
-import getStatisticsSummary from '../services/getstatistics-summary';
-
+import {getStatisticsSummary} from '../services/getstatistics-summary';
+import {getStatisticPerOffice} from '../services/getstatistics-summary';
 import ReactTabs from 'react-tabs';
 
 class StatisticsSummary extends React.Component {
@@ -18,13 +18,17 @@ class StatisticsSummary extends React.Component {
     console.log('Selected tab: ' + index + ', Last tab: ' + last);
     if (index==0) {
       getStatisticsSummary();
+    }else if (index==1) {
+      getStatisticPerOffice();
     }
   }
 
   componentDidMount(){
     var foo = function(){
-      //loads the summary component each 10s
+      //loads the summary component first tab (0) each 10s
       getStatisticsSummary();
+      //loads the summary component second tab (1) each 10s
+      getStatisticPerOffice();
       setTimeout(foo, 10000);
       console.log("updating chart");
     };
@@ -50,7 +54,7 @@ class StatisticsSummary extends React.Component {
         </TabList>
 
         <TabPanel>
-          <div id="container2" className="statistics-summary__chart1"></div>
+          <div id="container" className="statistics-summary__chart1"></div>
         </TabPanel>
         <TabPanel>
           <div id="container2" className="statistics-summary__chart1"></div>
