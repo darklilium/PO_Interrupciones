@@ -41,16 +41,13 @@ class Interruptions extends React.Component {
     console.log("toggling statistics");
     if (this.state.staClic==0){
       this.setState({ staClic : 1 });
-      //console.log(this.state.staClic);
-      console.log("mostrar");
       $('.statisticsSummary').css('visibility', 'visible');
       $('.wrapper_statistics-summary').css('visibility', 'visible');
       var mysummary = getStatisticsSummary();
       this.setState({regionsSummary : mysummary});
-      //  console.log(mysummary);
+    
     }else{
       this.setState({ staClic : 0 });
-      console.log("no mostrar");
       $('.statisticsSummary').css('visibility', 'hidden');
       $('.wrapper_statistics-summary').css('visibility', 'hidden');
     }

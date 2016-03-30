@@ -21,7 +21,7 @@ function getStatisticsSummary(){
         return q.attributes.Cantidad;
       });
 
-      $('#container').highcharts({
+      $('#container2').highcharts({
           chart: {
               type: 'bar'
           },
