@@ -80,10 +80,11 @@ class Interruptions extends React.Component {
       {/* Button for cleaning map */}
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
           <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
-      {/* Button for toggle grid */}
+      {/* Button for toggle grid
         <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickToggle}>
             <span className="searchBox_icon"><i className="fa fa-bars"></i> Ver Tabla</span>
         </button>
+        */}
       {/* Button for statistics widget (not done yet)*/}
         <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickStatistics}>
             <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
@@ -99,7 +100,7 @@ class Interruptions extends React.Component {
       <div className="collapse" id="collapseStatistics"></div>
       {/* For collapsing grid*/}
       <div id="collapseMyGrid" className="collapse">
-        <MyGrid />
+       {/*  <MyGrid /> */} {/*NOT USING FOR NOW*/}
       </div>
       {/*Statistics per Region*/}
       <StatisticsSummary className="statisticsSummary" />
