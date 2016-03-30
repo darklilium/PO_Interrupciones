@@ -41,9 +41,13 @@ function myLayers(){
       return graphicLayer;
     },
     read_dyn_layerClieSED(){  /*using*/
-        return serviceURL + "/Interrupciones/PO/MapServer?f=json&token=" + token.read();;
+        return serviceURL + "Interrupciones/PO/MapServer?f=json&token=" + token.read();;
+    },
+    read_qtty_comuna(){  /*using*/
+        return serviceURL + "Interrupciones/PO/MapServer/9?f=json&token=" + token.read();;
     }
-  
+
+
 
 
   };

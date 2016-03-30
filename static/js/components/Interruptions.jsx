@@ -16,8 +16,7 @@ class Interruptions extends React.Component {
     this.onClickClearMap = this.onClickClearMap.bind(this);
 
     this.state = {
-      staClic : 0,
-      summary: []
+      staClic : 0
     }
   }
 
@@ -106,7 +105,7 @@ class Interruptions extends React.Component {
         <MyGrid />
       </div>
       {/*Statistics per Region*/}
-      <StatisticsSummary className="statisticsSummary" summaryArray={this.state.summary} />
+      <StatisticsSummary className="statisticsSummary" />
       {/* For notifications about ORDER clicked and related NIS found in the grid*/}
       <div className="orderNotification">
         <div id="myorderNotification"></div>
