@@ -14,14 +14,15 @@ function searchBar_NIS(nis){
     //if NIS is in the layer for isolated orders
     if (featureSet.features.length != 0){
       for (let i = 0; i < featureSet.features.length; i++) {
-
         let pointSymbol = makeSymbol.makePoint();
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in isolated interruptions");
 
-        sendNotification('info', 'NIS: '+ nis + ' presente en falla aislada');
-
+        let message = 'NIS: '+ nis + ' presente en falla aislada';
+        let type = "customer";
+        setNotificationBox(message, type);
+        //search SED for the nis and add it to infowindow
         let myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
         let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'];
@@ -36,18 +37,20 @@ function searchBar_NIS(nis){
           map.graphics.clear();
 
           if(!featureSet.features.length){
-            sendNotification('warning', "NIS: " + nis + " no tiene sed");
+            let message = "NIS: " + nis + " no tiene sed";
+            let type = "NoSED";
+            setNotificationBox(message, type);
             return;
           }
 
           let sed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
-          console.log(
-            featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed']
-          );
+          console.log(featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed']);
           makeInfoWindow(myNis,myOrder,myIncidence,sed, featureSet.features[0].geometry);
-        },sendNotification.bind(null, 'error'));
+        },setNotificationBox.bind(null, 'Error al realizar la búsqueda de la sed del nis',"Error"));
       }
     } else {
+      //if the nis is not in the isolated orders, search in SED interruptions orders, but first get
+      //the SED code for the customer (NIS)
       console.log("going to search into massive interruptions");
       var serviceMassive = createQueryTask({
         url: layers.read_layer_ClieSED(),
@@ -55,38 +58,63 @@ function searchBar_NIS(nis){
       });
       serviceMassive((map,featureSet)=>{
         if(!featureSet.features.length){
-          sendNotification('info', "NIS: " + nis+ " no se ha encontrado o no existe");
+          let message = "NIS: " + nis+ " no se ha encontrado o no existe";
+          let type = "info";
+          setNotificationBox(message, type);
           return;
         }
 
         let mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
+        //and then search for any problem in SED
         searchMassive(mySed, nis);
       },(error)=>{
           console.log("Error al ejecutar la query en Falla Masiva");
-          sendNotification('info', "Error al buscar el NIS en falla masiva: " + nis);
+          let message = "Error al buscar el NIS en falla masiva: " + nis;
+          let type = "Error";
+          setNotificationBox(message, type);
       });
     }
   }, (error)=>{
     console.log("Error al ejecutar la query en Falla Aislada");
-    sendNotification('warning', "Ingrese un NIS a buscar");
-  //  sendNotification.bind(null, 'error')
+    let message = "Ingrese un NIS a buscar";
+    let type = "info";
+    setNotificationBox(message, type);
   });
 
 }
 
-function sendNotification(level='warning', message){
-  $('.searchNotification').css('visibility','initial');
-
-  $('#myNotification')
+function setNotificationBox(message, type){
+  $('.notificationBox')
     .empty()
-    .append('<div><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>'+message+'</strong></div>')
-  //  .append('<div><strong>' + message + '</strong></div>')
-    .attr('class', "alert alert-" + level);
+    .css('visibility','visible')
+    .append('<strong style="padding-left: 2em;">'+message+'</strong>');
+
+  switch (type) {
+    case 'customer':
+      $('.notificationBox').css('background-color','lightgreen');
+      break;
+    case 'SED':
+      $('.notificationBox').css('background-color','lightcoral');
+      break;
+    case 'OK':
+      $('.notificationBox').css('background-color','powderblue');
+      break;
+    case 'NoSED':
+      $('.notificationBox').css('background-color','red');
+      break;
+    case 'info':
+      $('.notificationBox').css('background-color','yellow');
+      break;
+    case 'Error':
+      $('.notificationBox').css('background-color','blue');
+      break;
+    default:
+
+  }
 }
 
-
-
 function searchMassive(sed, nis){
+  //search if the nis is in a SED interruption order
   var serviceSearchMassive = createQueryTask({
     url: layers.read_layer_interr_sed(),
     whereClause: `ARCGIS.DBO.SED_006.codigo=${sed}`
@@ -95,13 +123,15 @@ function searchMassive(sed, nis){
   serviceSearchMassive((map,featureSet)=>{
     map.graphics.clear();
       if(!featureSet.features.length) {
+        //if the nis is not in the SED interruption orders, the nis doesnt have any problem.
         console.log("nis is not having any issue");
-        sendNotification('success', "NIS: " + nis + " no presenta problemas");
+        let message = "NIS: " + nis + " no presenta problemas";
+        let type = "OK";
+        setNotificationBox(message, type);
         return;
       }
-
+      //when the order is found , show where the NIS is with the info.
       console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
-
       for (let i = 0; i < featureSet.features.length; i++) {
         let pointSymbol = makeSymbol.makePoint();
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
@@ -110,12 +140,16 @@ function searchMassive(sed, nis){
 
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
         let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'];
-        sendNotification('danger',"NIS: " + nis +" presente en falla masiva");
+        let message = "NIS: " + nis +" presente en falla masiva";
+        let type = "SED";
+        setNotificationBox(message, type);
         makeInfoWindow(nis,myOrder,myIncidence,sed, featureSet.features[0].geometry);
       }
   },(error)=>{
     console.log("Problems getting the sed for massive interruption ");
-    sendNotification('warning', "Error tratando de obtener la SED del NIS:" + nis);
+    let message = "Error tratando de obtener la SED del NIS:" + nis;
+    let type = "Error";
+    setNotificationBox(message, type);
   });
 }
 

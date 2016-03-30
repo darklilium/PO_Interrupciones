@@ -3,7 +3,7 @@
 *29/03/2016
 */
 $search-box-bg: ghostwhite;
-
+$notification-box-bg: gainsboro;
 .searchBox__searchInput{
   height: 1.6em;
   width: 8em;
@@ -34,6 +34,18 @@ $search-box-bg: ghostwhite;
   text-align: center;
   padding: 0;
   margin: 0;
+}
+
+.notificationBox{
+  width: 29em;
+  height: 1.5em;
+  margin-top: 1.8em;
+  padding: 0em;
+  background-color: $notification-box-bg;
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  visibility: hidden;
 }
 
 /*start: css for interruption2*/

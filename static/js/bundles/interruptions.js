@@ -64,8 +64,10 @@ class Interruptions extends React.Component {
     console.log("clearing map");
     var map = mymap.getMap();
     map.graphics.clear();
-
     map.removeLayer(layers.read_graphicLayer());
+
+    $('.notificationBox').empty();
+    $('.notificationBox').css('visibility', 'hidden');
   }
 
   render(){
@@ -90,6 +92,8 @@ class Interruptions extends React.Component {
             <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
         </button>
       </div>
+      {/* Notification Box*/}
+      <div className="notificationBox"></div>
       {/* The map*/}
       <div className="myMapDiv" id="myMapDiv"></div>
       {/* StatisticsToolbar on top*/}
