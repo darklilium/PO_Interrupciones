@@ -39,7 +39,11 @@ function myLayers(){
     },
     read_graphicLayer(){  /*using*/
       return graphicLayer;
+    },
+    read_dyn_layerClieSED(){  /*using*/
+        return serviceURL + "/Interrupciones/PO/MapServer?f=json&token=" + token.read();;
     }
+  
 
 
   };

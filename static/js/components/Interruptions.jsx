@@ -19,29 +19,13 @@ class Interruptions extends React.Component {
     var map = mymap.createMap("myMapDiv","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
 
-    var sedInterrLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_sed(),{
-       mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
-       infoTemplate: myinfotemplate.getSubFailure(),
-       outFields: ["*"]
+    var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED());
+    interrClienteSED.setInfoTemplates({
+      3: {infoTemplate: myinfotemplate.getNisInfo()},
+      1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
+      0: {infoTemplate: myinfotemplate.getSubFailure()}
     });
-
-    var clieInterrLayer = new esri.layers.FeatureLayer(layers.read_layer_interr_clie(),{
-       mode: esri.layers.FeatureLayer.MODE_SNAPSHOT,
-       infoTemplate: myinfotemplate.getIsolatedNisFailure(),
-       outFields: ["*"]
-    });
-
-    var interrTramos = new esri.layers.FeatureLayer(layers.read_layer_tramosBT());
-
-    var interrClienteSED = new esri.layers.FeatureLayer(layers.read_layer_ClienteSED(),{
-      infoTemplate: myinfotemplate.getNisInfo(),
-      outFields: ["*"]
-    });
-
-    map.addLayer(interrTramos);
-    map.addLayer(sedInterrLayer);
     map.addLayer(interrClienteSED);
-    map.addLayer(clieInterrLayer);
   }
 
   onClickToggle(mouseEvent){
@@ -50,6 +34,7 @@ class Interruptions extends React.Component {
 
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
+
   }
 
   onClick(){
