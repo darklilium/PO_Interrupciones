@@ -8,6 +8,8 @@ import MyGrid from '../bundles/myGrid';
 import searchBar_NIS from '../services/searchbar-service';
 import clickSearch from '../services/map_onclicksearch-service';
 import myinfotemplate from '../services/infotemplates-service';
+import StatisticsSummary from '../bundles/components/statistics-summary';
+import getStatisticsSummary from '../services/getstatistics-summary';
 
 class Interruptions extends React.Component {
 
@@ -17,6 +19,11 @@ class Interruptions extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
+    this.state = {
+      staClic : 0,
+      regionsSummary: []
+    };
+
   }
 
   componentDidMount(){
@@ -42,6 +49,8 @@ class Interruptions extends React.Component {
       outFields: ["*"]
     });
 
+    sedInterrLayer.refreshInterval= 1;
+    clieInterrLayer.refreshInterval= 1;
     map.addLayer(interrTramos);
     map.addLayer(sedInterrLayer);
     map.addLayer(interrClienteSED);
@@ -54,6 +63,22 @@ class Interruptions extends React.Component {
 
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
+
+    if (this.state.staClic==0){
+      this.setState({ staClic : 1 });
+      //  console.log(this.state.staClic);
+        console.log("mostrar");
+        $('.statisticsSummary').css('visibility', 'visible');
+        $('.wrapper_statistics-summary').css('visibility', 'visible');
+        var mysummary = getStatisticsSummary();
+        this.setState({regionsSummary : mysummary});
+      //  console.log(mysummary);
+    }else{
+        this.setState({ staClic : 0 });
+        console.log("no mostrar");
+        $('.statisticsSummary').css('visibility', 'hidden');
+        $('.wrapper_statistics-summary').css('visibility', 'hidden');
+    }
   }
 
   onClick(){
@@ -104,10 +129,8 @@ class Interruptions extends React.Component {
       <div id="collapseMyGrid" className="collapse">
         <MyGrid />
       </div>
-      {/* For notifications about NIS found in the searchbar*/}
-      <div className="searchNotification">
-        <div id="myNotification"></div>
-      </div>
+      {/*Statistics per Region*/}
+      <StatisticsSummary className="statisticsSummary" comunasArray={this.state.regionsSummary} />
       {/* For notifications about ORDER clicked and related NIS found in the grid*/}
       <div className="orderNotification">
         <div id="myorderNotification"></div>

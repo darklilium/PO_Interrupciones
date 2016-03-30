@@ -34,10 +34,10 @@ function myLayers(){
     read_layer_countTotal(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/8?token=" + token.read();
     },
-    save_graphicLayer(myGraphicsLayer){
+    save_graphicLayer(myGraphicsLayer){  /*using*/
       graphicLayer = myGraphicsLayer;
     },
-    read_graphicLayer(){
+    read_graphicLayer(){  /*using*/
       return graphicLayer;
     }
 

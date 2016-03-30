@@ -21,11 +21,11 @@ class StatisticsToolbar extends React.Component {
       this.currentMassive();
       this.currentIsolated();
       this.currentTotal();
-      setTimeout(foo, 10000);
+      setTimeout(foo, 60000);
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 10000);
+    setTimeout(foo, 60000);
   }
 
   currentMassive(){

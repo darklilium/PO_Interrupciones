@@ -24,7 +24,8 @@
   "dependencies": {
     "lodash": "^4.6.1",
     "react": "^0.14.7",
-    "react-dom": "^0.14.7"
+    "react-dom": "^0.14.7",
+    "highcharts": "~4.2.3"
   },
   "devDependencies": {
     "babel-core": "^6.6.5",

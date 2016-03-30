@@ -20,16 +20,6 @@ body{
   overflow-y: hidden;
 }
 
-.searchNotification{
-  width: auto;
-  margin-top: 1.8em;
-  position: fixed;
-  top: 0px;
-  z-index: 2;
-  right: 0;
-  visibility: hidden;
-}
-
 .orderNotification{
   width: 16em;
   margin-top: 4em;
@@ -43,3 +33,4 @@ body{
 @import "components/search-box";
 @import "components/myGrid";
 @import "components/statistics";
+@import "components/statistics-summary";

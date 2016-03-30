@@ -71,10 +71,7 @@ class Interruptions extends React.Component {
             <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
         </button>
 
-        <div className="searchNotification">
-          <div id="myNotification"></div>
-        </div>
-
+        
         <div className="orderNotification">
           <div id="myorderNotification"></div>
         </div>
