@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import token from '../../services/token-service';
-import layers from '../../services/layers-service';
-import mymap from '../../services/map-service';
-import createQueryTask from '../../services/createquerytask-service';
+import token from '../services/token-service';
+import layers from '../services/layers-service';
+import mymap from '../services/map-service';
+import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
+
 class StatisticsSummary extends React.Component {
 
   constructor(props){
-    super(props);
-//    console.log(this.props.comunasArray);
+  super(props);
+  console.log(this.props.summaryArray);
   }
   componentDidMount(){
-    var comunas = this.props.comunasArray.map( (comuna)=> {
+    var comunas = this.props.summaryArray.map( (comuna)=> {
       return comuna;
     });
     console.log(comunas);
@@ -27,7 +28,7 @@ class StatisticsSummary extends React.Component {
           },
 
           xAxis: {
-              categories: this.props.comunasArray
+              categories: this.props.summaryArray
           },
           yAxis: {
               min: 0,
