@@ -29,9 +29,14 @@ gulp.task('templates', function(){
     .pipe(gulp.dest('dist/templates'));
 });
 
+gulp.task('libs', function(){
+  return gulp.src('./static/js/vendor/*.js')
+    .pipe(gulp.dest(dist('js/vendor')));
+});
+
 gulp.task('watch', function(){
   gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
   gulp.watch(['*.html'], ['templates']);
 });
 
-gulp.task('default', ['sass', 'templates', 'watch']);
+gulp.task('default', ['sass', 'templates', 'libs', 'watch']);

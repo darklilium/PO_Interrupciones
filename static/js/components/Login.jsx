@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import { genericLogin } from '../services/login-service';
 
@@ -37,4 +36,4 @@ class LoginApp extends React.Component {
   }
 }
 
-ReactDOM.render(<LoginApp />, document.getElementById('myLogin'));
+export default LoginApp;

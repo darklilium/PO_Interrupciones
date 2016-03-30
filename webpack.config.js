@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
   entry: {
-    login: './static/js/bundles/main.js',
+    login: './static/js/bundles/login.js',
     dashboard: './static/js/bundles/dashboard.js',
     interruptions: './static/js/bundles/interruptions.js',
     interruptions2: './static/js/bundles/interruptions2.js'
@@ -19,7 +19,7 @@ module.exports = {
   module: {
     loaders: [
      {
-       test: /\.jsx?$/,
+       test: /\.(js|jsx)$/,
        exclude: /node_modules/,
        loader: 'babel',
        query: {
