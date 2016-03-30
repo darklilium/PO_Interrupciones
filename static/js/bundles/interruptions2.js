@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import StatisticsToolbar from '../bundles/statistics-toolbar';
 import mymap from '../services/map-service';
-
 import searchBar_NIS from '../services/othercompanies/searchbar_companies-service';
 
 class Interruptions extends React.Component {
@@ -15,20 +15,15 @@ class Interruptions extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onChange = this.onChange.bind(this);
-
-
   }
 
   componentDidMount(){
     var map = mymap.createMap("myMapDiv");
     map.disableKeyboardNavigation();
-
-
   }
 
   onClickToggle(mouseEvent){
     console.log("toggling table");
-
   }
 
   onClickStatistics(mouseEvent){
