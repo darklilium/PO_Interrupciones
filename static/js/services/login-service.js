@@ -18,28 +18,31 @@ function genericLogin(user, pass, token){
      data: data,
      dataType:'html',
      success: (myToken) => {
-       console.log('Requesting service access');
-       console.log('Logging in to gisred');
-       console.log('writing token into system');
-       token.write(myToken);
-        window.location.href = "interrupciones.html";
+
+       if (myToken.search("Exception") == -1) {
+         console.log(myToken);
+         console.log('Requesting service access');
+         console.log('Logging in to gisred');
+         console.log('writing token into system');
+         token.write(myToken);
+         notifications("Logging in...","loginSucess");
+         window.location.href = "interrupciones.html";
+       } else {
+         //alert("Login incorrecto, intente nuevamente.");
+         notifications("Login incorrecto, intente nuevamente","loginIncorrect");
+       }
+
     },
      error: (error) => {
        console.log("You are not authorized ):");
        console.log(error);
-       loginNotification("You are not authorized ):","loginError", ".notification notification-login");
+       notifications("Acceso no autorizado.","loginError");
      }
   });
   console.log('done');
 }
-function loginNotification(message, type, classNeim){
-
-  $(classNeim)
-    .empty()
-    .css('visibility','visible')
-    .append('<strong style="padding-left: 2em;">'+message+'</strong>');
-
-    switch (type) {
+function notifications(message, type){
+  switch (type) {
     /*  case 'customer':
         $('.notificationBox').css('background-color','lightgreen');
         break;
@@ -57,11 +60,36 @@ function loginNotification(message, type, classNeim){
         break;
       case 'Error':
         $('.notificationBox').css('background-color','blue');
+          .append('<strong style="padding-left: 2em;">'+message+'</strong>');
         break;
       */
-      case loginError:
-        $(classNeim).css('background-color','lightcoral');
+      case 'loginError':
+      $('.notification-login')
+        .empty()
+        .css('visibility','visible')
+        .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
+
+        console.log("login error");
         break;
+
+      case 'loginIncorrect':
+       $('.notification-login')
+        .empty()
+        .css('visibility','visible')
+        .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
+        console.log("login inc");
+         break;
+
+      case 'loginSucess':
+      $('.notification-login')
+        .empty()
+        .css('visibility','visible')
+        .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
+        console.log("login inc");
+        console.log("login su");
+        break;
+
+
       default:
       break;
 }
