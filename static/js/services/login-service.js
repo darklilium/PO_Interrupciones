@@ -1,5 +1,3 @@
-
-
 function genericLogin(user, pass, token){
   var url = "http://gisred.chilquinta.cl:5555/arcgis/tokens/generateToken";
   console.log(user, pass);
@@ -22,13 +20,12 @@ function genericLogin(user, pass, token){
        if (myToken.search("Exception") == -1) {
          console.log(myToken);
          console.log('Requesting service access');
-         console.log('Logging in to gisred');
+         console.log('Logging in to gisred-interruptions');
          console.log('writing token into system');
          token.write(myToken);
          notifications("Logging in...","loginSucess");
          window.location.href = "interrupciones.html";
        } else {
-         //alert("Login incorrecto, intente nuevamente.");
          notifications("Login incorrecto, intente nuevamente","loginIncorrect");
        }
 
@@ -46,18 +43,23 @@ function notifications(message, type){
     /*  case 'customer':
         $('.notificationBox').css('background-color','lightgreen');
         break;
+
       case 'SED':
         $('.notificationBox').css('background-color','lightcoral');
         break;
+
       case 'OK':
         $('.notificationBox').css('background-color','powderblue');
         break;
+
       case 'NoSED':
         $('.notificationBox').css('background-color','red');
         break;
+
       case 'info':
         $('.notificationBox').css('background-color','yellow');
         break;
+
       case 'Error':
         $('.notificationBox').css('background-color','blue');
           .append('<strong style="padding-left: 2em;">'+message+'</strong>');
@@ -68,8 +70,6 @@ function notifications(message, type){
         .empty()
         .css('visibility','visible')
         .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
-
-        console.log("login error");
         break;
 
       case 'loginIncorrect':
@@ -77,22 +77,18 @@ function notifications(message, type){
         .empty()
         .css('visibility','visible')
         .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
-        console.log("login inc");
-         break;
+        break;
 
       case 'loginSucess':
       $('.notification-login')
         .empty()
         .css('visibility','visible')
         .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>');
-        console.log("login inc");
-        console.log("login su");
         break;
-
 
       default:
       break;
-}
+  }
 }
 
 export { genericLogin };
