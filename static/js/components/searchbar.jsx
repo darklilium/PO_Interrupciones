@@ -11,12 +11,27 @@ class SearchBar extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
-
+    this.onClickSearchSelector = this.onClickSearchSelector.bind(this);
     this.state = {
-      staClic : 0
+      staClic : 0,
+      selectorClick:0
     }
 }
+  onClickSearchSelector(){
+    console.log("toggling search selector");
+    if (this.state.selectorClick==0){
+      this.setState({ selectorClick : 1 });
+      $('.statisticsSummary').css('visibility', 'visible');
+      $('.wrapper_statistics-summary').css('visibility', 'visible');
+      getStatisticsSummary();
 
+
+    }else{
+      this.setState({ selectorClick : 0 });
+      $('.statisticsSummary').css('visibility', 'hidden');
+      $('.wrapper_statistics-summary').css('visibility', 'hidden');
+    }
+  }
   onClickToggle(mouseEvent){
     console.log("toggling table");
   }
@@ -38,8 +53,17 @@ class SearchBar extends React.Component {
   }
 
   onClick(){
-    console.log("searching");
-    searchBar_NIS(this.refs.NIS.value);
+  $('.notificationBox').empty().css('visibility', 'hidden');
+    console.log("searching for...");
+    let searchType = this.refs.searchType.value;
+    if (searchType=='nis') {
+      console.log("nis");
+      searchBar_NIS(this.refs.NIS.value);
+    }else if (searchType=='incidence') {
+      console.log("incidencia");
+    }else{
+      console.log("orden");
+    }
   }
 
   onClickClearMap(){
@@ -56,6 +80,13 @@ class SearchBar extends React.Component {
     return (
       <div>
       <div className="searchBox">
+      {/* Button for search orders and incidences */}
+      <select className="searchbox__combobox" ref="searchType">
+        <option value="nis">NIS</option>
+        <option value="incidence">INCIDENCIA</option>
+        <option value="order">ORDEN</option>
+      </select>
+
       {/* Input for searching NIS */}
         <input className="searchBox__searchInput" ref="NIS" type="text" placeholder=" NIS" />
       {/* Button for searching NIS */}
@@ -65,23 +96,22 @@ class SearchBar extends React.Component {
       {/* Button for cleaning map */}
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
           <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
-      {/* Button for search orders and incidences */}
-      <button type="button" className="searchBox__searchSubmit btn btn-default">
-         <span className="searchBox_icon"><i className="fa fa-asterisk"></i></span>
-      </button>
+      {/* Button for statistics per region*/}
+        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
+            <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
+        </button>
 
       {/* Button for toggle grid  */}
         <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickToggle}>
             <span className="searchBox_icon"><i className="fa fa-bars"></i></span>
         </button>
 
-      {/* Button for statistics widget (not done yet)*/}
-        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
-            <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
-        </button>
+
       </div>
       {/* Notification Box*/}
       <div className="notificationBox"></div>
+      {/* SearchSelectorTab*/}
+
       </div>
     );
   }

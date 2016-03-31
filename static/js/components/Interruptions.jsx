@@ -30,6 +30,7 @@ class Interruptions extends React.Component {
   }
 
   render(){
+  
     return (
     <div className="interruptions_wrapper">
       {/*Search nis and orders with statistics button and table*/}
