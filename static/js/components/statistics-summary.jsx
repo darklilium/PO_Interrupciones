@@ -29,12 +29,12 @@ class StatisticsSummary extends React.Component {
       getStatisticsSummary();
       //loads the summary component second tab (1) each 10s
       getStatisticPerOffice();
-      setTimeout(foo, 10000);
+      setTimeout(foo, 120000);
       console.log("updating chart");
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 10000);
+    setTimeout(foo, 120000);
   }
   render(){
     var Tab = ReactTabs.Tab;

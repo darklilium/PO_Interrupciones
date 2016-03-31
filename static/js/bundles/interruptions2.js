@@ -1,6 +1,5 @@
-import React from 'react';
+/*import React from 'react';
 import ReactDOM from 'react-dom';
-
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import StatisticsToolbar from '../bundles/statistics-toolbar';
@@ -66,7 +65,7 @@ class Interruptions extends React.Component {
             <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
         </button>
 
-        
+
         <div className="orderNotification">
           <div id="myorderNotification"></div>
         </div>
@@ -86,3 +85,4 @@ class Interruptions extends React.Component {
 }
 
 ReactDOM.render(<Interruptions />, document.getElementById('myInterruptions2'));
+*/

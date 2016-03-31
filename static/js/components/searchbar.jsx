@@ -1,7 +1,8 @@
 import React from 'react';
 import mymap from '../services/map-service';
 import layers from '../services/layers-service';
-import searchBar_NIS from '../services/searchbar-service';
+import {searchBar_NIS} from '../services/searchbar-service';
+import {searchBar_Order} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 
 class SearchBar extends React.Component {
@@ -54,15 +55,16 @@ class SearchBar extends React.Component {
 
   onClick(){
   $('.notificationBox').empty().css('visibility', 'hidden');
-    console.log("searching for...");
     let searchType = this.refs.searchType.value;
     if (searchType=='nis') {
-      console.log("nis");
-      searchBar_NIS(this.refs.NIS.value);
+      console.log("searching for nis...");
+      searchBar_NIS(this.refs.searchValue.value);
     }else if (searchType=='incidence') {
-      console.log("incidencia");
+      console.log("searching for incidence...");
     }else{
-      console.log("orden");
+      console.log("searching for order...");
+      console.log(this.refs.searchValue.value);
+      searchBar_Order(this.refs.searchValue.value);
     }
   }
 
@@ -88,7 +90,7 @@ class SearchBar extends React.Component {
       </select>
 
       {/* Input for searching NIS */}
-        <input className="searchBox__searchInput" ref="NIS" type="text" placeholder=" NIS" />
+        <input className="searchBox__searchInput" ref="searchValue" type="text" placeholder=" NIS" />
       {/* Button for searching NIS */}
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClick}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
