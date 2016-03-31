@@ -138,10 +138,7 @@ function searchBar_Order(order_id){
   serviceOrder((map,featureSet)=>{
     //if the order is not isolated nis, search in massive.
     if(!featureSet.features.length){
-      /*let message = "ID Orden: " + order_id + " no se ha encontrado o no existe";
-      let type = "Order";
-      setNotificationBox(message, type);
-      */
+      //search in SED interruptions
       searchMassiveOrder(order_id);
       return;
     }
@@ -152,6 +149,10 @@ function searchBar_Order(order_id){
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
     map.centerAndZoom(myresults[0],15);
+    let message = "ID Orden: " + order_id + " encontrada en fallas de clientes";
+    let type = "Order_customer";
+    setNotificationBox(message, type);
+
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
@@ -168,17 +169,25 @@ function searchMassiveOrder(order_id){
   });
 
   serviceOrderSED((map,featureSet)=>{
+    if (!featureSet.features.length){
+      let message = "ID Orden: " + order_id + " no se ha encontrado o no existe";
+      let type = "OrderNotFound";
+      setNotificationBox(message, type);
+      return;
+    }
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
-    console.log(myresults);
+
     let pointSymbol = makeSymbol.makePoint();
       myresults.forEach((attr)=>{
       map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
       map.centerAndZoom(attr.geometry,15);
-    });
 
-
+      });
+      let message = "ID Orden: " + order_id + " encontrada en fallas de SED";
+      let type = "Order_SED";
+      setNotificationBox(message, type);
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
     let message = "Error doing query for getting orders associated to the SED";
@@ -186,8 +195,74 @@ function searchMassiveOrder(order_id){
   });
 }
 
-function searchBar_Incidence(order_id){
+function searchBar_Incidence(incidence_id){
+  /*To do: search order.
+  * if Incidence is for isolated nis -> zoom to the result (1 nis : 1 Incidence)
+    else if Incidence is on massive interruption for SED. (1 SED : * Incidences)
+    else the Incidence is not correct or not found.
+  */
+  var serviceIncidence = createQueryTask({
+    url: layers.read_layer_interr_clie(),
+    whereClause: `ARCGIS.dbo.POWERON_CLIENTES.id_incidencia=${incidence_id}`
+  });
+  serviceIncidence((map,featureSet)=>{
+    //if the order is not isolated nis, search in massive.
+    if(!featureSet.features.length){
+      //search in SED interruptions
+      searchMassiveIncidence(incidence_id);
+      return;
+    }
+    let myresults = featureSet.features.map((feature)=>{
+      return feature.geometry;
+    });
 
+    let pointSymbol = makeSymbol.makePoint();
+    map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
+    map.centerAndZoom(myresults[0],15);
+    let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de clientes";
+    let type = "Order_customer";
+    setNotificationBox(message, type);
+
+
+  }, (errorOrder)=>{
+    console.log("Error doing query for getting orders associated to the customer");
+    let message = "Error doing query for getting orders associated to the customer";
+    setNotificationBox(message, "ErrorOrder");
+  });
+}
+
+function searchMassiveIncidence(incidence_id){
+  console.log(incidence_id, "search in massive orders");
+  var serviceOrderSED = createQueryTask({
+    url: layers.read_layer_interr_sed(),
+    whereClause: `ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia=${incidence_id}`
+  });
+
+  serviceOrderSED((map,featureSet)=>{
+    if (!featureSet.features.length){
+      let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe";
+      let type = "OrderNotFound";
+      setNotificationBox(message, type);
+      return;
+    }
+    let myresults = featureSet.features.map((feature)=>{
+      return feature;
+    });
+
+    let pointSymbol = makeSymbol.makePoint();
+      myresults.forEach((attr)=>{
+      map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+      map.centerAndZoom(attr.geometry,15);
+
+      });
+      let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de SED";
+      let type = "Order_SED";
+      setNotificationBox(message, type);
+  },(errorOrderSED)=>{
+    console.log("Error doing query for getting orders associated to the SED");
+    let message = "Error doing query for getting orders associated to the SED";
+    setNotificationBox(message, "ErrorOrderSED");
+  });
 }
 
 function setNotificationBox(message, type){
@@ -218,11 +293,22 @@ function setNotificationBox(message, type){
     case 'Order':
       $('.notificationBox').css('background-color','yellow');
       break;
+    case 'ErrorOrder':
+      $('.notificationBox').css('background-color','azure');
+      break;
+    case 'OrderNotFound':
+      $('.notificationBox').css('background-color','yellow');
+      break;
+    case 'Order_customer':
+      $('.notificationBox').css('background-color','lightgreen');
+      break;
+    case 'Order_SED':
+      $('.notificationBox').css('background-color','lightcoral');
+      break;
 
-      //ErrorOrder
     default:
 
   }
 }
 
-export {searchBar_NIS, searchBar_Order};
+export {searchBar_NIS, searchBar_Order, searchBar_Incidence};

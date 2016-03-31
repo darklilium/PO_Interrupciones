@@ -29,12 +29,12 @@ class StatisticsSummary extends React.Component {
       getStatisticsSummary();
       //loads the summary component second tab (1) each 10s
       getStatisticPerOffice();
-      setTimeout(foo, 120000);
+      setTimeout(foo, 60000);
       console.log("updating chart");
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 120000);
+    setTimeout(foo, 60000);
   }
   render(){
     var Tab = ReactTabs.Tab;
@@ -48,9 +48,11 @@ class StatisticsSummary extends React.Component {
         onSelect={this.handleSelect}
         selectedIndex={0}
       >
-        <TabList>
+        <TabList className="statistics-tablist">
           <Tab>Por comuna</Tab>
           <Tab>Por Oficina</Tab>
+          <Tab>% por comuna</Tab>
+          <Tab>% por Oficina</Tab>
         </TabList>
 
         <TabPanel>
@@ -58,6 +60,12 @@ class StatisticsSummary extends React.Component {
         </TabPanel>
         <TabPanel>
           <div id="container2" className="statistics-summary__chart1"></div>
+        </TabPanel>
+        <TabPanel>
+          <div id="container3" className="statistics-summary__chart1"></div>
+        </TabPanel>
+        <TabPanel>
+          <div id="container4" className="statistics-summary__chart1"></div>
         </TabPanel>
     </Tabs>
 

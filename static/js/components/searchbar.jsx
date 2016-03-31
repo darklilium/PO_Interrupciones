@@ -3,6 +3,7 @@ import mymap from '../services/map-service';
 import layers from '../services/layers-service';
 import {searchBar_NIS} from '../services/searchbar-service';
 import {searchBar_Order} from '../services/searchbar-service';
+import {searchBar_Incidence} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 
 class SearchBar extends React.Component {
@@ -12,27 +13,12 @@ class SearchBar extends React.Component {
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
-    this.onClickSearchSelector = this.onClickSearchSelector.bind(this);
+
     this.state = {
-      staClic : 0,
-      selectorClick:0
+      staClic : 0
     }
 }
-  onClickSearchSelector(){
-    console.log("toggling search selector");
-    if (this.state.selectorClick==0){
-      this.setState({ selectorClick : 1 });
-      $('.statisticsSummary').css('visibility', 'visible');
-      $('.wrapper_statistics-summary').css('visibility', 'visible');
-      getStatisticsSummary();
 
-
-    }else{
-      this.setState({ selectorClick : 0 });
-      $('.statisticsSummary').css('visibility', 'hidden');
-      $('.wrapper_statistics-summary').css('visibility', 'hidden');
-    }
-  }
   onClickToggle(mouseEvent){
     console.log("toggling table");
   }
@@ -61,6 +47,7 @@ class SearchBar extends React.Component {
       searchBar_NIS(this.refs.searchValue.value);
     }else if (searchType=='incidence') {
       console.log("searching for incidence...");
+      searchBar_Incidence(this.refs.searchValue.value);
     }else{
       console.log("searching for order...");
       console.log(this.refs.searchValue.value);

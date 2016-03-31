@@ -5,7 +5,7 @@ import myinfotemplate from '../services/infotemplates-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import MyGrid from './MyGrid.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
-import SearchBar from './searchbar.jsx'
+import SearchBar from './Searchbar.jsx'
 class Interruptions extends React.Component {
   constructor(){
     super();
@@ -26,11 +26,13 @@ class Interruptions extends React.Component {
       1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
       0: {infoTemplate: myinfotemplate.getSubFailure()}
     });
+
+    
     map.addLayer(interrClienteSED);
   }
 
   render(){
-  
+
     return (
     <div className="interruptions_wrapper">
       {/*Search nis and orders with statistics button and table*/}
