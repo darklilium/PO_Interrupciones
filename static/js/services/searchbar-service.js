@@ -87,7 +87,7 @@ function setNotificationBox(message, type){
   $('.notificationBox')
     .empty()
     .css('visibility','visible')
-    .append('<strong style="padding-left: 2em;">'+message+'</strong>');
+    .append('<strong class="notificationBox-text">'+message+'</strong>');
 
   switch (type) {
     case 'customer':

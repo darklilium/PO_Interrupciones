@@ -1,5 +1,6 @@
 import React from 'react';
 import mymap from '../services/map-service';
+import layers from '../services/layers-service';
 import searchBar_NIS from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 
@@ -64,14 +65,19 @@ class SearchBar extends React.Component {
       {/* Button for cleaning map */}
         <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
           <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
+      {/* Button for search orders and incidences */}
+      <button type="button" className="searchBox__searchSubmit btn btn-default">
+         <span className="searchBox_icon"><i className="fa fa-asterisk"></i></span>
+      </button>
+
       {/* Button for toggle grid  */}
-        <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickToggle}>
-            <span className="searchBox_icon"><i className="fa fa-bars"></i> Ver Tabla</span>
+        <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickToggle}>
+            <span className="searchBox_icon"><i className="fa fa-bars"></i></span>
         </button>
 
       {/* Button for statistics widget (not done yet)*/}
-        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__tableToggle btn btn-default" onClick={this.onClickStatistics}>
-            <span className="searchBox_icon"><i className="fa fa-bar-chart"></i> Estadísticas</span>
+        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
+            <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
         </button>
       </div>
       {/* Notification Box*/}

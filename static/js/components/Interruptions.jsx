@@ -9,7 +9,7 @@ import SearchBar from './searchbar.jsx'
 class Interruptions extends React.Component {
   constructor(){
     super();
-  
+
 
     this.state = {
       staClic : 0
@@ -32,6 +32,7 @@ class Interruptions extends React.Component {
   render(){
     return (
     <div className="interruptions_wrapper">
+      {/*Search nis and orders with statistics button and table*/}
       <SearchBar />
       {/* The map*/}
       <div className="myMapDiv" id="myMapDiv"></div>
