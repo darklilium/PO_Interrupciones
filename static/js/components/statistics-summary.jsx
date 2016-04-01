@@ -6,6 +6,8 @@ import mymap from '../services/map-service';
 import createQueryTask from '../services/createquerytask-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 import {getStatisticPerOffice} from '../services/getstatistics-summary';
+import {getStatisticsRegionPercent} from '../services/getstatistics-summary';
+
 import ReactTabs from 'react-tabs';
 
 class StatisticsSummary extends React.Component {
@@ -20,6 +22,10 @@ class StatisticsSummary extends React.Component {
       getStatisticsSummary();
     }else if (index==1) {
       getStatisticPerOffice();
+    }else if (index==2) {
+      getStatisticsRegionPercent();
+    }else {
+      //getStatisticsOfficePercent();
     }
   }
 
@@ -29,6 +35,10 @@ class StatisticsSummary extends React.Component {
       getStatisticsSummary();
       //loads the summary component second tab (1) each 10s
       getStatisticPerOffice();
+      //loads the summary percent by region on the 3r tab
+        getStatisticsRegionPercent();
+      //loads the summary percent by office on the 4th tab
+        //getStatisticsOfficePercent();
       setTimeout(foo, 60000);
       console.log("updating chart");
     };
