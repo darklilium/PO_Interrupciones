@@ -27,7 +27,7 @@ class Interruptions extends React.Component {
       0: {infoTemplate: myinfotemplate.getSubFailure()}
     });
 
-    
+    interrClienteSED.refreshInterval = 1;
     map.addLayer(interrClienteSED);
   }
 

@@ -5,17 +5,19 @@ import {searchBar_NIS} from '../services/searchbar-service';
 import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
+import OrderTimer from '../components/OrderTimer.jsx';
 
 class SearchBar extends React.Component {
   constructor(){
     super();
-    this.onClick = this.onClick.bind(this);
+    this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
-
+    this.onClickOrderTimer = this.onClickOrderTimer.bind(this);
     this.state = {
-      staClic : 0
+      staClic : 0,
+      timerClic : 0
     }
 }
 
@@ -27,21 +29,30 @@ class SearchBar extends React.Component {
     console.log("toggling statistics");
     if (this.state.staClic==0){
       this.setState({ staClic : 1 });
-      $('.statisticsSummary').css('visibility', 'visible');
       $('.wrapper_statistics-summary').css('visibility', 'visible');
       getStatisticsSummary();
 
-
     }else{
       this.setState({ staClic : 0 });
-      $('.statisticsSummary').css('visibility', 'hidden');
       $('.wrapper_statistics-summary').css('visibility', 'hidden');
     }
   }
 
-  onClick(){
+  onClickOrderTimer(){
+    console.log("toggling order timer");
+    if (this.state.timerClic==0){
+      this.setState({ timerClic : 1 });
+      $('.wrapper_ordertimer').css('visibility', 'visible');
+$('.ordertimer').css('visibility', 'visible');
+
+    }else{
+      this.setState({ timerClic : 0 });
+      $('.wrapper_ordertimer').css('visibility', 'hidden');
+    }
+  }
+  onClickSearch(){
   $('.notificationBox').empty().css('visibility', 'hidden');
-    let searchType = this.refs.searchType.value;
+  let searchType = this.refs.searchType.value;
     if (searchType=='nis') {
       console.log("searching for nis...");
       searchBar_NIS(this.refs.searchValue.value);
@@ -79,7 +90,7 @@ class SearchBar extends React.Component {
       {/* Input for searching NIS */}
         <input className="searchBox__searchInput" ref="searchValue" type="text" placeholder=" NIS" />
       {/* Button for searching NIS */}
-        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClick}>
+        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickSearch}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
         </button>
       {/* Button for cleaning map */}
@@ -94,13 +105,16 @@ class SearchBar extends React.Component {
         <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickToggle}>
             <span className="searchBox_icon"><i className="fa fa-bars"></i></span>
         </button>
-
+      {/* Button for OrderTimer*/}
+      <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickOrderTimer}>
+            <span className="searchBox_icon"><i className="fa fa-clock-o"></i></span>
+      </button>
 
       </div>
       {/* Notification Box*/}
       <div className="notificationBox"></div>
       {/* SearchSelectorTab*/}
-
+      <OrderTimer className="orderTimer"/>
       </div>
     );
   }

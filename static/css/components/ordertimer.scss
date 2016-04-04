@@ -1,0 +1,17 @@
+.wrapper_ordertimer{
+  width: 25em;
+  height: 10em;
+  visibility: hidden;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+}
+.orderTimer{
+  width: 28em;
+  height: auto;
+  background-color: ghostwhite;
+  bottom: 0px;
+  z-index: 2;
+  position: absolute;
+  visibility: hidden;
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
-import mymap from '../services/map-service';
 import createQueryTask from '../services/createquerytask-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 import {getStatisticPerOffice} from '../services/getstatistics-summary';

@@ -3,8 +3,8 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
-function makeGraphic(categories, data, divName){
-  $("'"+divName+"'").highcharts({
+function makeBarsGraphic(categories, data, divName){
+  $("#"+divName).highcharts({
       chart: {
           type: 'bar'
       },
@@ -69,56 +69,7 @@ function getStatisticsSummary(){
       var qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-
-      $('#container1').highcharts({
-          chart: {
-              type: 'bar'
-          },
-          title: {
-              text: '% de Clientes por Comuna'
-          },
-            xAxis: {
-              categories: reg
-          },
-          yAxis: {
-              min: 0,
-              title: {
-                  text: 'Cant. Clientes (%)',
-                  align: 'high'
-              },
-              labels: {
-                  overflow: 'justify'
-              }
-          },
-          tooltip: {
-              valueSuffix: ' '
-          },
-          plotOptions: {
-              bar: {
-                  dataLabels: {
-                      enabled: true
-                  }
-              }
-          },
-          /*legend: {
-              layout: 'vertical',
-              align: 'right',
-              verticalAlign: 'top',
-              x: -40,
-              y: 80,
-              floating: true,
-              borderWidth: 1,
-              backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-              shadow: true
-          },*/
-          credits: {
-              enabled: false
-          },
-          series: [{
-              name: '% Clientes',
-              data:qtty
-          }]
-        });
+      makeBarsGraphic(reg, qtty, "container1")
 
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
@@ -142,56 +93,7 @@ function getStatisticPerOffice(){
       qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-
-      $('#container2').highcharts({
-          chart: {
-              type: 'bar'
-          },
-          title: {
-              text: '% de Clientes por Comuna'
-          },
-            xAxis: {
-              categories: office
-          },
-          yAxis: {
-              min: 0,
-              title: {
-                  text: 'Cant. Clientes (%)',
-                  align: 'high'
-              },
-              labels: {
-                  overflow: 'justify'
-              }
-          },
-          tooltip: {
-              valueSuffix: ' '
-          },
-          plotOptions: {
-              bar: {
-                  dataLabels: {
-                      enabled: true
-                  }
-              }
-          },
-          /*legend: {
-              layout: 'vertical',
-              align: 'right',
-              verticalAlign: 'top',
-              x: -40,
-              y: 80,
-              floating: true,
-              borderWidth: 1,
-              backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-              shadow: true
-          },*/
-          credits: {
-              enabled: false
-          },
-          series: [{
-              name: '% Clientes',
-              data:qtty
-          }]
-        });
+      makeBarsGraphic(office, qtty, "container2")
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
@@ -282,54 +184,6 @@ function calculatePercentaje(totalObj, affectedObj){
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
 
-  $('#container3').highcharts({
-      chart: {
-          type: 'bar'
-      },
-      title: {
-          text: '% de Clientes por Comuna'
-      },
-        xAxis: {
-          categories: cat
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'Cant. Clientes (%)',
-              align: 'high'
-          },
-          labels: {
-              overflow: 'justify'
-          }
-      },
-      tooltip: {
-          valueSuffix: ' '
-      },
-      plotOptions: {
-          bar: {
-              dataLabels: {
-                  enabled: true
-              }
-          }
-      },
-      /*legend: {
-          layout: 'vertical',
-          align: 'right',
-          verticalAlign: 'top',
-          x: -40,
-          y: 80,
-          floating: true,
-          borderWidth: 1,
-          backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
-          shadow: true
-      },*/
-      credits: {
-          enabled: false
-      },
-      series: [{
-          name: '% Clientes',
-          data:dat
-      }]
-    });
+  makeBarsGraphic(cat, dat, "container3")
 }
 export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};
