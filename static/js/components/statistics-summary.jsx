@@ -17,7 +17,7 @@ class StatisticsSummary extends React.Component {
     this.handleSelect = this.handleSelect.bind(this);
   }
   handleSelect(index, last){
-    console.log('Selected tab: ' + index + ', Last tab: ' + last);
+    //console.log('Selected tab: ' + index + ', Last tab: ' + last);
     if (index==0) {
       getStatisticsSummary();
     }else if (index==1) {
@@ -26,6 +26,7 @@ class StatisticsSummary extends React.Component {
       getStatisticsRegionPercent();
     }else {
       //getStatisticsOfficePercent();
+      //console.log("related to possible number 4 tab");
     }
   }
 
@@ -62,11 +63,10 @@ class StatisticsSummary extends React.Component {
           <Tab>Por comuna</Tab>
           <Tab>Por Oficina</Tab>
           <Tab>% por comuna</Tab>
-          <Tab>% por Oficina</Tab>
         </TabList>
 
         <TabPanel>
-          <div id="container" className="statistics-summary__chart1"></div>
+          <div id="container1" className="statistics-summary__chart1"></div>
         </TabPanel>
         <TabPanel>
           <div id="container2" className="statistics-summary__chart1"></div>
@@ -74,10 +74,7 @@ class StatisticsSummary extends React.Component {
         <TabPanel>
           <div id="container3" className="statistics-summary__chart1"></div>
         </TabPanel>
-        <TabPanel>
-          <div id="container4" className="statistics-summary__chart1"></div>
-        </TabPanel>
-    </Tabs>
+  </Tabs>
 
   </div>
   );

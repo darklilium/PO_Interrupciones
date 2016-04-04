@@ -3,6 +3,57 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
+function makeGraphic(categories, data, divName){
+  $("'"+divName+"'").highcharts({
+      chart: {
+          type: 'bar'
+      },
+      title: {
+          text: 'Interrupciones por comuna'
+      },
+        xAxis: {
+          categories: categories
+      },
+      yAxis: {
+          min: 0,
+          title: {
+              text: 'Cant. Clientes (u)',
+              align: 'high'
+          },
+          labels: {
+              overflow: 'justify'
+          }
+      },
+      tooltip: {
+          valueSuffix: ' '
+      },
+      plotOptions: {
+          bar: {
+              dataLabels: {
+                  enabled: true
+              }
+          }
+      },
+      /*legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'top',
+          x: -40,
+          y: 80,
+          floating: true,
+          borderWidth: 1,
+          backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+          shadow: true
+      },*/
+      credits: {
+          enabled: false
+      },
+      series: [{
+          name: 'Cant. Clientes',
+          data: data
+      }]
+    });
+}
 
 function getStatisticsSummary(){
   var getQtty = createQueryTask({
@@ -19,12 +70,12 @@ function getStatisticsSummary(){
         return q.attributes.Cantidad;
       });
 
-      $('#container').highcharts({
+      $('#container1').highcharts({
           chart: {
               type: 'bar'
           },
           title: {
-              text: 'Interrupciones por comuna'
+              text: '% de Clientes por Comuna'
           },
             xAxis: {
               categories: reg
@@ -32,7 +83,7 @@ function getStatisticsSummary(){
           yAxis: {
               min: 0,
               title: {
-                  text: 'Cant. Clientes (u)',
+                  text: 'Cant. Clientes (%)',
                   align: 'high'
               },
               labels: {
@@ -64,17 +115,14 @@ function getStatisticsSummary(){
               enabled: false
           },
           series: [{
-              name: 'Cant. Clientes',
-              data: qtty
+              name: '% Clientes',
+              data:qtty
           }]
         });
-
 
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
   });
-
-
 }
 
 function getStatisticPerOffice(){
@@ -100,7 +148,7 @@ function getStatisticPerOffice(){
               type: 'bar'
           },
           title: {
-              text: 'Interrupciones por Oficina'
+              text: '% de Clientes por Comuna'
           },
             xAxis: {
               categories: office
@@ -108,7 +156,7 @@ function getStatisticPerOffice(){
           yAxis: {
               min: 0,
               title: {
-                  text: 'Cant. Clientes (u)',
+                  text: 'Cant. Clientes (%)',
                   align: 'high'
               },
               labels: {
@@ -140,17 +188,15 @@ function getStatisticPerOffice(){
               enabled: false
           },
           series: [{
-              name: 'Cant. Clientes',
-              data: qtty
+              name: '% Clientes',
+              data:qtty
           }]
         });
-
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
 
   });
-
 }
 
 function getStatisticsRegionPercent(){
@@ -216,14 +262,11 @@ function calculatePercentaje(totalObj, affectedObj){
       comunasAfectadas: a.map((res)=>{return res.comuna}),
       clientesAfectados: a.map((res)=>{return res.cantidad})
   };
-//  console.log(afectados);
 
   var totalClientesComuna = {
     comunas: t.map((res)=>{return res.comuna}),
     totalClientes: t.map((res)=>{return res.cantidad})
   };
-
-//  console.log(totalClientesComuna);
 
   afectados['comunasAfectadas'].forEach((afectada, index)=>{
       var a = totalClientesComuna['comunas'].indexOf(afectada);
@@ -236,19 +279,15 @@ function calculatePercentaje(totalObj, affectedObj){
 
   });
 
-  console.log(r);
-
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
-
-console.log(dat);
 
   $('#container3').highcharts({
       chart: {
           type: 'bar'
       },
       title: {
-          text: 'Interrupciones por Oficina'
+          text: '% de Clientes por Comuna'
       },
         xAxis: {
           categories: cat
