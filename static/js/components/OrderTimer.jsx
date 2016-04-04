@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import token from '../services/token-service';
 import layers from '../services/layers-service';
 import createQueryTask from '../services/createquerytask-service';
+import Example from '../components/ReactDataGrid.jsx';
 
 class OrderTimer extends React.Component {
 
@@ -23,7 +24,7 @@ class OrderTimer extends React.Component {
   render(){
   return (
   <div className="wrapper_ordertimer">
-    
+ <Example />
   </div>
   );
   }

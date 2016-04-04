@@ -1,16 +1,14 @@
 import React from 'react';
 import mymap from '../services/map-service';
 import layers from '../services/layers-service';
-import myinfotemplate from '../services/infotemplates-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import MyGrid from './MyGrid.jsx';
-import StatisticsSummary from './statistics-summary.jsx';
 import SearchBar from './Searchbar.jsx'
+import myinfotemplate from '../services/infotemplates-service';
+
 class Interruptions extends React.Component {
   constructor(){
     super();
-
-
     this.state = {
       staClic : 0
     }
@@ -47,12 +45,12 @@ class Interruptions extends React.Component {
       <div id="collapseMyGrid" className="collapse">
         <MyGrid /> {/*NOT USING FOR NOW*/}
       </div>
-      {/*Statistics per Region*/}
-      <StatisticsSummary className="statisticsSummary" />
+
       {/* For notifications about ORDER clicked and related NIS found in the grid*/}
       <div className="orderNotification">
         <div id="myorderNotification"></div>
       </div>
+
     </div>
     );
   }

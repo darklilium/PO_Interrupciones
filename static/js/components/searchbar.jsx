@@ -6,6 +6,7 @@ import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 import OrderTimer from '../components/OrderTimer.jsx';
+import StatisticsSummary from './statistics-summary.jsx';
 
 class SearchBar extends React.Component {
   constructor(){
@@ -38,32 +39,20 @@ class SearchBar extends React.Component {
     }
   }
 
-  onClickOrderTimer(){
-    console.log("toggling order timer");
-    if (this.state.timerClic==0){
-      this.setState({ timerClic : 1 });
-      $('.wrapper_ordertimer').css('visibility', 'visible');
-$('.ordertimer').css('visibility', 'visible');
-
-    }else{
-      this.setState({ timerClic : 0 });
-      $('.wrapper_ordertimer').css('visibility', 'hidden');
-    }
-  }
   onClickSearch(){
-  $('.notificationBox').empty().css('visibility', 'hidden');
-  let searchType = this.refs.searchType.value;
-    if (searchType=='nis') {
-      console.log("searching for nis...");
-      searchBar_NIS(this.refs.searchValue.value);
-    }else if (searchType=='incidence') {
-      console.log("searching for incidence...");
-      searchBar_Incidence(this.refs.searchValue.value);
-    }else{
-      console.log("searching for order...");
-      console.log(this.refs.searchValue.value);
-      searchBar_Order(this.refs.searchValue.value);
-    }
+    $('.notificationBox').empty().css('visibility', 'hidden');
+    let searchType = this.refs.searchType.value;
+      if (searchType=='nis') {
+        console.log("searching for nis...");
+        searchBar_NIS(this.refs.searchValue.value);
+      }else if (searchType=='incidence') {
+        console.log("searching for incidence...");
+        searchBar_Incidence(this.refs.searchValue.value);
+      }else{
+        console.log("searching for order...");
+        console.log(this.refs.searchValue.value);
+        searchBar_Order(this.refs.searchValue.value);
+      }
   }
 
   onClickClearMap(){
@@ -74,6 +63,21 @@ $('.ordertimer').css('visibility', 'visible');
     map.removeLayer(layers.read_graphicLayer());
 
     $('.notificationBox').empty().css('visibility', 'hidden');
+  }
+
+  onClickOrderTimer(){
+    console.log("toggling order timer");
+    if (this.state.timerClic==0){
+      this.setState({ timerClic : 1 });
+      $('.wrapper_ordertimer').css('visibility', 'visible');
+      $('.ordertimer').css('visibility', 'visible');
+
+    }else{
+      this.setState({ timerClic : 0 });
+      $('.wrapper_ordertimer').css('visibility', 'hidden');
+        $('.ordertimer').css('visibility', 'hidden');
+
+    }
   }
 
   render(){
@@ -113,9 +117,12 @@ $('.ordertimer').css('visibility', 'visible');
       </div>
       {/* Notification Box*/}
       <div className="notificationBox"></div>
-      {/* SearchSelectorTab*/}
-      <OrderTimer className="orderTimer"/>
-      </div>
+      {/*Statistics per Region(qtty and percentual), office*/}
+      <StatisticsSummary className="statisticsSummary" />
+      {/* Order Timer box */}
+      <OrderTimer className="orderTimer" />
+    </div>
+
     );
   }
 }

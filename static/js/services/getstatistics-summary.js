@@ -186,4 +186,5 @@ function calculatePercentaje(totalObj, affectedObj){
 
   makeBarsGraphic(cat, dat, "container3")
 }
+
 export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};
