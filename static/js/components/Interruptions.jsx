@@ -5,6 +5,7 @@ import StatisticsToolbar from './StatisticsToolbar.jsx';
 import MyGrid from './MyGrid.jsx';
 import SearchBar from './Searchbar.jsx'
 import myinfotemplate from '../services/infotemplates-service';
+import {getInterruptionsByExtent} from '../services/getInterruptionsByExtent';
 
 class Interruptions extends React.Component {
   constructor(){
@@ -39,8 +40,7 @@ class Interruptions extends React.Component {
       <div className="myMapDiv" id="myMapDiv"></div>
       {/* StatisticsToolbar on top*/}
       <StatisticsToolbar />
-      {/* Statistics widget (not done yet)*/}
-      <div className="collapse" id="collapseStatistics"></div>
+
       {/* For collapsing grid*/}
       <div id="collapseMyGrid" className="collapse">
         <MyGrid /> {/*NOT USING FOR NOW*/}

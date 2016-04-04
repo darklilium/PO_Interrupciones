@@ -8,6 +8,7 @@ import {getStatisticsSummary} from '../services/getstatistics-summary';
 import OrderTimer from '../components/OrderTimer.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
 
+
 class SearchBar extends React.Component {
   constructor(){
     super();
@@ -67,6 +68,8 @@ class SearchBar extends React.Component {
 
   onClickOrderTimer(){
     console.log("toggling order timer");
+    var map = mymap.getMap();
+    
     if (this.state.timerClic==0){
       this.setState({ timerClic : 1 });
       $('.wrapper_ordertimer').css('visibility', 'visible');
@@ -81,7 +84,9 @@ class SearchBar extends React.Component {
   }
 
   render(){
+
     return (
+
       <div>
       <div className="searchBox">
       {/* Button for search orders and incidences */}
@@ -120,7 +125,7 @@ class SearchBar extends React.Component {
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary className="statisticsSummary" />
       {/* Order Timer box */}
-      <OrderTimer className="orderTimer" />
+      <OrderTimer className="orderTimer"/>
     </div>
 
     );
