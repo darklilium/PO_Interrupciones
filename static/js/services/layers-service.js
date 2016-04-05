@@ -24,7 +24,7 @@ function myLayers(){
     },
     //Feature layer for customers data  : Clientes (0)
     read_layer_ClieSED(){ /*using*/
-      return serviceURL + "Chilquinta_006/ClientesV2/MapServer/0?f=json&token=" + token.read();
+      return serviceURL + "Interrupciones/PO/MapServer/7?f=json&token=" + token.read();
     },
     //Feature layer for BT: Red BT
     read_layer_tramosBT(){ /*using*/
