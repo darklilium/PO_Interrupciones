@@ -36,11 +36,6 @@ class Interruptions extends React.Component {
       <div className="myMapDiv" id="myMapDiv"></div>
       {/* StatisticsToolbar on top*/}
       <StatisticsToolbar />
-      {/* For notifications about ORDER clicked and related NIS found in the grid*/}
-      <div className="orderNotification">
-        <div id="myorderNotification"></div>
-      </div>
-
     </div>
     );
   }

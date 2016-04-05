@@ -1,12 +1,16 @@
 import token from '../services/token-service';
 
 function myLayers(){
-  const serviceURL = 'http://gisred.chilquinta.cl:5555/arcgis/rest/services/';
+  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+  const serviceURL = serviceMain + 'rest/services/';
   var graphicLayer = new esri.layers.GraphicsLayer();
 
   return {
   //The following layers and services are just for Chilquinta APP. (interrupciones.html and interruptions.js)
     //Featurelayer for orders per sed (with graphics)
+    read_tokenURL(){
+      return serviceMain + "tokens/generateToken";
+    },
     read_layer_interr_sed(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/0?f=json&token=" + token.read();
     },
