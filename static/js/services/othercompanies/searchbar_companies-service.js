@@ -1,7 +1,7 @@
 import layers from '../../services/layers-service';
 import mymap from '../../services/map-service';
 import makeSymbol from '../../services/makeSymbol-service';
-import makeInfoWindow from '../../services/makeinfowindow-service';
+import {makeInfoWindow} from '../../services/makeinfowindow-service';
 import createQueryTask from '../../services/createquerytask-service';
 
 function sendNotification(level='warning', message){

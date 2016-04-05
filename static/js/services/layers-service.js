@@ -38,6 +38,9 @@ function myLayers(){
     read_layer_countTotal(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/8?token=" + token.read();
     },
+    read_layer_infoSED(){/*using for getting the sed information and location*/
+      return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer/1?f=json&token=" + token.read();
+    },
     save_graphicLayer(myGraphicsLayer){  /*using*/
       graphicLayer = myGraphicsLayer;
     },

@@ -1,6 +1,8 @@
 import layers from '../services/layers-service';
 import makeSymbol from '../services/makeSymbol-service';
-import makeInfoWindow from '../services/makeinfowindow-service';
+import {makeInfoWindow} from '../services/makeinfowindow-service';
+import {makeInfoWindowPerSED} from '../services/makeinfowindow-service';
+import {makeInfoWindowPerSEDInterrupted} from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
 import {notifications} from '../services/notifications-service';
 
@@ -126,7 +128,7 @@ function searchMassive(sed, nis, address, nisgeom){
         map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
         map.centerAndZoom(nisgeom,20);
       });
-      
+
   },(error)=>{
     console.log("Problems getting the sed for massive interruption ");
     let message = "Error tratando de obtener la SED del NIS:" + nis;
@@ -277,5 +279,79 @@ function searchMassiveIncidence(incidence_id){
   });
 }
 
+function searchBar_SED(sed){
+ /*To DO: search for a SED in the searchbar and then.
+    if the sed is not in any SED interruptions, search the location
+    else, show where the SED is and put the message as massive interruption*/
+  var service = createQueryTask({
+    url: layers.read_layer_interr_sed(),
+    whereClause: `ARCGIS.DBO.SED_006.codigo=${sed}`
+  });
 
-export {searchBar_NIS, searchBar_Order, searchBar_Incidence};
+  service((map,featureSet)=>{
+    if (!featureSet.features.length) {
+      console.log("theres no interruptions for this sed..");
+      console.log("searching for sed location");
+      let message = "SED " + sed + " no presenta problemas";
+      let type = "Searchbar_NIS_Without_Problems";
+      notifications(message, type, ".notificationBox");
+      //search the sed location
+      sedLocation(sed);
+      return;
+    }
+    let message = "SED " + sed + " presente en falla masiva";
+    let type = "Searchbar_Massive";
+    notifications(message, type, ".notificationBox");
+    let myresults = featureSet.features.map((feature)=>{
+      return feature;
+    });
+    let pointSymbol = makeSymbol.makePoint();
+    myresults.forEach((attribute)=>{
+      map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
+      map.centerAndZoom(attribute.geometry,15);
+      //console.log(attr.attributes['nombre']);
+      makeInfoWindowPerSEDInterrupted(sed,
+                                      attribute.geometry,
+                                      attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'],
+                                      attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'],
+                                      attribute.attributes['ARCGIS.DBO.SED_006.alimentador'],
+                                      attribute.attributes['ARCGIS.DBO.POWERON_ORDENES.causa'],
+                                      attribute.attributes['ARCGIS.DBO.POWERON_ORDENES.comentario']);
+    });
+//sed, point, order_id, incident_id, alimentador, cause,commentary
+  },(errorSearchSed)=>{
+      console.log(errorSearchSed);
+      let message = "SED " + sed + " no existe.";
+      let type = "Searchbar_Error";
+      notifications(message, type, ".notificationBox");
+  });
+}
+
+function sedLocation(sed){
+  var service = createQueryTask({
+    url: layers.read_layer_infoSED(),
+    whereClause: `codigo=${sed}`
+  });
+  service((map,featureSet)=>{
+      if(!featureSet.features.length){
+        let message = "SED " + sed + " no se ha podido localizar en el mapa.";
+        let type = "Searchbar_Error";
+        notifications(message, type, ".notificationBox");
+        console.log("SED doesnt have geometry.");
+        return;
+      }
+      let myresults = featureSet.features.map((feature)=>{
+        return feature;
+      });
+
+      let pointSymbol = makeSymbol.makePoint();
+        myresults.forEach((attr)=>{
+          map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+          map.centerAndZoom(attr.geometry,15);
+          console.log(attr.attributes['nombre']);
+          makeInfoWindowPerSED(sed, attr.geometry, attr.attributes['nombre'],
+                              attr.attributes['comuna'], attr.attributes['alimentador'], attr.attributes['propiedad']);
+        });
+  });
+}
+export {searchBar_NIS, searchBar_Order, searchBar_Incidence, searchBar_SED};

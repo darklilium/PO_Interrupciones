@@ -1,6 +1,6 @@
 import layers from '../services/layers-service';
 import makeSymbol from '../services/makeSymbol-service';
-import makeInfoWindow from '../services/makeinfowindow-service';
+import {makeInfoWindow} from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
 import myinfotemplate from '../services/infotemplates-service';
 import mymap from '../services/map-service';
