@@ -3,7 +3,7 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
-function makeBarsGraphic(categories, data, divName){
+function makeBarsGraphic(categories, data, divName, xTitle){
   $("#"+divName).highcharts({
       chart: {
           type: 'bar'
@@ -17,7 +17,7 @@ function makeBarsGraphic(categories, data, divName){
       yAxis: {
           min: 0,
           title: {
-              text: 'Cant. Clientes (u)',
+              text: xTitle,
               align: 'high'
           },
           labels: {
@@ -69,7 +69,7 @@ function getStatisticsSummary(){
       var qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(reg, qtty, "container1")
+      makeBarsGraphic(reg, qtty, "container1", "Cantidad Clientes (u)")
 
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
@@ -93,7 +93,7 @@ function getStatisticPerOffice(){
       qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(office, qtty, "container2")
+      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)")
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
@@ -176,7 +176,7 @@ function calculatePercentaje(totalObj, affectedObj){
         comuna: totalClientesComuna['comunas'][a],
         totalClientes: totalClientesComuna['totalClientes'][a],
         clientesAfectados: afectados['clientesAfectados'][index],
-        porcentajeAfectados: ((afectados['clientesAfectados'][index]*100)/totalClientesComuna['totalClientes'][a]).toFixed(3)
+        porcentajeAfectados: ((afectados['clientesAfectados'][index]*100)/totalClientesComuna['totalClientes'][a]).toFixed(1)
       });
 
   });
@@ -184,7 +184,7 @@ function calculatePercentaje(totalObj, affectedObj){
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
 
-  makeBarsGraphic(cat, dat, "container3")
+  makeBarsGraphic(cat, dat, "container3", "% Clientes")
 }
 
 export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};

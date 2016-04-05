@@ -5,15 +5,13 @@ import {searchBar_NIS} from '../services/searchbar-service';
 import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
-import OrderTimer from '../components/OrderTimer.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
-
+import MyGrid from '../components/MyGrid.jsx';
 
 class SearchBar extends React.Component {
   constructor(){
     super();
     this.onClickSearch = this.onClickSearch.bind(this);
-    this.onClickToggle = this.onClickToggle.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
     this.onClickOrderTimer = this.onClickOrderTimer.bind(this);
@@ -22,10 +20,6 @@ class SearchBar extends React.Component {
       timerClic : 0
     }
 }
-
-  onClickToggle(mouseEvent){
-    console.log("toggling table");
-  }
 
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
@@ -69,16 +63,16 @@ class SearchBar extends React.Component {
   onClickOrderTimer(){
     console.log("toggling order timer");
     var map = mymap.getMap();
-    
+
     if (this.state.timerClic==0){
       this.setState({ timerClic : 1 });
-      $('.wrapper_ordertimer').css('visibility', 'visible');
-      $('.ordertimer').css('visibility', 'visible');
+      $('.mytable-Wrapper').css('visibility', 'visible');
+      $('.mygrid').css('visibility', 'visible');
 
     }else{
       this.setState({ timerClic : 0 });
-      $('.wrapper_ordertimer').css('visibility', 'hidden');
-        $('.ordertimer').css('visibility', 'hidden');
+      $('.mytable-Wrapper').css('visibility', 'hidden');
+        $('.mygrid').css('visibility', 'hidden');
 
     }
   }
@@ -110,10 +104,6 @@ class SearchBar extends React.Component {
             <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
         </button>
 
-      {/* Button for toggle grid  */}
-        <button data-toggle="collapse" data-target="#collapseMyGrid" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickToggle}>
-            <span className="searchBox_icon"><i className="fa fa-bars"></i></span>
-        </button>
       {/* Button for OrderTimer*/}
       <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickOrderTimer}>
             <span className="searchBox_icon"><i className="fa fa-clock-o"></i></span>
@@ -124,8 +114,7 @@ class SearchBar extends React.Component {
       <div className="notificationBox"></div>
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary className="statisticsSummary" />
-      {/* Order Timer box */}
-      <OrderTimer className="orderTimer"/>
+      <MyGrid className="mygrid" />
     </div>
 
     );

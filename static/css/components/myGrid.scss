@@ -5,15 +5,24 @@
 
 $backgr-color: white;
 
+.mygrid{
+  width: 50em;
+  height: auto;
+  max-height: 50em;
+  background-color: ghostwhite;
+  bottom: 0px;
+  z-index: 2;
+  position: absolute;
+  right: 0;
+  overflow-x: scroll;
+  visibility: hidden;
+}
 .u-hidden {
   display: none;
 }
 
 .mytable-Wrapper{
-  width: 100%;
-  height: auto;
-  position: absolute;
-  background-color: $backgr-color;
+  @extend .mygrid;
 }
 
 .mytable-searchBox-h4{

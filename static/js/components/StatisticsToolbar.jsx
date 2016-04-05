@@ -27,10 +27,13 @@ class StatisticsToolbar extends React.Component {
   }
 
   componentDidMount(){
+
     var foo = function(){
+
       this.currentMassive();
       this.currentIsolated();
       this.currentTotal();
+        console.log(this.state.massiveqtty, this.state.currentIsolated, this.state.currentTotal);
       setTimeout(foo, 10000);
     };
 
@@ -74,6 +77,7 @@ class StatisticsToolbar extends React.Component {
   }
 
   render(){
+
     return (
       <div className="wrapper_statistics">
         <span><i className="fa fa-signal"></i> Total Interrupciones: </span>

@@ -11,22 +11,9 @@ function translator(interruption){
 
   var r = {
     id_orden: attr['id_orden'],
-    tipo_orden: attr['tipo_orden'],
     estado_orden: attr['estado_orden'],
     fecha_creacion: formatDate(attr['fecha_creacion']),
-    fecha_asignacion: formatDate(attr['fecha_asignacion']),
-    fecha_despacho: formatDate(attr['fecha_despacho']),
-    fecha_ruta: formatDate(attr['fecha_ruta']),
-    fecha_llegada: formatDate(attr['fecha_llegada']),
-    id_incidencia: attr['id_incidencia'],
-    causa: attr['causa'],
-    subcausa: attr['subcausa'],
-    comentario: attr['comentario'],
-    tipo_equipo: attr['tipo_equipo'],
-    fc_termino_t : formatDate(attr['fc_termino_t']),
-    fc_cierre: formatDate(attr['fc_cierre']),
-    fc_ult_modif: formatDate(attr['fc_ult_modif']),
-    id_owned: attr['id_owned']
+    causa: attr['causa']    
   };
 
   return r;
@@ -36,11 +23,8 @@ function isTermInRow(obj, searchTerm){
   var coincidence = false;
   var translatedObject = translator(obj);
 
-  [ "id_orden", "tipo_orden", "estado_orden",
-    "fecha_creacion", "fecha_asignacion", "fecha_despacho",
-    "fecha_ruta", "fecha_llegada", "id_incidencia",
-    "causa", "subcausa", "comentario",
-    "tipo_equipo","fc_termino_t","fc_cierre","fc_ult_modif","id_owned"
+  [ "id_orden", "estado_orden",
+    "fecha_creacion","causa"
   ].forEach(function(field){
     var str = String(translatedObject[field]);
     if(str.indexOf(searchTerm) > -1){
@@ -68,22 +52,10 @@ class InterruptionRow extends React.Component {
     return (
       <tr className={this.props.styleClass} onClick={this.onClickRow}>
         <td>{this.props.id_orden}</td>
-        <td>{this.props.tipo_orden}</td>
         <td>{this.props.estado_orden}</td>
         <td>{this.props.fecha_creacion}</td>
-        <td>{this.props.fecha_asignacion}</td>
-        <td>{this.props.fecha_despacho}</td>
-      {/*   <td>{this.props.fecha_ruta}</td>*/}
-        <td>{this.props.fecha_llegada}</td>
-        <td className="td_width">{this.props.id_incidencia}</td>
         <td>{this.props.causa}</td>
-      {/*  <td>{this.props.subcausa}</td>*/}
-        <td>{this.props.comentario}</td>
-        <td>{this.props.tipo_equipo}</td>
-      {/*  <td>{this.props.fc_termino_t}</td>
-        <td>{this.props.fc_cierre}</td>*/}
-        <td>{this.props.fc_ult_modif}</td>
-      {/*   <td>{this.props.id_owned }</td>*/}
+
       </tr>
     );
   }
@@ -214,22 +186,10 @@ class MyGrid extends React.Component{
             <thead className="mytable-Wrapper__table-tr">
               <tr>
                 <th>ID ORDEN</th>
-                <th>TIPO</th>
                 <th>ESTADO</th>
                 <th>FECHA CREA</th>
-                <th>FECHA ASIG</th>
-                <th>FECHA DESP</th>
-                {/*  <th>FECHA RUTA</th>*/}
-                <th>FECHA LLEGADA</th>
-                <th>ID INDICENCIA</th>
                 <th>CAUSA</th>
-                {/* <th>SUB CAUSA</th> */}
-                <th>COMENTARIO</th>
-                <th>TIPO EQUIPO</th>
-              {/*  <th>FECHA TERM</th>
-                <th>FECHA CIERRE</th>*/}
-                <th>FECHA ULT MODIF</th>
-                {/*  <th>ID OWNED</th>*/}
+                <th>TIEMPO</th>
               </tr>
             </thead>
             <tbody>
