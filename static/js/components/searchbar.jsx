@@ -80,42 +80,39 @@ class SearchBar extends React.Component {
   render(){
 
     return (
-
       <div>
-      <div className="searchBox">
-      {/* Button for search orders and incidences */}
-      <select className="searchbox__combobox" ref="searchType">
-        <option value="nis">NIS</option>
-        <option value="incidence">INCIDENCIA</option>
-        <option value="order">ORDEN</option>
-      </select>
+        <div className="searchBox">
+          {/* Button for search orders and incidences */}
+          <select className="searchbox__combobox" ref="searchType">
+            <option value="nis">NIS</option>
+            <option value="incidence">INCIDENCIA</option>
+            <option value="order">ORDEN</option>
+          </select>
 
-      {/* Input for searching NIS */}
-        <input className="searchBox__searchInput" ref="searchValue" type="text" placeholder=" NIS" />
-      {/* Button for searching NIS */}
-        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickSearch}>
+          {/* Input for searching NIS */}
+          <input className="searchBox__searchInput" ref="searchValue" type="text" placeholder=" NIS" />
+          {/* Button for searching NIS */}
+          <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickSearch}>
             <span className="searchBox_icon"><i className="fa fa-search"></i></span>
-        </button>
-      {/* Button for cleaning map */}
-        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
-          <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
-      {/* Button for statistics per region*/}
-        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
+          </button>
+          {/* Button for cleaning map */}
+          <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
+            <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
+          {/* Button for statistics per region*/}
+          <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
             <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
-        </button>
-
-      {/* Button for OrderTimer*/}
-      <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickOrderTimer}>
+          </button>
+          {/* Button for OrderTimer*/}
+          <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickOrderTimer}>
             <span className="searchBox_icon"><i className="fa fa-clock-o"></i></span>
-      </button>
-
+          </button>
+        </div>
+        {/* Notification Box*/}
+        <div className="notificationBox"></div>
+        {/*Statistics per Region(qtty and percentual), office*/}
+        <StatisticsSummary />
+        <MyGrid className="mygrid" />
       </div>
-      {/* Notification Box*/}
-      <div className="notificationBox"></div>
-      {/*Statistics per Region(qtty and percentual), office*/}
-      <StatisticsSummary className="statisticsSummary" />
-      <MyGrid className="mygrid" />
-    </div>
 
     );
   }

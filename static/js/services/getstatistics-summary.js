@@ -3,7 +3,7 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
-function makeBarsGraphic(categories, data, divName, xTitle){
+function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel){
   $("#"+divName).highcharts({
       chart: {
           type: 'bar'
@@ -49,7 +49,7 @@ function makeBarsGraphic(categories, data, divName, xTitle){
           enabled: false
       },
       series: [{
-          name: 'Cant. Clientes',
+          name: seriesLabel,
           data: data
       }]
     });
@@ -69,7 +69,7 @@ function getStatisticsSummary(){
       var qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(reg, qtty, "container1", "Cantidad Clientes (u)")
+      makeBarsGraphic(reg, qtty, "container1", "Cantidad Clientes (u)", "Cant. Clientes")
 
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
@@ -93,7 +93,7 @@ function getStatisticPerOffice(){
       qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)")
+      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes")
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
@@ -106,11 +106,6 @@ function getStatisticsRegionPercent(){
   and then calculate the percentaje */
 
   //Getting the last values by customers affected by interruptions in each region and the total amount of customers.
-  getRegionAffectedAndTotal();
-
-}
-
-function getRegionAffectedAndTotal(){
   var getQtty = createQueryTask({
     url: layers.read_qtty_comuna(),
     whereClause: "1=1",
@@ -128,6 +123,7 @@ function getRegionAffectedAndTotal(){
    //console.log(region_qtty_now, "cantidad de clientes afectados");
    getRegionTotal(region_qtty_now);
   },(errorQtty)=>{console.log("Error trying to get the qtty now for calculating region percent");});
+
 }
 
 function getRegionTotal(nowAffected){
@@ -184,7 +180,7 @@ function calculatePercentaje(totalObj, affectedObj){
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
 
-  makeBarsGraphic(cat, dat, "container3", "% Clientes")
+  makeBarsGraphic(cat, dat, "container3", "% Clientes", "% Clientes")
 }
 
 export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};

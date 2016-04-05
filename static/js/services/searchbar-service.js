@@ -2,6 +2,7 @@ import layers from '../services/layers-service';
 import makeSymbol from '../services/makeSymbol-service';
 import makeInfoWindow from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
+import {notifications} from '../services/notifications-service';
 
 function searchBar_NIS(nis){
   var service = createQueryTask({
@@ -18,10 +19,8 @@ function searchBar_NIS(nis){
         map.graphics.add(new esri.Graphic(featureSet.features[i].geometry,pointSymbol));
         map.centerAndZoom(featureSet.features[0].geometry,20);
         console.log("Found in isolated interruptions");
-
         let message = 'NIS: '+ nis + ' presente en falla aislada';
-        let type = "customer";
-        setNotificationBox(message, type);
+        notifications(message, "Searchbar_Isolated", ".notificationBox");
         //search SED for the nis and add it to infowindow
         let myNis = featureSet.features[0].attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
@@ -39,14 +38,17 @@ function searchBar_NIS(nis){
           if(!featureSet.features.length){
             let message = "NIS: " + nis + " no tiene sed";
             let type = "NoSED";
-            setNotificationBox(message, type);
+            notifications(message, "Searchbar_Without_SED", ".notificationBox");
             return;
           }
 
           let sed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
-          console.log(featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed']);
           makeInfoWindow(myNis,myOrder,myIncidence,sed, featureSet.features[0].geometry);
-        },setNotificationBox.bind(null, 'Error al realizar la búsqueda de la sed del nis',"Error"));
+        },(ErrorQuery)=>{
+          let message = "Fallo al realizar la query para capturar SED de cliente.";
+          let type = "Searchbar_ErrorQuerySED";
+          notifications(message, type, ".notificationBox");
+        });
       }
     } else {
       //if the nis is not in the isolated orders, search in SED interruptions orders, but first get
@@ -59,26 +61,26 @@ function searchBar_NIS(nis){
       serviceMassive((map,featureSet)=>{
         if(!featureSet.features.length){
           let message = "NIS: " + nis+ " no se ha encontrado o no existe";
-          let type = "info";
-          setNotificationBox(message, type);
+          let type = "Searchbar_NIS_Not_Found";
+          notifications(message, type, ".notificationBox");
           return;
         }
 
         let mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
         //and then search for any problem in SED
         searchMassive(mySed, nis);
-      },(error)=>{
+      },(ErrorQueryMassive)=>{
           console.log("Error al ejecutar la query en Falla Masiva");
-          let message = "Error al buscar el NIS en falla masiva: " + nis;
-          let type = "Error";
-          setNotificationBox(message, type);
+          let message = "Error al buscar el NIS : " + nis + "en falla masiva";
+          let type = "Searchbar_Error";
+          notifications(message, type, ".notificationBox");
       });
     }
-  }, (error)=>{
+  },(ErrorQueryIsolated)=>{
     console.log("Error al ejecutar la query en Falla Aislada");
     let message = "Ingrese un NIS a buscar";
-    let type = "info";
-    setNotificationBox(message, type);
+    let type = "Searchbar_Error";
+    notifications(message, type, ".notificationBox");
   });
 
 }
@@ -96,8 +98,8 @@ function searchMassive(sed, nis){
         //if the nis is not in the SED interruption orders, the nis doesnt have any problem.
         console.log("nis is not having any issue");
         let message = "NIS: " + nis + " no presenta problemas";
-        let type = "OK";
-        setNotificationBox(message, type);
+        let type = "Searchbar_NIS_Without_Problems";
+        notifications(message, type, ".notificationBox");
         return;
       }
       //when the order is found , show where the NIS is with the info.
@@ -111,19 +113,17 @@ function searchMassive(sed, nis){
         let myOrder = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
         let myIncidence = featureSet.features[0].attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'];
         let message = "NIS: " + nis +" presente en falla masiva";
-        let type = "SED";
-        setNotificationBox(message, type);
+        let type = "Searchbar_Massive";
+        notifications(message, type, ".notificationBox");
         makeInfoWindow(nis,myOrder,myIncidence,sed, featureSet.features[0].geometry);
       }
   },(error)=>{
     console.log("Problems getting the sed for massive interruption ");
     let message = "Error tratando de obtener la SED del NIS:" + nis;
-    let type = "Error";
-    setNotificationBox(message, type);
+    let type = "Searchbar_Error";
+    notifications(message, type, ".notificationBox");
   });
 }
-
-
 
 function searchBar_Order(order_id){
   /*To do: search order.
@@ -150,14 +150,14 @@ function searchBar_Order(order_id){
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
     map.centerAndZoom(myresults[0],15);
     let message = "ID Orden: " + order_id + " encontrada en fallas de clientes";
-    let type = "Order_customer";
-    setNotificationBox(message, type);
-
+    let type = "Searchbar_Isolated";
+    notifications(message, type, ".notificationBox");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
     let message = "Error doing query for getting orders associated to the customer";
-    setNotificationBox(message, "ErrorOrder");
+    let type = "Searchbar_Error";
+    notifications(message, type, ".notificationBox");
   });
 }
 
@@ -171,8 +171,8 @@ function searchMassiveOrder(order_id){
   serviceOrderSED((map,featureSet)=>{
     if (!featureSet.features.length){
       let message = "ID Orden: " + order_id + " no se ha encontrado o no existe";
-      let type = "OrderNotFound";
-      setNotificationBox(message, type);
+      let type = "Searchbar_NIS_Not_Found";
+      notifications(message, type, ".notificationBox");
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
@@ -181,17 +181,17 @@ function searchMassiveOrder(order_id){
 
     let pointSymbol = makeSymbol.makePoint();
       myresults.forEach((attr)=>{
-      map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-      map.centerAndZoom(attr.geometry,15);
-
+        map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+        map.centerAndZoom(attr.geometry,15);
       });
       let message = "ID Orden: " + order_id + " encontrada en fallas de SED";
-      let type = "Order_SED";
-      setNotificationBox(message, type);
+      let type = "Searchbar_Massive";
+      notifications(message, type, ".notificationBox");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
-    let message = "Error doing query for getting orders associated to the SED";
-    setNotificationBox(message, "ErrorOrderSED");
+    let message = "Error en query para obtener ordenes asociadas a la SED";
+    let type = "Searchbar_ErrorQuerySED";
+    notifications(message, type, ".notificationBox");
   });
 }
 
@@ -220,14 +220,15 @@ function searchBar_Incidence(incidence_id){
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
     map.centerAndZoom(myresults[0],15);
     let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de clientes";
-    let type = "Order_customer";
-    setNotificationBox(message, type);
-
+    let type = "Searchbar_Isolated";
+    notifications(message, type, ".notificationBox");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
-    let message = "Error doing query for getting orders associated to the customer";
-    setNotificationBox(message, "ErrorOrder");
+    let message = "Error en query para obtener ordenes asociadas al NIS";
+    let type = "Searchbar_Error";
+    notifications(message, type, ".notificationBox");
+
   });
 }
 
@@ -241,8 +242,8 @@ function searchMassiveIncidence(incidence_id){
   serviceOrderSED((map,featureSet)=>{
     if (!featureSet.features.length){
       let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe";
-      let type = "OrderNotFound";
-      setNotificationBox(message, type);
+      let type = "Searchbar_NIS_Not_Found";
+      notifications(message, type, ".notificationBox");
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
@@ -251,64 +252,19 @@ function searchMassiveIncidence(incidence_id){
 
     let pointSymbol = makeSymbol.makePoint();
       myresults.forEach((attr)=>{
-      map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
-      map.centerAndZoom(attr.geometry,15);
-
+        map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
+        map.centerAndZoom(attr.geometry,15);
       });
       let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de SED";
-      let type = "Order_SED";
-      setNotificationBox(message, type);
+      let type = "Searchbar_Massive";
+      notifications(message, type, ".notificationBox");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
-    let message = "Error doing query for getting orders associated to the SED";
-    setNotificationBox(message, "ErrorOrderSED");
+    let message = "Error query para obtener ordenes asociadas a la SED";
+    let type = "Searchbar_Error";
+    notifications(message, type, ".notificationBox");
   });
 }
 
-function setNotificationBox(message, type){
-  $('.notificationBox')
-    .empty()
-    .css('visibility','visible')
-    .append('<strong class="notificationBox-text">'+message+'</strong>');
-
-  switch (type) {
-    case 'customer':
-      $('.notificationBox').css('background-color','lightgreen');
-      break;
-    case 'SED':
-      $('.notificationBox').css('background-color','lightcoral');
-      break;
-    case 'OK':
-      $('.notificationBox').css('background-color','powderblue');
-      break;
-    case 'NoSED':
-      $('.notificationBox').css('background-color','red');
-      break;
-    case 'info':
-      $('.notificationBox').css('background-color','yellow');
-      break;
-    case 'Error':
-      $('.notificationBox').css('background-color','blue');
-      break;
-    case 'Order':
-      $('.notificationBox').css('background-color','yellow');
-      break;
-    case 'ErrorOrder':
-      $('.notificationBox').css('background-color','azure');
-      break;
-    case 'OrderNotFound':
-      $('.notificationBox').css('background-color','yellow');
-      break;
-    case 'Order_customer':
-      $('.notificationBox').css('background-color','lightgreen');
-      break;
-    case 'Order_SED':
-      $('.notificationBox').css('background-color','lightcoral');
-      break;
-
-    default:
-
-  }
-}
 
 export {searchBar_NIS, searchBar_Order, searchBar_Incidence};
