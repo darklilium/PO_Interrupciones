@@ -2,8 +2,8 @@ import React from 'react';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
-
-function getInterruptionsByExtent(extent){
+var allCustomers = [];
+function getClieInterruptionsByExtent(extent){
 /*  To Do: Search interruptions for clients and SED with map extent and show'em all.
 */
   //search orders with current extent in customers.
@@ -17,28 +17,16 @@ function getInterruptionsByExtent(extent){
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
-      console.log("for customers",featureSet.features.length);
-      //then get the SED orders if theres any.
-      if (featureSet.features.length==0) {
-        console.log("No for customers, verifying in SED orders...");
-        //verify into SED.
-
-        getSEDByExtent(featureSet, extent);
-      }else{
-        getSEDByExtent(featureSet, extent);
-      }
-
+      //console.log("for customers",featureSet.features.length);
+      return featureSet.features;
   }, (Errorq)=>{
     console.log(Errorq);
+      return 0;
   });
 
 }
 
-function getSEDByExtent(featuresFound, extent){
-//  console.log(featuresFound);
-  var allOfThem = {
-    customers: featuresFound
-  };
+function getSEDByExtent(extent){
   var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_interr_sed());
   var qInterruptions = new esri.tasks.Query();
   qInterruptions.where = "1=1";
@@ -48,25 +36,23 @@ function getSEDByExtent(featuresFound, extent){
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
-      console.log("for sed", featureSet.features.length);
-
-      //then get the SED orders if theres any.
-      if (featureSet.features.length==0) {
-        console.log("no hay ");
-        allOfThem.seds= featureSet;
-        getEverything(allOfThem);
-      }else{
-        allOfThem.seds= featureSet;
-        getEverything(allOfThem);
-      }
+      //console.log("for sed", featureSet.features.length);
+      return featureSet.features;
 
   }, (Errorq)=>{
     console.log(Errorq);
+    return 0;
   });
 
 }
 
-function getEverything(all){
-  return all;
+function saveResultsClass(extent){
+  var myResults = {
+    nisResults: getClieInterruptionsByExtent(extent),
+    sedResults: getSEDByExtent(extent)
+  };
+  console.log(myResults);
 }
-export {getInterruptionsByExtent, getEverything};
+
+
+export {saveResultsClass};

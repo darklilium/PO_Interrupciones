@@ -33,7 +33,7 @@ class StatisticsToolbar extends React.Component {
       this.currentMassive();
       this.currentIsolated();
       this.currentTotal();
-        console.log(this.state.massiveqtty, this.state.currentIsolated, this.state.currentTotal);
+      //console.log(this.state.massiveqtty, this.state.currentIsolated, this.state.currentTotal);
       setTimeout(foo, 10000);
     };
 
@@ -73,7 +73,7 @@ class StatisticsToolbar extends React.Component {
 
     serviceCurrTotal((map,featureSet)=>{
       this.setState({ totalqtty: featureSet.features[0].attributes['CANTIDAD']});
-    
+
     },errorCount => console.log("error getting the current total"));
   }
 

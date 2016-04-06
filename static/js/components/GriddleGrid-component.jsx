@@ -1,5 +1,7 @@
 import React from 'react';
 import Griddle from 'griddle-react';
+import getInterruptionsByExtent from '../services/getInterruptionsByExtent';
+import mymap from '../services/map-service';
 
 var fakeData =  [
   {
@@ -601,6 +603,11 @@ class GriddleGrid extends React.Component{
   constructor(props){
     super(props);
     this.onRowClick = this.onRowClick.bind(this);
+    //var map = mymap.getMap();
+    //getInterruptionsByExtent(map.extent)
+  }
+  componentDidMount(){
+
   }
   onRowClick(gridRow, event){
     console.log(gridRow.props.data);
@@ -614,7 +621,7 @@ class GriddleGrid extends React.Component{
                showSettings={true}
                onRowClick={this.onRowClick}
                columns={["name", "city", "state", "country"]}/>
-        
+
       );
   }
 }

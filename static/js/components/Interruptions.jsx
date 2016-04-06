@@ -6,10 +6,11 @@ import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
-
+import {saveResultsClass} from '../services/getInterruptionsByExtent';
 class Interruptions extends React.Component {
   constructor(){
     super();
+    this.state = {mydata: {}};
   }
 
   componentDidMount(){
@@ -25,6 +26,13 @@ class Interruptions extends React.Component {
 
     interrClienteSED.refreshInterval = 1;
     map.addLayer(interrClienteSED);
+
+    map.on('extent-change', ()=>{
+    saveResultsClass(map.extent)
+
+    //new Promise(saveResultsClass(map.extent)).then(v => this.setState({ mydata: v }));
+      console.log(this.state.newProperty);
+    });
   }
 
   render(){
@@ -42,7 +50,7 @@ class Interruptions extends React.Component {
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary />
       {/*  <MyGrid /> */}
-      <GriddleGrid />
+      <GriddleGrid/>
     </div>
     );
   }
