@@ -65,13 +65,13 @@ class StatisticsSummary extends React.Component {
         </TabList>
 
         <TabPanel>
-          <div id="container1" className="statistics-summary__chart1"></div>
+          <div id="container1" className="statistics-summary__chart"></div>
         </TabPanel>
         <TabPanel>
-          <div id="container2" className="statistics-summary__chart1"></div>
+          <div id="container2" className="statistics-summary__chart"></div>
         </TabPanel>
         <TabPanel>
-          <div id="container3" className="statistics-summary__chart1"></div>
+          <div id="container3" className="statistics-summary__chart"></div>
         </TabPanel>
   </Tabs>
 

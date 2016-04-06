@@ -6,7 +6,7 @@ body{
     top: 4em;
 }
 
-.interruptions_wrapper{
+.interruptions__wrapper{
   width: 100%;
   height: 100%;
 }
@@ -21,8 +21,19 @@ body{
   padding-top: 1.7em;
 }
 
-@import "components/search-box";
-@import "components/myGrid";
+.interruptions__header{
+  width: 100%;
+  margin-top: 0.1em;
+  padding: 0;
+  height: 1.6em;
+  background-color: ghostwhite;
+  z-index: 2;
+  position: fixed;
+}
+
+@import "components/searchbar-component";
 @import "components/statistics";
 @import "components/statistics-summary";
-@import "components/ordertimer";
+
+
+//@import "components/myGrid";

@@ -1,0 +1,49 @@
+$notification-box-bg: gainsboro;
+$elements_height: 1.6em;
+.wrapper__searchbar{
+  width: 100%;
+  float: right;
+  height: inherit;
+}
+
+.searchbar__elements{
+  float: right;
+  height: $elements_height;
+}
+
+.searchbar__elements-combobox{
+  height:  $elements_height;
+  width: 8em;
+  margin: 0;
+}
+
+.searchbar__elements-input{
+  height:  $elements_height;
+  width: 8em;
+}
+
+.searchbar__elements-button{
+  height: auto;
+  width: 2.5em;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.searchbar__notifications{
+  width: 100%;
+  height: 1.5em;
+  margin-top: 1.6em;
+  padding: 0em;
+  background-color: $notification-box-bg;
+  z-index: 2;
+  position: fixed;
+  right: 0;
+  visibility: hidden;
+}
+
+.searchbar__notifications-text{
+  text-align: right;
+  padding-right: 2em;
+  float: right;
+}

@@ -79,12 +79,13 @@ class StatisticsToolbar extends React.Component {
   render(){
 
     return (
-      <div className="wrapper_statistics">
-        <span><i className="fa fa-signal"></i> Total Interrupciones: </span>
-        <div className="statistic_kind">
+
+      <div className="wrapper__statistics">
+        <span><i className="statistic-span fa fa-signal"></i> Total Interrupciones: </span>
+        <div className="statistic__kind">
           <div className="statistic___massive">
             <img className="statistic-img" src="images/widget_icons/massive.png" />
-            <span className="statistic-h4">Falla Subestación: {this.state.massiveqtty}</span>
+            <span className="statistic-h4">Falla SED: {this.state.massiveqtty}</span>
           </div>
           <div className="statistic___isolated">
             <img className="statistic-img" src="images/widget_icons/isolated.png" />

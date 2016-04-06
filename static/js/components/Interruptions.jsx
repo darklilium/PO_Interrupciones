@@ -3,8 +3,8 @@ import mymap from '../services/map-service';
 import layers from '../services/layers-service';
 import myinfotemplate from '../services/infotemplates-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
-import SearchBar from './Searchbar.jsx'
-
+import SearchBar from './searchbar.jsx';
+import StatisticsSummary from './statistics-summary.jsx';
 
 
 class Interruptions extends React.Component {
@@ -30,13 +30,17 @@ class Interruptions extends React.Component {
   render(){
 
     return (
-    <div className="interruptions_wrapper">
-      {/*Search nis and orders with statistics button and table*/}
-      <SearchBar />
+    <div className="interruptions__wrapper">
+      <div className="interruptions__header">
+        {/*Search nis and orders with statistics button and table*/}
+        <SearchBar />
+        {/* StatisticsToolbar on top*/}
+        <StatisticsToolbar />
+      </div>
       {/* The map*/}
       <div className="map_div" id="map_div"></div>
-      {/* StatisticsToolbar on top*/}
-      <StatisticsToolbar />
+      {/*Statistics per Region(qtty and percentual), office*/}
+      <StatisticsSummary />
     </div>
     );
   }

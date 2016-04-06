@@ -3,13 +3,13 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
-function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel){
+function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTitle){
   $("#"+divName).highcharts({
       chart: {
           type: 'bar'
       },
       title: {
-          text: 'Interrupciones por comuna'
+          text: textTitle
       },
         xAxis: {
           categories: categories
@@ -69,7 +69,7 @@ function getStatisticsSummary(){
       var qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(reg, qtty, "container1", "Cantidad Clientes (u)", "Cant. Clientes")
+      makeBarsGraphic(reg, qtty, "container1", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por comuna.")
 
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
@@ -93,7 +93,7 @@ function getStatisticPerOffice(){
       qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes")
+      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.")
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
@@ -180,7 +180,7 @@ function calculatePercentaje(totalObj, affectedObj){
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
 
-  makeBarsGraphic(cat, dat, "container3", "% Clientes", "% Clientes")
+  makeBarsGraphic(cat, dat, "container3", "% Clientes", "% Clientes", "Interrupciones por comuna.")
 }
 
 export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};

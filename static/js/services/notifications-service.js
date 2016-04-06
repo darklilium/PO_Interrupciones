@@ -27,7 +27,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','lightgreen')
       break;
 
@@ -35,7 +35,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','lightcoral')
       break;
 
@@ -43,7 +43,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','powderblue')
       break;
 
@@ -51,7 +51,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','red')
       break;
 
@@ -59,7 +59,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','yellow')
       break;
 
@@ -67,7 +67,7 @@ function notifications(message, type, myClass){
       $(myClass)
       .empty()
       .css('visibility','visible')
-      .append('<strong class="notificationBox-text">'+message+'</strong>')
+      .append('<strong class="searchbar__notifications-text">'+message+'</strong>')
       .css('background-color','yellow')
       break;
 

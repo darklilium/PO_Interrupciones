@@ -6,8 +6,8 @@ import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {searchBar_SED} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
-import StatisticsSummary from './statistics-summary.jsx';
-import MyGrid from '../components/MyGrid.jsx';
+
+//import MyGrid from '../components/MyGrid.jsx';
 
 class SearchBar extends React.Component {
   constructor(){
@@ -36,7 +36,7 @@ class SearchBar extends React.Component {
   }
 
   onClickSearch(){
-    $('.notificationBox').empty().css('visibility', 'hidden');
+    $('.searchbar__notifications').empty().css('visibility', 'hidden');
     let searchType = this.refs.searchType.value;
       if (searchType=='nis') {
         console.log("searching for nis...");
@@ -62,13 +62,13 @@ class SearchBar extends React.Component {
     map.graphics.clear();
     map.removeLayer(layers.read_graphicLayer());
 
-    $('.notificationBox').empty().css('visibility', 'hidden');
+    $('.searchbar__notifications').empty().css('visibility', 'hidden');
   }
 
   onClickOrderTimer(){
     console.log("toggling order timer");
     var map = mymap.getMap();
-
+/*
     if (this.state.timerClic==0){
       this.setState({ timerClic : 1 });
       $('.mytable-Wrapper').css('visibility', 'visible');
@@ -80,47 +80,46 @@ class SearchBar extends React.Component {
         $('.mygrid').css('visibility', 'hidden');
 
     }
+    */
   }
 
   render(){
 
     return (
 
-      <div>
-      <div className="searchBox">
-      {/* Button for search orders and incidences */}
-      <select className="searchbox__combobox" ref="searchType">
-        <option value="nis">NIS</option>
-        <option value="incidence">INCIDENCIA</option>
-        <option value="order">ORDEN</option>
-        <option value="sed">SED</option>
-      </select>
+      <div className="wrapper__searchbar">
+        <div className="searchbar__elements">
+          {/* Button for search orders and incidences */}
+          <select className="searchbar__elements-combobox" ref="searchType">
+            <option value="nis">NIS</option>
+            <option value="incidence">INCIDENCIA</option>
+            <option value="order">ORDEN</option>
+            <option value="sed">SED</option>
+          </select>
 
-      {/* Input for searching NIS */}
-        <input className="searchBox__searchInput" ref="searchValue" type="text" placeholder=" NIS" />
-      {/* Button for searching NIS */}
-        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickSearch}>
-            <span className="searchBox_icon"><i className="fa fa-search"></i></span>
-        </button>
-      {/* Button for cleaning map */}
-        <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickClearMap}>
-          <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
-      {/* Button for statistics per region*/}
-        <button data-toggle="collapse" data-target="#collapseStatistics" type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickStatistics}>
-            <span className="searchBox_icon"><i className="fa fa-pie-chart"></i></span>
-        </button>
+          {/* Input for searching NIS */}
+            <input className="searchbar__elements-input" ref="searchValue" type="text" placeholder=" NIS" />
+          {/* Button for searching NIS */}
+            <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickSearch}>
+                <span><i className="fa fa-search"></i></span>
+            </button>
+          {/* Button for cleaning map */}
+            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickClearMap}>
+              <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
+          {/* Button for statistics per region*/}
+            <button className="searchbar__elements-button btn btn-default" data-toggle="collapse" data-target="#collapseStatistics" type="button"  onClick={this.onClickStatistics}>
+                <span><i className="fa fa-pie-chart"></i></span>
+            </button>
 
-      {/* Button for OrderTimer*/}
-      <button type="button" className="searchBox__searchSubmit btn btn-default" onClick={this.onClickOrderTimer}>
-            <span className="searchBox_icon"><i className="fa fa-clock-o"></i></span>
-      </button>
-
-      </div>
+          {/* Button for OrderTimer*/}
+          <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickOrderTimer}>
+                <span><i className="fa fa-clock-o"></i></span>
+          </button>
+        </div>
       {/* Notification Box*/}
-      <div className="notificationBox"></div>
-      {/*Statistics per Region(qtty and percentual), office*/}
-      <StatisticsSummary className="statisticsSummary" />
-      <MyGrid className="mygrid" />
+      <div className="searchbar__notifications"></div>
+
+    {/*  <MyGrid /> */}
     </div>
 
     );

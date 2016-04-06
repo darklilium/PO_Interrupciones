@@ -51,7 +51,7 @@ function searchBar_NIS(nis){
           },(ErrorQuery)=>{
             let message = "Fallo al realizar la query para capturar SED de cliente.";
             let type = "Searchbar_ErrorQuerySED";
-            notifications(message, type, ".notificationBox");
+            notifications(message, type, ".searchbar__notifications");
           });
       });
 
@@ -67,7 +67,7 @@ function searchBar_NIS(nis){
         if(!featureSet.features.length){
           let message = "NIS: " + nis+ " no se ha encontrado o no existe";
           let type = "Searchbar_NIS_Not_Found";
-          notifications(message, type, ".notificationBox");
+          notifications(message, type, ".searchbar__notifications");
           return;
         }
         let mySed = featureSet.features[0].attributes['ARCGIS.dbo.CLIENTES_DATA_DATOS_006.resp_id_sed'];
@@ -80,7 +80,7 @@ function searchBar_NIS(nis){
           console.log("Error al ejecutar la query en Falla Masiva");
           let message = "Error al buscar el NIS : " + nis + "en falla masiva";
           let type = "Searchbar_Error";
-          notifications(message, type, ".notificationBox");
+          notifications(message, type, ".searchbar__notifications");
       });
     }
   },(ErrorQueryIsolated)=>{
@@ -107,7 +107,7 @@ function searchMassive(sed, nis, address, nisgeom){
         console.log("nis is not having any issue");
         let message = "NIS: " + nis + " no presenta problemas";
         let type = "Searchbar_NIS_Without_Problems";
-        notifications(message, type, ".notificationBox");
+        notifications(message, type, ".searchbar__notifications");
         return;
       }
       //when the order is found , show where the NIS is with the info.
@@ -115,7 +115,7 @@ function searchMassive(sed, nis, address, nisgeom){
       let pointSymbol = makeSymbol.makePoint();
       let message = "NIS: " + nis +" presente en falla masiva";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
       let myresults = featureSet.features.map((feature)=>{
         return feature;
       });
@@ -133,7 +133,7 @@ function searchMassive(sed, nis, address, nisgeom){
     console.log("Problems getting the sed for massive interruption ");
     let message = "Error tratando de obtener la SED del NIS:" + nis;
     let type = "Searchbar_Error";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
   });
 
 }
@@ -164,13 +164,13 @@ function searchBar_Order(order_id){
     map.centerAndZoom(myresults[0],15);
     let message = "ID Orden: " + order_id + " encontrada en fallas de clientes";
     let type = "Searchbar_Isolated";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
     let message = "Error doing query for getting orders associated to the customer";
     let type = "Searchbar_Error";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
   });
 }
 
@@ -185,7 +185,7 @@ function searchMassiveOrder(order_id){
     if (!featureSet.features.length){
       let message = "ID Orden: " + order_id + " no se ha encontrado o no existe";
       let type = "Searchbar_NIS_Not_Found";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
@@ -199,12 +199,12 @@ function searchMassiveOrder(order_id){
       });
       let message = "ID Orden: " + order_id + " encontrada en fallas de SED";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
     let message = "Error en query para obtener ordenes asociadas a la SED";
     let type = "Searchbar_ErrorQuerySED";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
   });
 }
 
@@ -234,13 +234,13 @@ function searchBar_Incidence(incidence_id){
     map.centerAndZoom(myresults[0],15);
     let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de clientes";
     let type = "Searchbar_Isolated";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
     let message = "Error en query para obtener ordenes asociadas al NIS";
     let type = "Searchbar_Error";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
 
   });
 }
@@ -256,7 +256,7 @@ function searchMassiveIncidence(incidence_id){
     if (!featureSet.features.length){
       let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe";
       let type = "Searchbar_NIS_Not_Found";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
       return;
     }
     let myresults = featureSet.features.map((feature)=>{
@@ -270,12 +270,12 @@ function searchMassiveIncidence(incidence_id){
       });
       let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de SED";
       let type = "Searchbar_Massive";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
     console.log("Error doing query for getting orders associated to the SED");
     let message = "Error query para obtener ordenes asociadas a la SED";
     let type = "Searchbar_Error";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
   });
 }
 
@@ -294,14 +294,14 @@ function searchBar_SED(sed){
       console.log("searching for sed location");
       let message = "SED " + sed + " no presenta problemas";
       let type = "Searchbar_NIS_Without_Problems";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
       //search the sed location
       sedLocation(sed);
       return;
     }
     let message = "SED " + sed + " presente en falla masiva";
     let type = "Searchbar_Massive";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
     let myresults = featureSet.features.map((feature)=>{
       return feature;
     });
@@ -323,7 +323,7 @@ function searchBar_SED(sed){
       console.log(errorSearchSed);
       let message = "SED " + sed + " no existe.";
       let type = "Searchbar_Error";
-      notifications(message, type, ".notificationBox");
+      notifications(message, type, ".searchbar__notifications");
   });
 }
 
@@ -336,7 +336,7 @@ function sedLocation(sed){
       if(!featureSet.features.length){
         let message = "SED " + sed + " no se ha podido localizar en el mapa.";
         let type = "Searchbar_Error";
-        notifications(message, type, ".notificationBox");
+        notifications(message, type, ".searchbar__notifications");
         console.log("SED doesnt have geometry.");
         return;
       }
