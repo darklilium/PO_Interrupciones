@@ -3,7 +3,13 @@ import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
 var allCustomers = [];
-function getClieInterruptionsByExtent(extent){
+
+
+/**
+ *  callback is a function that will do what we need with the result of the
+ *  asynchronous call
+ */
+function getClieInterruptionsByExtent(extent, callback){
 /*  To Do: Search interruptions for clients and SED with map extent and show'em all.
 */
   //search orders with current extent in customers.
@@ -15,10 +21,12 @@ function getClieInterruptionsByExtent(extent){
   qInterruptions.outFields=["*"];
   qInterruptions.geometry = extent;
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
+
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
       //console.log("for customers",featureSet.features.length);
-      return featureSet.features;
+      //return featureSet.features;
+      callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);
       return 0;
