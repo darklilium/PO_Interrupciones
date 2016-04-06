@@ -18,7 +18,7 @@ class SearchBar extends React.Component {
     this.onClickOrderTimer = this.onClickOrderTimer.bind(this);
     this.state = {
       staClic : 0,
-      timerClic : 0
+      gridClic : 0
     }
 }
 
@@ -66,21 +66,20 @@ class SearchBar extends React.Component {
   }
 
   onClickOrderTimer(){
-    console.log("toggling order timer");
+    console.log("toggling grid");
+    $( ".griddle-title" ).remove();
     var map = mymap.getMap();
-/*
-    if (this.state.timerClic==0){
-      this.setState({ timerClic : 1 });
-      $('.mytable-Wrapper').css('visibility', 'visible');
-      $('.mygrid').css('visibility', 'visible');
+
+    if (this.state.gridClic==0){
+      this.setState({ gridClic : 1 });
+      $('.griddle').css('visibility', 'visible');
+      $( "<h4 class='griddle-title'>Interrupciones</h4>" ).appendTo( ".griddle" ).insertBefore(".griddle-filter");
 
     }else{
-      this.setState({ timerClic : 0 });
-      $('.mytable-Wrapper').css('visibility', 'hidden');
-        $('.mygrid').css('visibility', 'hidden');
+      this.setState({ gridClic : 0 });
+      $('.griddle').css('visibility', 'hidden');
 
     }
-    */
   }
 
   render(){
@@ -118,8 +117,6 @@ class SearchBar extends React.Component {
         </div>
       {/* Notification Box*/}
       <div className="searchbar__notifications"></div>
-
-    {/*  <MyGrid /> */}
     </div>
 
     );

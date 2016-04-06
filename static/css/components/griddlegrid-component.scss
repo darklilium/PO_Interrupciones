@@ -1,0 +1,23 @@
+.griddle{
+  width: 100%;
+  z-index: 3;
+  position: absolute;
+  bottom: 0em;
+  height: auto;
+  background-color: ghostwhite;
+  padding-top: 1em;
+  visibility: hidden;
+}
+
+.top-section{
+  padding-bottom: 1em;
+}
+
+.wrapper_griddle{
+  visibility: hidden;
+}
+
+.griddle-title{
+ padding-left: 0.5em;
+ width: 5em;
+}

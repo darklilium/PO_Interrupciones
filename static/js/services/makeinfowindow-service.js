@@ -14,7 +14,7 @@ function makeInfoWindow(nis,order,incident_id,sed, point, time, address){
   };
 
   map.infoWindow.setTitle("NIS : " + contentVars.nis);
-  map.infoWindow.resize(320, 150);
+  map.infoWindow.resize(320, 200);
 
   var content = `<div style=padding-top: 10px;>Orden: ${contentVars.order}<br /></div>
   <div style=padding-top: 10px;>ID Incidencia: ${contentVars.incident_id}<br /></div>
@@ -39,7 +39,7 @@ function makeInfoWindowPerSED(sed, point, name, region, alimentador, property){
   };
 
   map.infoWindow.setTitle("SED : " + contentVars.sed);
-  map.infoWindow.resize(320, 150);
+  map.infoWindow.resize(320, 200);
 
   var content = `<div style=padding-top: 10px;>Nombre: ${contentVars.name}<br /></div>
   <div style=padding-top: 10px;>Comuna: ${contentVars.region}<br /></div>
@@ -64,7 +64,7 @@ function makeInfoWindowPerSEDInterrupted(sed, point, order_id, incident_id, alim
   };
 
   map.infoWindow.setTitle("SED : " + contentVars.sed);
-  map.infoWindow.resize(320, 150);
+  map.infoWindow.resize(320, 200);
 
   var content = `<div style=padding-top: 10px;>ID Orden: ${contentVars.order_id}<br /></div>
   <div style=padding-top: 10px;>ID Incidencia: ${contentVars.incident_id}<br /></div>
@@ -76,5 +76,23 @@ function makeInfoWindowPerSEDInterrupted(sed, point, order_id, incident_id, alim
   map.infoWindow.show(point, map.getInfoWindowAnchor(point));
 }
 
+function makeInfoWindowPerNisInfo(nis,sed, point,address){
+  var map = mymap.getMap();
 
-export {makeInfoWindow, makeInfoWindowPerSED, makeInfoWindowPerSEDInterrupted};
+  var contentVars = {
+    nis: nis,
+    sed: sed,
+    pointGeometry: point,
+    address: address
+  };
+
+  map.infoWindow.setTitle("NIS : " + contentVars.nis);
+  map.infoWindow.resize(320, 200);
+
+  var content = `<div style=padding-top: 10px;>SED: ${contentVars.sed}<br /></div>
+  <div style=padding-top: 10px;>Dirección: ${contentVars.address}<br /></div>`;
+
+  map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(point), content));
+  map.infoWindow.show(point, map.getInfoWindowAnchor(point));
+}
+export {makeInfoWindow, makeInfoWindowPerSED, makeInfoWindowPerSEDInterrupted,makeInfoWindowPerNisInfo };

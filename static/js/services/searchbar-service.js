@@ -3,6 +3,7 @@ import makeSymbol from '../services/makeSymbol-service';
 import {makeInfoWindow} from '../services/makeinfowindow-service';
 import {makeInfoWindowPerSED} from '../services/makeinfowindow-service';
 import {makeInfoWindowPerSEDInterrupted} from '../services/makeinfowindow-service';
+import {makeInfoWindowPerNisInfo} from '../services/makeinfowindow-service';
 import createQueryTask from '../services/createquerytask-service';
 import {notifications} from '../services/notifications-service';
 
@@ -60,7 +61,7 @@ function searchBar_NIS(nis){
       //the SED code for the customer (NIS)
       console.log("going to search into massive interruptions");
       var serviceMassive = createQueryTask({
-        url: layers.read_layer_ClienteSED(),
+        url: layers.read_layer_nisInfo(),
         whereClause: `ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nis=${nis}`
       });
       serviceMassive((map,featureSet)=>{
@@ -108,6 +109,11 @@ function searchMassive(sed, nis, address, nisgeom){
         let message = "NIS: " + nis + " no presenta problemas";
         let type = "Searchbar_NIS_Without_Problems";
         notifications(message, type, ".searchbar__notifications");
+        let pointSymbol = makeSymbol.makePoint();
+        map.graphics.add(new esri.Graphic(nisgeom,pointSymbol));
+        map.centerAndZoom(nisgeom,20);
+        makeInfoWindowPerNisInfo(nis,sed, nisgeom,address);
+
         return;
       }
       //when the order is found , show where the NIS is with the info.
@@ -327,6 +333,8 @@ function searchBar_SED(sed){
   });
 }
 
+
+//for searching a SED
 function sedLocation(sed){
   var service = createQueryTask({
     url: layers.read_layer_infoSED(),

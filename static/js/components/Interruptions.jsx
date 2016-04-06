@@ -3,9 +3,9 @@ import mymap from '../services/map-service';
 import layers from '../services/layers-service';
 import myinfotemplate from '../services/infotemplates-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
-import SearchBar from './searchbar.jsx';
+import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
-
+import GriddleGrid from './GriddleGrid-component.jsx';
 
 class Interruptions extends React.Component {
   constructor(){
@@ -41,6 +41,8 @@ class Interruptions extends React.Component {
       <div className="map_div" id="map_div"></div>
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary />
+      {/*  <MyGrid /> */}
+      <GriddleGrid />
     </div>
     );
   }

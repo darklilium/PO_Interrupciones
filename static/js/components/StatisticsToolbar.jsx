@@ -72,7 +72,8 @@ class StatisticsToolbar extends React.Component {
     });
 
     serviceCurrTotal((map,featureSet)=>{
-      this.setState({ totalqtty: featureSet.features[0].attributes['Cantidad']});
+      this.setState({ totalqtty: featureSet.features[0].attributes['CANTIDAD']});
+    
     },errorCount => console.log("error getting the current total"));
   }
 
