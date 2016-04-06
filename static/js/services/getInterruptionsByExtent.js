@@ -2,9 +2,6 @@ import React from 'react';
 import layers from '../services/layers-service';
 import mymap from '../services/map-service';
 
-var allCustomers = [];
-
-
 /**
  *  callback is a function that will do what we need with the result of the
  *  asynchronous call
@@ -24,9 +21,7 @@ function getClieInterruptionsByExtent(extent, callback){
 
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
-      //console.log("for customers",featureSet.features.length);
-      //return featureSet.features;
-      callback(featureSet.features);
+  callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);
       return 0;
@@ -34,7 +29,7 @@ function getClieInterruptionsByExtent(extent, callback){
 
 }
 
-function getSEDByExtent(extent){
+function getSEDByExtent(extent, callback){
   var qTaskInterruptions = new esri.tasks.QueryTask(layers.read_layer_interr_sed());
   var qInterruptions = new esri.tasks.Query();
   qInterruptions.where = "1=1";
@@ -45,8 +40,7 @@ function getSEDByExtent(extent){
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
       //console.log("for sed", featureSet.features.length);
-      return featureSet.features;
-
+      callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);
     return 0;
@@ -54,13 +48,14 @@ function getSEDByExtent(extent){
 
 }
 
+
 function saveResultsClass(extent){
   var myResults = {
     nisResults: getClieInterruptionsByExtent(extent),
     sedResults: getSEDByExtent(extent)
   };
-  console.log(myResults);
+  //console.log(myResults);
 }
 
 
-export {saveResultsClass};
+export {getClieInterruptionsByExtent,getSEDByExtent,saveResultsClass};

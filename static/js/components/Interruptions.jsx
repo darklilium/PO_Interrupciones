@@ -7,6 +7,9 @@ import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
 import {saveResultsClass} from '../services/getInterruptionsByExtent';
+import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent';
+import {getSEDByExtent} from '../services/getInterruptionsByExtent';
+
 class Interruptions extends React.Component {
   constructor(){
     super();
@@ -28,10 +31,11 @@ class Interruptions extends React.Component {
     map.addLayer(interrClienteSED);
 
     map.on('extent-change', ()=>{
-    saveResultsClass(map.extent)
+      getClieInterruptionsByExtent((map.extent), (callback)=>{console.log(callback);});
+      getSEDByExtent((map.extent), (callback)=>{console.log(callback);});
 
-    //new Promise(saveResultsClass(map.extent)).then(v => this.setState({ mydata: v }));
-      console.log(this.state.newProperty);
+
+    //  console.log(this.state.newProperty);
     });
   }
 
