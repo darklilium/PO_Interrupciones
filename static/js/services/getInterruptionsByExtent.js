@@ -21,7 +21,7 @@ function getClieInterruptionsByExtent(extent, callback){
 
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
-  callback(featureSet.features);
+    callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);
       return 0;
@@ -40,7 +40,7 @@ function getSEDByExtent(extent, callback){
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
       //console.log("for sed", featureSet.features.length);
-      callback(featureSet.features);
+    callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);
     return 0;
@@ -48,14 +48,4 @@ function getSEDByExtent(extent, callback){
 
 }
 
-
-function saveResultsClass(extent){
-  var myResults = {
-    nisResults: getClieInterruptionsByExtent(extent),
-    sedResults: getSEDByExtent(extent)
-  };
-  //console.log(myResults);
-}
-
-
-export {getClieInterruptionsByExtent,getSEDByExtent,saveResultsClass};
+export {getClieInterruptionsByExtent,getSEDByExtent};

@@ -6,14 +6,23 @@ import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
-import {saveResultsClass} from '../services/getInterruptionsByExtent';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent';
 
 class Interruptions extends React.Component {
   constructor(){
     super();
-    this.state = {mydata: {}};
+    this.state = {
+      mydata:[{
+        'Tipo' : 0 ,
+        'ID Orden': 0,
+        'ID Incidencia': 0,
+        'Estado':0,
+        'Fecha creacion': 0 ,
+        'Causa': 0,
+        'Tiempo': 0
+      }]
+    };
   }
 
   componentDidMount(){
@@ -31,11 +40,21 @@ class Interruptions extends React.Component {
     map.addLayer(interrClienteSED);
 
     map.on('extent-change', ()=>{
-      getClieInterruptionsByExtent((map.extent), (callback)=>{console.log(callback);});
-      getSEDByExtent((map.extent), (callback)=>{console.log(callback);});
-
-
-    //  console.log(this.state.newProperty);
+      getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
+        let nisresults = myresultsNis.map((result)=>{
+            let mynewNis = {
+              'Tipo': 'Cliente',
+              'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
+              'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia']
+            }
+            return mynewNis;
+        });
+        console.log(nisresults);
+        this.setState({mydata:nisresults});
+      });
+      getSEDByExtent((map.extent), (myresultsSed)=>{
+      //  console.log(myresultsSed);
+      });
     });
   }
 
@@ -54,7 +73,7 @@ class Interruptions extends React.Component {
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary />
       {/*  <MyGrid /> */}
-      <GriddleGrid/>
+      <GriddleGrid data={this.state.mydata}/>
     </div>
     );
   }

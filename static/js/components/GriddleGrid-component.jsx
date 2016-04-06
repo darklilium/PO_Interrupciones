@@ -614,13 +614,13 @@ class GriddleGrid extends React.Component{
   }
   render(){
     return (
-      <Griddle results={fakeData}
+      <Griddle results={this.props.data}
                resultsPerPage={5}
                tableClassName="table"
                showFilter={true}
                showSettings={true}
                onRowClick={this.onRowClick}
-               columns={["name", "city", "state", "country"]}/>
+               columns={["Tipo", "ID Orden", "ID Incidencia", "Estado", "Fecha creacion","Causa","Tiempo"]}/>
 
       );
   }
