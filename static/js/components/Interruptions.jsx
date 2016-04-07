@@ -13,7 +13,16 @@ class Interruptions extends React.Component {
   constructor(){
     super();
     this.state = {
-      mydata:[{
+      mydatanis:[{
+        'Tipo' : 0 ,
+        'ID Orden': 0,
+        'ID Incidencia': 0,
+        'Estado':0,
+        'Fecha creacion': 0 ,
+        'Causa': 0,
+        'Tiempo': 0
+      }],
+      mydatased:[{
         'Tipo' : 0 ,
         'ID Orden': 0,
         'ID Incidencia': 0,
@@ -40,21 +49,42 @@ class Interruptions extends React.Component {
     map.addLayer(interrClienteSED);
 
     map.on('extent-change', ()=>{
+
+
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
         let nisresults = myresultsNis.map((result)=>{
             let mynewNis = {
               'Tipo': 'Cliente',
               'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
-              'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia']
+              'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
+              'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
+              'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
+              'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
+              'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA']
             }
             return mynewNis;
         });
-        console.log(nisresults);
-        this.setState({mydata:nisresults});
+        this.setState({mydatanis:nisresults});
       });
+
       getSEDByExtent((map.extent), (myresultsSed)=>{
-      //  console.log(myresultsSed);
+          let sedresults = myresultsSed.map((result)=>{
+          let mynewSed = {
+            'Tipo': 'SED',
+            'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
+            'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
+            'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
+            'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
+            'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
+            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA']
+          }
+          return mynewSed;
+        });
+        this.setState({mydatased:sedresults});
       });
+      var allresults = this.state.mydatanis.concat(this.state.mydatased);
+      console.log(allresults);
+      //this.setState({mydata: allresults}); <-- la idea
     });
   }
 
