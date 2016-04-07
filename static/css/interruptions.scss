@@ -30,6 +30,22 @@ body{
   z-index: 2;
   position: fixed;
 }
+.interruptions__symbology{
+width: 8em;
+height: 20em;
+border-radius: 3em;
+background-color: rgba(255,255,255,0.6);
+background-blend-mode: screen;
+margin-top: 12em;
+z-index: 3;
+padding-left: 1em;
+position: absolute;
+}
+
+.interruptions__symbology-img{
+  padding: 1em 0em 1em 0.4em;
+}
+
 
 @import "components/searchbar-component";
 @import "components/statistics";

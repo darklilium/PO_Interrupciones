@@ -92,6 +92,8 @@ class Interruptions extends React.Component {
 
     return (
     <div className="interruptions__wrapper">
+    <div className="interruptions__symbology"><img className="interruptions__symbology-img" src="images/widget_icons/symbology.png"/></div>
+  
       <div className="interruptions__header">
         {/*Search nis and orders with statistics button and table*/}
         <SearchBar />
@@ -101,7 +103,7 @@ class Interruptions extends React.Component {
       {/* The map*/}
       <div className="map_div" id="map_div"></div>
       {/*Statistics per Region(qtty and percentual), office*/}
-      <StatisticsSummary />
+        <StatisticsSummary />
       {/*  <MyGrid /> */}
       <GriddleGrid data={[...this.state.mydatased,...this.state.mydatanis]}/>
     </div>
