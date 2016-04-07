@@ -50,7 +50,6 @@ class Interruptions extends React.Component {
 
     map.on('extent-change', ()=>{
 
-
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
         let nisresults = myresultsNis.map((result)=>{
             let mynewNis = {
@@ -82,9 +81,6 @@ class Interruptions extends React.Component {
         });
         this.setState({mydatased:sedresults});
       });
-      var allresults = this.state.mydatanis.concat(this.state.mydatased);
-      console.log(allresults);
-      //this.setState({mydata: allresults}); <-- la idea
     });
   }
 
@@ -103,11 +99,10 @@ class Interruptions extends React.Component {
       {/*Statistics per Region(qtty and percentual), office*/}
       <StatisticsSummary />
       {/*  <MyGrid /> */}
-      <GriddleGrid data={this.state.mydata}/>
+      <GriddleGrid data={[...this.state.mydatased,...this.state.mydatanis]}/>
     </div>
     );
   }
 }
-
 
 export default Interruptions;
