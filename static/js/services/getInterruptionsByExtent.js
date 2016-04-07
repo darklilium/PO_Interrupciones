@@ -19,7 +19,6 @@ function getClieInterruptionsByExtent(extent, callback){
   qInterruptions.geometry = extent;
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
 
-  //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
     callback(featureSet.features);
   }, (Errorq)=>{

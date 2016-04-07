@@ -20,7 +20,8 @@ class Interruptions extends React.Component {
         'Estado':0,
         'Fecha creacion': 0 ,
         'Causa': 0,
-        'Tiempo': 0
+        'Tiempo': 0,
+        'Geometry': 0
       }],
       mydatased:[{
         'Tipo' : 0 ,
@@ -29,7 +30,8 @@ class Interruptions extends React.Component {
         'Estado':0,
         'Fecha creacion': 0 ,
         'Causa': 0,
-        'Tiempo': 0
+        'Tiempo': 0,
+        'Geometry': 0,
       }]
     };
   }
@@ -52,16 +54,17 @@ class Interruptions extends React.Component {
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
         let nisresults = myresultsNis.map((result)=>{
-            let mynewNis = {
-              'Tipo': 'Cliente',
-              'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
-              'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
-              'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
-              'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
-              'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
-              'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA']
-            }
-            return mynewNis;
+          let mynewNis = {
+            'Tipo': 'Cliente',
+            'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
+            'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
+            'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
+            'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
+            'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
+            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
+            'Geometry': result.geometry
+          }
+          return mynewNis;
         });
         this.setState({mydatanis:nisresults});
       });
@@ -75,7 +78,8 @@ class Interruptions extends React.Component {
             'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
             'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
             'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
-            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA']
+            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
+            'Geometry': result.geometry
           }
           return mynewSed;
         });
