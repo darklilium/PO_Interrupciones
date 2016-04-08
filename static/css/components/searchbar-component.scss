@@ -8,17 +8,19 @@ $elements_height: 1.6em;
 
 .searchbar__elements{
   float: right;
-  height: $elements_height;
+  height: inherit;
 }
 
 .searchbar__elements-combobox{
   height:  $elements_height;
   width: 8em;
   margin: 0;
+  border-radius: 0.5em;
+  border-color: ghostwhite;
 }
 
 .searchbar__elements-input{
-  height:  $elements_height;
+  height:  1.5em;
   width: 8em;
 }
 
@@ -28,6 +30,7 @@ $elements_height: 1.6em;
   text-align: center;
   padding: 0;
   margin: 0;
+  border-color: ghostwhite;
 }
 
 .searchbar__notifications{

@@ -23,8 +23,7 @@ function searchBar_NIS(nis){
       });
       myresults.forEach((attribute)=>{
           console.log("Found in isolated interruptions");
-          let message = 'NIS: '+ nis + ' presente en falla aislada';
-          notifications(message, "Searchbar_Isolated", ".notificationBox");
+
           //search SED for the nis and add it to infowindow
           let myNis = attribute.attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
           let myOrder = attribute.attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
@@ -41,16 +40,19 @@ function searchBar_NIS(nis){
             if(!featureSet.features.length){
               let message = "NIS: " + nis + " no tiene sed";
               let type = "NoSED";
-              notifications(message, "Searchbar_Without_SED", ".notificationBox");
+              notifications(message, "Searchbar_Without_SED", ".searchbar__notifications");
               return;
             }
+            
             let sed = featureSet.features[0].attributes['resp_id_sed'];
             let address = featureSet.features[0].attributes['direccion_resu'];
             makeInfoWindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address );
             map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
             map.centerAndZoom(attribute.geometry,20);
+            let message = 'NIS: '+ nis + ' presente en falla aislada';
+            notifications(message, "Searchbar_Isolated", ".searchbar__notifications");
           },(ErrorQuery)=>{
-            let message = "Fallo al realizar la query para capturar SED de cliente.";
+            let message = "NIS: " + nis + " no tiene sed";
             let type = "Searchbar_ErrorQuerySED";
             notifications(message, type, ".searchbar__notifications");
           });
@@ -88,7 +90,7 @@ function searchBar_NIS(nis){
     console.log("Error al ejecutar la query en Falla Aislada");
     let message = "Ingrese un NIS a buscar";
     let type = "Searchbar_Error";
-    notifications(message, type, ".notificationBox");
+    notifications(message, type, ".searchbar__notifications");
   });
 
 }

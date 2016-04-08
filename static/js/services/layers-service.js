@@ -11,6 +11,12 @@ function myLayers(){
     read_tokenURL(){
       return serviceMain + "tokens/generateToken";
     },
+    read_mapabase(){
+      return serviceURL + "MapaBase/MapServer?f=json&token=" + token.read();
+    },
+    read_cartography(){
+      return serviceURL + "Cartografia/DMPS/MapServer/0?f=json&token=" + token.read();
+    },
     read_layer_interr_sed(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/0?f=json&token=" + token.read();
     },
@@ -51,13 +57,13 @@ function myLayers(){
       return graphicLayer;
     },
     read_dyn_layerClieSED(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer?f=json&token=" + token.read();;
+        return serviceURL + "Interrupciones/PO/MapServer?f=json&token=" + token.read();
     },
     read_qtty_comuna(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/9?f=json&token=" + token.read();;
+        return serviceURL + "Interrupciones/PO/MapServer/9?f=json&token=" + token.read();
     },
     read_qtty_office(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/10?f=json&token=" + token.read();;
+        return serviceURL + "Interrupciones/PO/MapServer/10?f=json&token=" + token.read();
     },
     read_qtty_total_comuna(){  /*using*/
         return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();;

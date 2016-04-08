@@ -82,7 +82,7 @@ class StatisticsToolbar extends React.Component {
     return (
 
       <div className="wrapper__statistics">
-        <span><i className="statistic-span fa fa-signal"></i> Total Interrupciones: </span>
+        <span><i className="statistic-span fa fa-signal"></i></span>
         <div className="statistic__kind">
           <div className="statistic___massive">
             <img className="statistic-img" src="images/widget_icons/massive.png" />
@@ -93,7 +93,7 @@ class StatisticsToolbar extends React.Component {
             <span className="statistic-h4">Falla Clientes: {this.state.isolatedqtty}</span>
           </div>
           <div className="statistic___total">
-            <span><i className="fa fa-user"></i> Total Clientes: {this.state.totalqtty}</span>
+            <span><i className="fa fa-user"></i> Total Clientes Afectados: {this.state.totalqtty}</span>
           </div>
         </div>
       </div>

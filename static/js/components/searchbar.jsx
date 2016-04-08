@@ -6,7 +6,7 @@ import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {searchBar_SED} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
-
+import {addMapsAndLayers} from '../services/map-service';
 //import MyGrid from '../components/MyGrid.jsx';
 
 class SearchBar extends React.Component {
@@ -16,11 +16,13 @@ class SearchBar extends React.Component {
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
     this.onClickOrderTimer = this.onClickOrderTimer.bind(this);
-    this.state = {
-      staClic : 0,
-      gridClic : 0
-    }
-}
+    this.onClickChangeMap = this.onClickChangeMap.bind(this);
+      this.state = {
+        staClic : 0,
+        gridClic : 0,
+        mapClick : 1
+      };
+  }
 
   onClickStatistics(mouseEvent){
     console.log("toggling statistics");
@@ -55,16 +57,6 @@ class SearchBar extends React.Component {
       }
   }
 
-  onClickClearMap(){
-    console.log("clearing map");
-
-    var map = mymap.getMap();
-    map.graphics.clear();
-    map.removeLayer(layers.read_graphicLayer());
-
-    $('.searchbar__notifications').empty().css('visibility', 'hidden');
-  }
-
   onClickOrderTimer(){
     console.log("toggling grid");
     $( ".griddle-title" ).remove();
@@ -82,14 +74,41 @@ class SearchBar extends React.Component {
     }
   }
 
+  onClickChangeMap(){
+    var map = mymap.getMap();
+
+    if (this.state.mapClick==1){
+      this.setState({ mapClick : 2 });
+      mymap.changeBasemap("hybrid");
+
+    }else if(this.state.mapClick==2){
+      this.setState({ mapClick : 3 });
+      mymap.changeBasemap("Chilquinta");
+
+    }else {
+      this.setState({ mapClick : 1 });
+      mymap.changeBasemap("topo");
+    }
+  }
+
+  onClickClearMap(){
+    console.log("clearing map");
+    this.refs.searchValue.value = '';
+    var map = mymap.getMap();
+    map.graphics.clear();
+    map.removeLayer(layers.read_graphicLayer());
+    
+    $('.searchbar__notifications').empty().css('visibility', 'hidden');
+  }
+
   render(){
 
     return (
 
       <div className="wrapper__searchbar">
         <div className="searchbar__elements">
-          {/* Button for search orders and incidences */}
-          <select className="searchbar__elements-combobox" ref="searchType">
+        {/* Button for search orders and incidences */}
+          <select className="searchbar__elements-combobox " ref="searchType">
             <option value="nis">NIS</option>
             <option value="incidence">INCIDENCIA</option>
             <option value="order">ORDEN</option>
@@ -97,7 +116,7 @@ class SearchBar extends React.Component {
           </select>
 
           {/* Input for searching NIS */}
-            <input className="searchbar__elements-input" ref="searchValue" type="text" placeholder=" NIS" />
+            <input className="searchbar__elements-input" ref="searchValue" type="text" placeholder="" />
           {/* Button for searching NIS */}
             <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickSearch}>
                 <span><i className="fa fa-search"></i></span>
@@ -106,14 +125,17 @@ class SearchBar extends React.Component {
             <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickClearMap}>
               <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
           {/* Button for statistics per region*/}
-            <button className="searchbar__elements-button btn btn-default" data-toggle="collapse" data-target="#collapseStatistics" type="button"  onClick={this.onClickStatistics}>
+            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickStatistics}>
                 <span><i className="fa fa-pie-chart"></i></span>
             </button>
-
-          {/* Button for OrderTimer*/}
+          {/* Button for Orders*/}
           <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickOrderTimer}>
                 <span><i className="fa fa-clock-o"></i></span>
           </button>
+          {/* Button for maps*/}
+            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickChangeMap}>
+                <span><i className="fa fa-globe"></i></span>
+            </button>
         </div>
       {/* Notification Box*/}
       <div className="searchbar__notifications"></div>

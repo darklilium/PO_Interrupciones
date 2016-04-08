@@ -16,6 +16,7 @@ function getClieInterruptionsByExtent(extent, callback){
   qInterruptions.where = "1=1";
   qInterruptions.returnGeometry = true;
   qInterruptions.outFields=["*"];
+  qInterruptions.groupByFields = ['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden']
   qInterruptions.geometry = extent;
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
 
@@ -35,6 +36,7 @@ function getSEDByExtent(extent, callback){
   qInterruptions.returnGeometry = true;
   qInterruptions.outFields=["*"];
   qInterruptions.geometry = extent;
+  qInterruptions.groupByFields = ['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'];
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{

@@ -31,15 +31,15 @@ body{
   position: fixed;
 }
 .interruptions__symbology{
-width: 8em;
-height: 20em;
-border-radius: 3em;
-background-color: rgba(255,255,255,0.6);
-background-blend-mode: screen;
-margin-top: 12em;
-z-index: 3;
-padding-left: 1em;
-position: absolute;
+  width: 8em;
+  height: 20em;
+  border-radius: 0;
+  background-color: rgba(255, 255, 255, 0.6);
+  background-blend-mode: screen;
+  bottom: 0;
+  z-index: 3;
+  padding-left: 1em;
+  position: absolute;
 }
 
 .interruptions__symbology-img{

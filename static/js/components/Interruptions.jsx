@@ -1,7 +1,7 @@
 import React from 'react';
 import mymap from '../services/map-service';
-import layers from '../services/layers-service';
-import myinfotemplate from '../services/infotemplates-service';
+import {addMapsAndLayers} from '../services/map-service';
+import formatDate from '../services/millisecondstodate-service';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
@@ -37,18 +37,11 @@ class Interruptions extends React.Component {
   }
 
   componentDidMount(){
+
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
 
-    var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_dyn_layerClieSED());
-    interrClienteSED.setInfoTemplates({
-      3: {infoTemplate: myinfotemplate.getNisInfo()},
-      1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
-      0: {infoTemplate: myinfotemplate.getSubFailure()}
-    });
-
-    interrClienteSED.refreshInterval = 1;
-    map.addLayer(interrClienteSED);
+    addMapsAndLayers((callback)=>{console.log(callback);});
 
     map.on('extent-change', ()=>{
 
@@ -59,7 +52,7 @@ class Interruptions extends React.Component {
             'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
             'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
             'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
-            'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
+            'Fecha creacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion']),
             'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
             'Geometry': result.geometry
@@ -76,7 +69,7 @@ class Interruptions extends React.Component {
             'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_orden'],
             'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.id_incidencia'],
             'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden'],
-            'Fecha creacion': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion'],
+            'Fecha creacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion']),
             'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
             'Geometry': result.geometry
@@ -93,7 +86,7 @@ class Interruptions extends React.Component {
     return (
     <div className="interruptions__wrapper">
     <div className="interruptions__symbology"><img className="interruptions__symbology-img" src="images/widget_icons/symbology.png"/></div>
-  
+
       <div className="interruptions__header">
         {/*Search nis and orders with statistics button and table*/}
         <SearchBar />
