@@ -2,7 +2,6 @@ import React from 'react';
 import layers from '../services/layers-service';
 import createQueryTask from '../services/createquerytask-service';
 
-function noop(){}
 
 class StatisticsToolbar extends React.Component {
   constructor(props){
@@ -50,7 +49,9 @@ class StatisticsToolbar extends React.Component {
 
     serviceCurrMass((map,featureSet)=>{
         this.setState({ massiveqtty: featureSet.features.length});
-    }, noop);
+    }, (Error)=>{
+      console.log("Error getting the current massiveqtty", Error);
+    });
   }
 
   currentIsolated(){
@@ -61,8 +62,9 @@ class StatisticsToolbar extends React.Component {
     });
 
     serviceCurrIso((map,featureSet)=>{
-        this.setState({ isolatedqtty: featureSet.features.length});
-    }, noop);
+      this.setState({ isolatedqtty: featureSet.features.length});
+      },(Error)=>{console.log("Error getting the current isolatedqtty", Error);
+    });
   }
 
   currentTotal(){
@@ -74,7 +76,7 @@ class StatisticsToolbar extends React.Component {
     serviceCurrTotal((map,featureSet)=>{
       this.setState({ totalqtty: featureSet.features[0].attributes['CANTIDAD']});
 
-    },errorCount => console.log("error getting the current total"));
+    },(errorCount) => {console.log("error getting the current total");});
   }
 
   render(){

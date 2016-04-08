@@ -43,7 +43,7 @@ function searchBar_NIS(nis){
               notifications(message, "Searchbar_Without_SED", ".searchbar__notifications");
               return;
             }
-            
+
             let sed = featureSet.features[0].attributes['resp_id_sed'];
             let address = featureSet.features[0].attributes['direccion_resu'];
             makeInfoWindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address );
@@ -96,7 +96,6 @@ function searchBar_NIS(nis){
 }
 
 function searchMassive(sed, nis, address, nisgeom){
-  console.log(nisgeom);
   //search if the nis is in a SED interruption order
   var serviceSearchMassive = createQueryTask({
     url: layers.read_layer_interr_sed(),
