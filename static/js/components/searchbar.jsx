@@ -7,9 +7,9 @@ import {searchBar_Incidence} from '../services/searchbar-service';
 import {searchBar_SED} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 import {addMapsAndLayers} from '../services/map-service';
-import {exportToExcel} from '../services/exportToExcel';
-import {translateInfo} from '../services/exportToExcel';
-import formatDate from '../services/millisecondstodate-service';
+import {exportToExcel} from '../utils/exportToExcel';
+import {translateInfo} from '../utils/exportToExcel';
+import formatDate from '../utils/milliSecondsToDate';
 
 //import MyGrid from '../components/MyGrid.jsx';
 

@@ -1,4 +1,4 @@
-import {notifications} from './notifications-service';
+import {notifications} from '../utils/notifications';
 import myLayers from './layers-service';
 
 function genericLogin(user, pass, token){

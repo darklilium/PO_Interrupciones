@@ -1,5 +1,5 @@
 import layers from '../services/layers-service';
-import myinfotemplate from '../services/infotemplates-service';
+import myinfotemplate from '../utils/infoTemplates';
 
 var map = {
     createMap: function(div,basemap,centerx,centery,zoom){

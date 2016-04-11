@@ -1,11 +1,11 @@
 import layers from '../services/layers-service';
-import makeSymbol from '../services/makeSymbol-service';
-import {makeInfoWindow} from '../services/makeinfowindow-service';
-import {makeInfoWindowPerSED} from '../services/makeinfowindow-service';
-import {makeInfoWindowPerSEDInterrupted} from '../services/makeinfowindow-service';
-import {makeInfoWindowPerNisInfo} from '../services/makeinfowindow-service';
+import makeSymbol from '../utils/makeSymbol';
+import {makeInfoWindow} from '../utils/makeInfowindow';
+import {makeInfoWindowPerSED} from '../utils/makeInfowindow';
+import {makeInfoWindowPerSEDInterrupted} from '../utils/makeInfowindow';
+import {makeInfoWindowPerNisInfo} from '../utils/makeInfowindow';
 import createQueryTask from '../services/createquerytask-service';
-import {notifications} from '../services/notifications-service';
+import {notifications} from '../utils/notifications';
 
 function searchBar_NIS(nis){
   var service = createQueryTask({

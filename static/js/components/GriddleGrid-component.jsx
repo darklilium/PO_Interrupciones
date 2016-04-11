@@ -2,8 +2,8 @@ import React from 'react';
 import Griddle from 'griddle-react';
 import getInterruptionsByExtent from '../services/getInterruptionsByExtent';
 import mymap from '../services/map-service';
-import makeSymbol from '../services/makeSymbol-service';
-import {makeInfoWindowPerGridInfo} from '../services/makeinfowindow-service';
+import makeSymbol from '../utils/makeSymbol';
+import {makeInfoWindowPerGridInfo} from '../utils/makeInfowindow';
 
 class GriddleGrid extends React.Component{
   constructor(props){
