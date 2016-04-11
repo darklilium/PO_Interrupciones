@@ -3,6 +3,7 @@ import Griddle from 'griddle-react';
 import getInterruptionsByExtent from '../services/getInterruptionsByExtent';
 import mymap from '../services/map-service';
 import makeSymbol from '../services/makeSymbol-service';
+import {makeInfoWindowPerGridInfo} from '../services/makeinfowindow-service';
 
 class GriddleGrid extends React.Component{
   constructor(props){
@@ -19,12 +20,23 @@ class GriddleGrid extends React.Component{
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(gridRow.props.data['Geometry'],pointSymbol));
     map.centerAndZoom(gridRow.props.data['Geometry'],15);
+    console.log(gridRow.props.data);
+    makeInfoWindowPerGridInfo(gridRow.props.data['Tipo'],
+                              gridRow.props.data['ID Orden'],
+                              gridRow.props.data['ID Incidencia'],
+                              gridRow.props.data['Causa'],
+                              gridRow.props.data['Comentario'],
+                              gridRow.props.data['Estado'],
+                              gridRow.props.data['Fecha Creacion'],
+                              gridRow.props.data['Fecha Asignacion'],
+                              gridRow.props.data['Fecha Despacho'],
+                              gridRow.props.data['Fecha Ruta'],
+                              gridRow.props.data['Fecha Llegada'],
+                              gridRow.props.data['Tiempo'],
+                              gridRow.props.data['Geometry']
+                              );
   }
-  /*  'Fecha Creación': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion']),
-    'Fecha Asignación': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_asignacion']),
-    'Fecha Despacho': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_despacho']),
-    'Fecha Ruta': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_ruta']),
-    'Fecha Llegada': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada']),*/
+
   render(){
     return (
       <Griddle results={this.props.data}
@@ -42,7 +54,6 @@ class GriddleGrid extends React.Component{
                       "Fecha Despacho",
                       "Fecha Ruta",
                       "Fecha Llegada",
-                      "Causa",
                       "Tiempo"]}/>
       );
   }

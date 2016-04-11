@@ -7,16 +7,21 @@ import {searchBar_Incidence} from '../services/searchbar-service';
 import {searchBar_SED} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary';
 import {addMapsAndLayers} from '../services/map-service';
+import {exportToExcel} from '../services/exportToExcel';
+import {translateInfo} from '../services/exportToExcel';
+import formatDate from '../services/millisecondstodate-service';
+
 //import MyGrid from '../components/MyGrid.jsx';
 
 class SearchBar extends React.Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.onClickSearch = this.onClickSearch.bind(this);
     this.onClickStatistics = this.onClickStatistics.bind(this);
     this.onClickClearMap = this.onClickClearMap.bind(this);
     this.onClickOrderTimer = this.onClickOrderTimer.bind(this);
     this.onClickChangeMap = this.onClickChangeMap.bind(this);
+    this.onClickExport = this.onClickExport.bind(this);
       this.state = {
         staClic : 0,
         gridClic : 0,
@@ -66,10 +71,12 @@ class SearchBar extends React.Component {
       this.setState({ gridClic : 1 });
       $('.griddle').css('visibility', 'visible');
       $( "<h4 class='griddle-title'>Interrupciones</h4>" ).appendTo( ".griddle" ).insertBefore(".griddle-filter");
-
+      $( ".Griddle__export" ).appendTo( ".griddle" ).insertAfter(".griddle-filter");
+      $( ".Griddle__export" ).css('visibility', 'visible');
     }else{
       this.setState({ gridClic : 0 });
       $('.griddle').css('visibility', 'hidden');
+      $( ".Griddle__export" ).css('visibility', 'hidden');
 
     }
   }
@@ -97,14 +104,18 @@ class SearchBar extends React.Component {
     var map = mymap.getMap();
     map.graphics.clear();
     map.removeLayer(layers.read_graphicLayer());
-    
     $('.searchbar__notifications').empty().css('visibility', 'hidden');
   }
 
+  onClickExport(){
+    var mydata = translateInfo(this.props.data);
+    var a = new Date();
+    let str = formatDate(a);
+    exportToExcel(mydata, "Interrupciones " + str, true);
+  }
+
   render(){
-
     return (
-
       <div className="wrapper__searchbar">
         <div className="searchbar__elements">
         {/* Button for search orders and incidences */}
@@ -136,6 +147,12 @@ class SearchBar extends React.Component {
             <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickChangeMap}>
                 <span><i className="fa fa-globe"></i></span>
             </button>
+          {/* Button for export*/}
+          <div className="Griddle__export">
+            <button className="btn btn-default" type="button"  onClick={this.onClickExport}>
+                <span><i className="fa fa-file-excel-o"></i></span>
+            </button>
+          </div>
         </div>
       {/* Notification Box*/}
       <div className="searchbar__notifications"></div>

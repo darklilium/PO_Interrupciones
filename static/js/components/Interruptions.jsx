@@ -105,7 +105,7 @@ class Interruptions extends React.Component {
 
       <div className="interruptions__header">
         {/*Search nis and orders with statistics button and table*/}
-        <SearchBar />
+        <SearchBar data ={[...this.state.mydatased,...this.state.mydatanis]} />
         {/* StatisticsToolbar on top*/}
         <StatisticsToolbar />
       </div>

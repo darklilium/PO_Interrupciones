@@ -7,21 +7,18 @@ class StatisticsToolbar extends React.Component {
   constructor(props){
     super(props);
 
-    this.currentMassive = this.currentMassive.bind(this);
-    this.currentIsolated = this.currentIsolated.bind(this);
+    this.currentTotal= this.currentTotal.bind(this);
 
     this.state = {
-      massiveqtty: '...',
-      isolatedqtty:'...',
-      totalqtty: '...'
+      CLIEDOM: '0',
+      CLIERED:'0',
+      TOTALQTTY: '0'
     };
+      this.init();
 
-    this.init();
   }
 
   init(){
-    this.currentMassive();
-    this.currentIsolated();
     this.currentTotal();
   }
 
@@ -29,42 +26,13 @@ class StatisticsToolbar extends React.Component {
 
     var foo = function(){
 
-      this.currentMassive();
-      this.currentIsolated();
       this.currentTotal();
-      //console.log(this.state.massiveqtty, this.state.currentIsolated, this.state.currentTotal);
+
       setTimeout(foo, 10000);
     };
 
     foo = foo.bind(this);
     setTimeout(foo, 10000);
-  }
-
-  currentMassive(){
-    var serviceCurrMass = createQueryTask({
-      url: layers.read_layer_interr_sed(),
-      whereClause: "1=1",
-      returnGeometry: false
-    });
-
-    serviceCurrMass((map,featureSet)=>{
-        this.setState({ massiveqtty: featureSet.features.length});
-    }, (Error)=>{
-      console.log("Error getting the current massiveqtty", Error);
-    });
-  }
-
-  currentIsolated(){
-    var serviceCurrIso = createQueryTask({
-      url: layers.read_layer_interr_clie(),
-      whereClause: "1=1",
-      returnGeometry: false
-    });
-
-    serviceCurrIso((map,featureSet)=>{
-      this.setState({ isolatedqtty: featureSet.features.length});
-      },(Error)=>{console.log("Error getting the current isolatedqtty", Error);
-    });
   }
 
   currentTotal(){
@@ -74,7 +42,11 @@ class StatisticsToolbar extends React.Component {
     });
 
     serviceCurrTotal((map,featureSet)=>{
-      this.setState({ totalqtty: featureSet.features[0].attributes['CANTIDAD']});
+      this.setState({
+        CLIEDOM: featureSet.features[0].attributes['CANTIDAD'],
+        CLIERED: featureSet.features[1].attributes['CANTIDAD'],
+        TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
+      });
 
     },(errorCount) => {console.log("error getting the current total");});
   }
@@ -84,18 +56,17 @@ class StatisticsToolbar extends React.Component {
     return (
 
       <div className="wrapper__statistics">
-        <span><i className="statistic-span fa fa-signal"></i></span>
+
         <div className="statistic__kind">
           <div className="statistic___massive">
-            <img className="statistic-img" src="images/widget_icons/massive.png" />
-            <span className="statistic-h4">Falla SED: {this.state.massiveqtty}</span>
+            <span className="statistic-h4"><i className="fa fa-home"></i> DOM: {this.state.CLIEDOM}  | </span>
           </div>
           <div className="statistic___isolated">
-            <img className="statistic-img" src="images/widget_icons/isolated.png" />
-            <span className="statistic-h4">Falla Clientes: {this.state.isolatedqtty}</span>
+
+            <span className="statistic-h4"><i className="fa fa-bolt"></i> RED: {this.state.CLIERED}  | </span>
           </div>
           <div className="statistic___total">
-            <span><i className="fa fa-user"></i> Total Clientes Afectados: {this.state.totalqtty}</span>
+            <span className="statistic-h4"><span><i className="fa fa-signal"></i></span> Total : {this.state.TOTALQTTY}</span>
           </div>
         </div>
       </div>

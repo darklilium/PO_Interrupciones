@@ -95,4 +95,56 @@ function makeInfoWindowPerNisInfo(nis,sed, point,address){
   map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(point), content));
   map.infoWindow.show(point, map.getInfoWindowAnchor(point));
 }
-export {makeInfoWindow, makeInfoWindowPerSED, makeInfoWindowPerSEDInterrupted,makeInfoWindowPerNisInfo };
+
+function makeInfoWindowPerGridInfo(type,
+                                  order_id,
+                                  incident_id,
+                                  cause,
+                                  commentary,
+                                  state,
+                                  creaDate,
+                                  assiDate,
+                                  deliDate,
+                                  routDate,
+                                  arriDate,
+                                  time,
+                                  geometry){
+var map = mymap.getMap();
+
+var contentVars = {
+  type: type,
+  order_id: order_id,
+  incident_id: incident_id,
+  cause: cause,
+  commentary:commentary,
+  state: state,
+  creaDate: creaDate,
+  assiDate: assiDate,
+  deliDate: deliDate,
+  routDate: routDate,
+  arriDate: arriDate,
+  time: time,
+  geometry: geometry
+};
+
+
+map.infoWindow.setTitle("Tipo : " + contentVars.type);
+map.infoWindow.resize(320, 200);
+var content = `<div style=padding-top: 10px;>ID Orden: ${contentVars.order_id}<br /></div>
+<div style=padding-top: 10px;>ID Incidencia: ${contentVars.incident_id}<br /></div>
+<div style=padding-top: 10px;>Causa: ${contentVars.cause}<br /></div>
+<div style=padding-top: 10px;>Comentario: ${contentVars.commentary}<br /></div>
+<div style=padding-top: 10px;>Estado: ${contentVars.state}<br /></div>
+<div style=padding-top: 10px;>Fecha Creación: ${contentVars.creaDate}<br /></div>
+<div style=padding-top: 10px;>Fecha Asignación: ${contentVars.assiDate}<br /></div>
+<div style=padding-top: 10px;>Fecha Despacho: ${contentVars.deliDate}<br /></div>
+<div style=padding-top: 10px;>Fecha Ruta: ${contentVars.routDate}<br /></div>
+<div style=padding-top: 10px;>Fecha Llegada: ${contentVars.arriDate}<br /></div>
+<div style=padding-top: 10px;>Tiempo: ${contentVars.time}<br/></div>`;
+
+map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(contentVars.geometry), content));
+map.infoWindow.show(contentVars.geometry, map.getInfoWindowAnchor(contentVars.geometry));
+}
+
+
+export {makeInfoWindow, makeInfoWindowPerSED, makeInfoWindowPerSEDInterrupted,makeInfoWindowPerNisInfo,makeInfoWindowPerGridInfo };

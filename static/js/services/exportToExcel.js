@@ -1,4 +1,5 @@
 function exportToExcel(JSONData, ReportTitle, ShowLabel) {
+
     //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
     var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
     var CSV = '';
@@ -67,5 +68,25 @@ function exportToExcel(JSONData, ReportTitle, ShowLabel) {
     document.body.removeChild(link);
 }
 
-
-export default exportToExcel;
+function translateInfo(data){
+  //console.log(data);
+  var mydata = data.map((data)=>{
+    let d = {
+      TIPO: data['Tipo'],
+      ID_ORDEN:  data['ID Orden'],
+      ID_INDICENCIA:  data['ID Incidencia'],
+      CAUSA:  data['Causa'],
+      COMENTARIO: data['Comentario'],
+      ESTADO:  data['Estado'],
+      FECHA_CREACION:  data['Fecha Creacion'],
+      FECHA_ASIGNACION:  data['Fecha Asignacion'],
+      FECHA_DESPACHO:  data['Fecha Despacho'],
+      FECHA_RUTA:  data['Fecha Ruta'],
+      FECHA_LLEGADA:  data['Fecha Llegada'],
+      TIEMPO: data['Tiempo']
+    }
+    return d;
+  });
+  return mydata;
+}
+export {exportToExcel, translateInfo};
