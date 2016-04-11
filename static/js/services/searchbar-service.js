@@ -49,7 +49,7 @@ function searchBar_NIS(nis){
             makeInfoWindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address );
             map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
             map.centerAndZoom(attribute.geometry,20);
-            let message = 'NIS: '+ nis + ' presente en falla aislada';
+            let message = 'NIS: '+ nis + ' presente en interrupción';
             notifications(message, "Searchbar_Isolated", ".searchbar__notifications");
           },(ErrorQuery)=>{
             let message = "NIS: " + nis + " no tiene sed";
@@ -68,7 +68,7 @@ function searchBar_NIS(nis){
       });
       serviceMassive((map,featureSet)=>{
         if(!featureSet.features.length){
-          let message = "NIS: " + nis+ " no se ha encontrado o no existe";
+          let message = "NIS: " + nis+ " no se ha encontrado o no existe. Ingrese un NIS válido";
           let type = "Searchbar_NIS_Not_Found";
           notifications(message, type, ".searchbar__notifications");
           return;
@@ -88,7 +88,7 @@ function searchBar_NIS(nis){
     }
   },(ErrorQueryIsolated)=>{
     console.log("Error al ejecutar la query en Falla Aislada");
-    let message = "Ingrese un NIS a buscar";
+    let message = "NIS no encontrado o no existe. Ingrese un NIS válido.";
     let type = "Searchbar_Error";
     notifications(message, type, ".searchbar__notifications");
   });
@@ -120,7 +120,7 @@ function searchMassive(sed, nis, address, nisgeom){
       //when the order is found , show where the NIS is with the info.
       console.log("interrupted customers in SED "+ featureSet.features[0].attributes['ARCGIS.DBO.SED_006.codigo']);
       let pointSymbol = makeSymbol.makePoint();
-      let message = "NIS: " + nis +" presente en falla masiva";
+      let message = "NIS: " + nis +" presente en interrupción";
       let type = "Searchbar_Massive";
       notifications(message, type, ".searchbar__notifications");
       let myresults = featureSet.features.map((feature)=>{
@@ -169,7 +169,7 @@ function searchBar_Order(order_id){
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
     map.centerAndZoom(myresults[0],15);
-    let message = "ID Orden: " + order_id + " encontrada en fallas de clientes";
+    let message = "ID Orden: " + order_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
     notifications(message, type, ".searchbar__notifications");
 
@@ -190,7 +190,7 @@ function searchMassiveOrder(order_id){
 
   serviceOrderSED((map,featureSet)=>{
     if (!featureSet.features.length){
-      let message = "ID Orden: " + order_id + " no se ha encontrado o no existe";
+      let message = "ID Orden " + order_id + " no se ha encontrado o no existe. Ingrese un ID válido.";
       let type = "Searchbar_NIS_Not_Found";
       notifications(message, type, ".searchbar__notifications");
       return;
@@ -204,7 +204,7 @@ function searchMassiveOrder(order_id){
         map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
         map.centerAndZoom(attr.geometry,15);
       });
-      let message = "ID Orden: " + order_id + " encontrada en fallas de SED";
+      let message = "ID Orden: " + order_id + " presente en interrupción";
       let type = "Searchbar_Massive";
       notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
@@ -239,13 +239,13 @@ function searchBar_Incidence(incidence_id){
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(myresults[0],pointSymbol));
     map.centerAndZoom(myresults[0],15);
-    let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de clientes";
+    let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
     let type = "Searchbar_Isolated";
     notifications(message, type, ".searchbar__notifications");
 
   }, (errorOrder)=>{
     console.log("Error doing query for getting orders associated to the customer");
-    let message = "Error en query para obtener ordenes asociadas al NIS";
+    let message = "ID Incidencia no encontrada o no existe. Ingrese una válida.";
     let type = "Searchbar_Error";
     notifications(message, type, ".searchbar__notifications");
 
@@ -261,7 +261,7 @@ function searchMassiveIncidence(incidence_id){
 
   serviceOrderSED((map,featureSet)=>{
     if (!featureSet.features.length){
-      let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe";
+      let message = "ID Incidencia: " + incidence_id + " no se ha encontrado o no existe. Ingrese un ID válida.";
       let type = "Searchbar_NIS_Not_Found";
       notifications(message, type, ".searchbar__notifications");
       return;
@@ -275,7 +275,7 @@ function searchMassiveIncidence(incidence_id){
         map.graphics.add(new esri.Graphic(attr.geometry,pointSymbol));
         map.centerAndZoom(attr.geometry,15);
       });
-      let message = "ID Incidencia: " + incidence_id + " encontrada en fallas de SED";
+      let message = "ID Incidencia: " + incidence_id + " presente en interrupción";
       let type = "Searchbar_Massive";
       notifications(message, type, ".searchbar__notifications");
   },(errorOrderSED)=>{
@@ -306,7 +306,7 @@ function searchBar_SED(sed){
       sedLocation(sed);
       return;
     }
-    let message = "SED " + sed + " presente en falla masiva";
+    let message = "SED " + sed + " presente en interrupción";
     let type = "Searchbar_Massive";
     notifications(message, type, ".searchbar__notifications");
     let myresults = featureSet.features.map((feature)=>{
@@ -328,7 +328,7 @@ function searchBar_SED(sed){
 //sed, point, order_id, incident_id, alimentador, cause,commentary
   },(errorSearchSed)=>{
       console.log(errorSearchSed);
-      let message = "SED " + sed + " no existe.";
+      let message = "SED " + sed + " no se ha encontrado o no existe. Ingrese un código válido.";
       let type = "Searchbar_Error";
       notifications(message, type, ".searchbar__notifications");
   });

@@ -4,7 +4,8 @@ function getInfoTemplate(){
     getSubFailure(){
       let chqSubInfoTemp= new esri.InfoTemplate();
       chqSubInfoTemp.setTitle("<b>SED: ${ARCGIS.DBO.SED_006.codigo}</b>");
-
+      //var tipo_estado = ${'ARCGIS.DBO.SED_006.codigo'};
+    //  console.log(tipo_estado);
       let chqSubInfoContent =
       "<div style=padding-top: 10px;>ID Orden: ${ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
@@ -15,6 +16,18 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;>Causa: ${ARCGIS.DBO.%view_tiempo_order_po_3.causa}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Comentario: ${ARCGIS.DBO.%view_tiempo_order_po_3.comentario}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Estado: ${ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Creación: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Asignación: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_asignacion}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Despacho: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_despacho}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Ruta: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_ruta}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Llegada: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>";
       chqSubInfoTemp.setContent(chqSubInfoContent);
@@ -33,6 +46,18 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;>Causa: ${ARCGIS.DBO.%view_tiempo_order_po_3.causa}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Comentario: ${ARCGIS.DBO.%view_tiempo_order_po_3.comentario}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Estado: ${ARCGIS.DBO.%view_tiempo_order_po_3.estado_orden}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Creación: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Asignación: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_asignacion}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Despacho: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_despacho}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Ruta: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_ruta}<br></div>"+
+      "<div style=display:inline-block;width:8px;></div>"+
+      "<div style=padding-top: 10px;>Fecha Llegada: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada}<br></div>"+
       "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>";
 

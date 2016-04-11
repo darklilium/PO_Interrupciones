@@ -20,15 +20,30 @@ class GriddleGrid extends React.Component{
     map.graphics.add(new esri.Graphic(gridRow.props.data['Geometry'],pointSymbol));
     map.centerAndZoom(gridRow.props.data['Geometry'],15);
   }
+  /*  'Fecha Creación': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_creacion']),
+    'Fecha Asignación': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_asignacion']),
+    'Fecha Despacho': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_despacho']),
+    'Fecha Ruta': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_ruta']),
+    'Fecha Llegada': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada']),*/
   render(){
     return (
       <Griddle results={this.props.data}
-               resultsPerPage={5}
+               resultsPerPage={4}
                tableClassName="table"
                showFilter={true}
-               showSettings={true}
+               showSettings={false}
                onRowClick={this.onRowClick}
-               columns={["Tipo", "ID Orden", "ID Incidencia", "Estado", "Fecha creacion","Causa","Tiempo"]}/>
+               columns={["Tipo",
+                      "ID Orden",
+                      "ID Incidencia",
+                      "Estado",
+                      "Fecha Creacion",
+                      "Fecha Asignacion",
+                      "Fecha Despacho",
+                      "Fecha Ruta",
+                      "Fecha Llegada",
+                      "Causa",
+                      "Tiempo"]}/>
       );
   }
 }
