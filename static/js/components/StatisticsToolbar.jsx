@@ -25,9 +25,7 @@ class StatisticsToolbar extends React.Component {
   componentDidMount(){
 
     var foo = function(){
-
       this.currentTotal();
-
       setTimeout(foo, 10000);
     };
 
@@ -43,8 +41,8 @@ class StatisticsToolbar extends React.Component {
 
     serviceCurrTotal((map,featureSet)=>{
       this.setState({
-        CLIEDOM: featureSet.features[0].attributes['CANTIDAD'],
-        CLIERED: featureSet.features[1].attributes['CANTIDAD'],
+        CLIEDOM: featureSet.features[1].attributes['CANTIDAD'],
+        CLIERED: featureSet.features[0].attributes['CANTIDAD'],
         TOTALQTTY: featureSet.features[2].attributes['CANTIDAD']
       });
 
