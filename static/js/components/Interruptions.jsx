@@ -6,8 +6,8 @@ import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
 import StatisticsSummary from './statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
-import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent';
-import {getSEDByExtent} from '../services/getInterruptionsByExtent';
+import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
+import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
 
 class Interruptions extends React.Component {
   constructor(){

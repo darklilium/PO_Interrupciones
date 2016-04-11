@@ -69,9 +69,6 @@ function myLayers(){
         return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();;
     }
 
-
-
-
   };
 }
 export default myLayers();

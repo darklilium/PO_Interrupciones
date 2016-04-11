@@ -1,6 +1,6 @@
 import React from 'react';
 import Griddle from 'griddle-react';
-import getInterruptionsByExtent from '../services/getInterruptionsByExtent';
+import getInterruptionsByExtent from '../services/getInterruptionsByExtent-service';
 import mymap from '../services/map-service';
 import makeSymbol from '../utils/makeSymbol';
 import {makeInfoWindowPerGridInfo} from '../utils/makeInfowindow';
