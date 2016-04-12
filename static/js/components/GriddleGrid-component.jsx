@@ -16,11 +16,10 @@ class GriddleGrid extends React.Component{
   onRowClick(gridRow, event){
     var map = mymap.getMap();
     map.graphics.clear();
-    console.log(gridRow.props.data);
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(gridRow.props.data['Geometry'],pointSymbol));
     map.centerAndZoom(gridRow.props.data['Geometry'],15);
-    console.log(gridRow.props.data);
+
     makeInfoWindowPerGridInfo(gridRow.props.data['Tipo'],
                               gridRow.props.data['ID Orden'],
                               gridRow.props.data['ID Incidencia'],
@@ -33,6 +32,7 @@ class GriddleGrid extends React.Component{
                               gridRow.props.data['Fecha Ruta'],
                               gridRow.props.data['Fecha Llegada'],
                               gridRow.props.data['Tiempo'],
+                              gridRow.props.data['ETR'],
                               gridRow.props.data['Geometry']
                               );
   }
@@ -40,7 +40,7 @@ class GriddleGrid extends React.Component{
   render(){
     return (
       <Griddle results={this.props.data}
-               resultsPerPage={4}
+               resultsPerPage={2}
                tableClassName="table"
                showFilter={true}
                showSettings={false}
@@ -54,7 +54,8 @@ class GriddleGrid extends React.Component{
                       "Fecha Despacho",
                       "Fecha Ruta",
                       "Fecha Llegada",
-                      "Tiempo"]}/>
+                      "Tiempo",
+                      "ETR"]}/>
       );
   }
 }

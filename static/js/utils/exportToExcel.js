@@ -83,7 +83,8 @@ function translateInfo(data){
       FECHA_DESPACHO:  data['Fecha Despacho'],
       FECHA_RUTA:  data['Fecha Ruta'],
       FECHA_LLEGADA:  data['Fecha Llegada'],
-      TIEMPO: data['Tiempo']
+      TIEMPO: data['Tiempo'],
+      ETR: data['ETR']
     }
     return d;
   });

@@ -28,7 +28,8 @@ function getInfoTemplate(){
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Fecha Llegada: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
-      "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>";
+      "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>"+
+      "<div style=padding-top: 10px;>ETR: ${ARCGIS.DBO.%view_tiempo_order_po_3.etr}<br></div>";
       chqSubInfoTemp.setContent(chqSubInfoContent);
       return chqSubInfoTemp;
     },
@@ -58,7 +59,8 @@ function getInfoTemplate(){
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Fecha Llegada: ${ARCGIS.DBO.%view_tiempo_order_po_3.fecha_llegada}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
-      "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>";
+      "<div style=padding-top: 10px;>Tiempo transcurrido: ${ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA}<br></div>"+
+      "<div style=padding-top: 10px;>ETR: ${ARCGIS.DBO.%view_tiempo_order_po_3.etr}<br></div>";
 
       chqIsolatedNisTemp.setContent(chqIsolatedNisInfoContent);
       return chqIsolatedNisTemp;
@@ -78,6 +80,7 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;>Dirección: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;>Comuna: ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_comuna}<br></div>"+
+      "<div style=padding-top: 10px;>ETR: ${}<br></div>"
   //    "<div style=display:inline-block;width:8px;></div>";
 
       chqNisInfoTemp.setContent(chqNisInfoContent);

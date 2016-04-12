@@ -1,40 +1,43 @@
 $backg-color: ghostwhite;
 
+/*screens for more than 640 px*/
 @media screen and (min-width: 640px) {
+  .wrapper__statistics{
+    width: auto;
+    float: left;
+    background-color: $backg-color;
+    position: fixed;
+    top: 0;
+    padding-top: 0.2em;
+    display: inline-flex;
+    height: 1.6em;
+  }
+
+  .statistic__kind{
+    display: inline-flex;
+  }
+
+  .statistic__kind-elem{
+    margin-left: 0.5em;
+  }
+
   .statistic-h4{
       font-size: smaller;
   }
 }
-.wrapper__statistics{
-  float: left;
-  background-color: $backg-color;
-  position: fixed;
-  top: 0;
-  padding-top: 0.2em;
-  display: inline-flex;
-  width: 50%;
-  height: 1.6em;
-}
 
-.statistic__kind{
-  display: inline-flex;
-}
+// screens for less than 640px
+@media screen and (max-width: 640px ) {
+  .wrapper__statistics{
+    float: left;
+    background-color: $backg-color;
+    position: fixed;
+    top: 0;
+    padding-top: 0.2em;
+    display: inline-flex;
+    width: auto;
+    height: 1.6em;
+  }
 
-.statistic___massive{
-  margin-left: 0.5em;
-}
 
-.statistic___isolated{
-    @extend .statistic___massive;
-}
-.statistic___total{
-    @extend .statistic___massive;
-}
-.statistic-img{
-    padding-right: 0.5em;
-    width: 1.5em;
-}
-
-.statistic-span{
-  padding-left: 0.5em;
 }

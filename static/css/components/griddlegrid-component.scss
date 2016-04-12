@@ -1,27 +1,90 @@
-.griddle{
-  width: 100%;
-  z-index: 3;
-  position: absolute;
-  bottom: 0em;
-  height: auto;
-  background-color: ghostwhite;
-  padding-top: 1em;
-  visibility: hidden;
+/*screens for more than 640 px*/
+@media screen and (min-width: 640px) {
+
+  .griddle{
+    width: 100%;
+    z-index: 3;
+    position: absolute;
+    bottom: 0em;
+    height: auto;
+    background-color: ghostwhite;
+    padding-top: 1em;
+    visibility: hidden;
+  }
+
+  .top-section{
+    padding-bottom: 1em;
+  }
+
+  .wrapper_griddle{
+    visibility: hidden;
+  }
+
+  .griddle-title{
+   padding-left: 0.5em;
+   width: 5em;
+  }
+
+  .Griddle__export{
+    visibility: hidden;
+  }
+
 }
 
-.top-section{
-  padding-bottom: 1em;
-}
 
-.wrapper_griddle{
-  visibility: hidden;
-}
+// screens for less than 640px
+@media screen and (max-width: 640px ) {
+  .griddle{
+    width: 100%;
+    z-index: 3;
+    position: fixed;
+    bottom: -1em;
+    height: auto;
+    background-color: ghostwhite;
+    padding-top: 1em;
+    visibility: hidden;
+  }
 
-.griddle-title{
- padding-left: 0.5em;
- width: 5em;
-}
+  .griddle-filter{
+    width: 20%;
+    margin-top: 3px;
+  }
 
-.Griddle__export{
-  visibility: hidden;
+  .griddle-title{
+   padding-left: 0.5em;
+   width: 8em;
+   font-size: xx-small;
+
+  }
+
+  .top-section{
+    display: inline-flex !important;
+    padding: 0em;
+  }
+  .form-control{
+    height: 25px;
+    font-size: 12px;
+  }
+  .wrapper_griddle{
+    visibility: hidden;
+  }
+
+  .Griddle__export-btn{
+    height: 1.8em;
+    width: 3em;
+    margin: 3px;
+    padding: 0px;
+  }
+
+  .griddle-footer{
+    height: 2.5em;
+  }
+  .table {
+    font-size: 8px;
+  }
+
+  .Griddle__export{
+    visibility: hidden;
+  }
+
 }

@@ -24,14 +24,6 @@ function myLayers(){
     read_layer_interr_clie(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/1?f=json&token=" + token.read();
     },
-    //Table for PO Orders (without graphics)
-    read_layer_poOrdenes(){ /*using*/
-      return serviceURL + "Interrupciones/Interrupciones_clientes/MapServer/6?f=json&token=" + token.read();
-    },
-    //Feature layer for customers data  : Clientes (0)
-    read_layer_ClieSED(){ /*using*/
-      return serviceURL + "Interrupciones/PO/MapServer/7?f=json&token=" + token.read();
-    },
     //Feature layer for BT: Red BT
     read_layer_tramosBT(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/2?f=json&token=" + token.read();
@@ -40,7 +32,14 @@ function myLayers(){
     read_layer_ClienteSED(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/3?f=json&token=" + token.read();
     },
-
+    //Table for PO Orders (without graphics)
+    read_layer_poOrdenes(){ /*using*/
+      return serviceURL + "Interrupciones/Interrupciones_clientes/MapServer/6?f=json&token=" + token.read();
+    },
+    //Feature layer for customers data  : Clientes (0)
+    read_layer_ClieSED(){ /*using*/
+      return serviceURL + "Interrupciones/PO/MapServer/7?f=json&token=" + token.read();
+    },
     read_layer_countTotal(){ /*using*/
       return serviceURL + "Interrupciones/PO/MapServer/8?token=" + token.read();
     },

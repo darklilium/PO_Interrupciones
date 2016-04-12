@@ -25,7 +25,7 @@ class SearchBar extends React.Component {
       this.state = {
         staClic : 0,
         gridClic : 0,
-        mapClick : 1
+        mapClick : 0
       };
   }
 
@@ -84,16 +84,16 @@ class SearchBar extends React.Component {
   onClickChangeMap(){
     var map = mymap.getMap();
 
-    if (this.state.mapClick==1){
-      this.setState({ mapClick : 2 });
+    if (this.state.mapClick==0){
+      this.setState({ mapClick : 1 });
       mymap.changeBasemap("hybrid");
 
-    }else if(this.state.mapClick==2){
-      this.setState({ mapClick : 3 });
+    }else if(this.state.mapClick==1){
+      this.setState({ mapClick : 2 });
       mymap.changeBasemap("Chilquinta");
 
     }else {
-      this.setState({ mapClick : 1 });
+      this.setState({ mapClick : 0 });
       mymap.changeBasemap("topo");
     }
   }
@@ -149,7 +149,7 @@ class SearchBar extends React.Component {
             </button>
           {/* Button for export*/}
           <div className="Griddle__export">
-            <button className="btn btn-default" type="button"  onClick={this.onClickExport}>
+            <button className="Griddle__export-btn btn btn-default" type="button"  onClick={this.onClickExport}>
                 <span><i className="fa fa-file-excel-o"></i></span>
             </button>
           </div>

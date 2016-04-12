@@ -4,7 +4,7 @@ import {addMapsAndLayers} from '../services/map-service';
 import formatDate from '../utils/milliSecondsToDate';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
-import StatisticsSummary from './statistics-summary.jsx';
+import StatisticsSummary from './Statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
@@ -22,6 +22,7 @@ class Interruptions extends React.Component {
         'Causa': 0,
         'Comentario': 0,
         'Tiempo': 0,
+        'ETR': 0,
         'Geometry': 0
       }],
       mydatased:[{
@@ -33,6 +34,7 @@ class Interruptions extends React.Component {
         'Causa': 0,
         'Comentario': 0,
         'Tiempo': 0,
+        'ETR': 0,
         'Geometry': 0,
       }]
     };
@@ -63,6 +65,7 @@ class Interruptions extends React.Component {
             'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
             'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
+            'ETR': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.etr'],
             'Geometry': result.geometry
           }
 
@@ -88,6 +91,7 @@ class Interruptions extends React.Component {
             'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa'],
             'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.TIEMPO_TRA'],
+            'ETR': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.etr'],
             'Geometry': result.geometry
           }
           return mynewSed;

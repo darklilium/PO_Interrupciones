@@ -56,14 +56,14 @@ class StatisticsToolbar extends React.Component {
       <div className="wrapper__statistics">
 
         <div className="statistic__kind">
-          <div className="statistic___massive">
+          <div className="statistic__kind-elem">
             <span className="statistic-h4"><i className="fa fa-home"></i> DOM: {this.state.CLIEDOM}  | </span>
           </div>
-          <div className="statistic___isolated">
+          <div className="statistic__kind-elem">
 
             <span className="statistic-h4"><i className="fa fa-bolt"></i> RED: {this.state.CLIERED}  | </span>
           </div>
-          <div className="statistic___total">
+          <div className="statistic__kind-elem">
             <span className="statistic-h4"><span><i className="fa fa-signal"></i></span> Total : {this.state.TOTALQTTY}</span>
           </div>
         </div>

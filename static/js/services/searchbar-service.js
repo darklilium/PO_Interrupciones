@@ -28,7 +28,7 @@ function searchBar_NIS(nis){
           let myNis = attribute.attributes['ARCGIS.DBO.CLIENTES_XY_006.nis'];
           let myOrder = attribute.attributes['ARCGIS.dbo.POWERON_CLIENTES.id_orden'];
           let myIncidence = attribute.attributes['ARCGIS.dbo.POWERON_CLIENTES.id_incidencia'];
-
+          let ETR = attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.etr'];
           let serviceSED = createQueryTask({
             url: layers.read_layer_ClieSED(),
             whereClause: `nis=${nis}`,
@@ -46,7 +46,7 @@ function searchBar_NIS(nis){
 
             let sed = featureSet.features[0].attributes['resp_id_sed'];
             let address = featureSet.features[0].attributes['direccion_resu'];
-            makeInfoWindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address );
+            makeInfoWindow(myNis,myOrder,myIncidence,sed, attribute.geometry, 0, address, ETR );
             map.graphics.add(new esri.Graphic(attribute.geometry,pointSymbol));
             map.centerAndZoom(attribute.geometry,20);
             let message = 'NIS: '+ nis + ' presente en interrupción';

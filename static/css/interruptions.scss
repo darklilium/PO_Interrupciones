@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body{
   height: auto;
 }
@@ -19,6 +23,7 @@ body{
   overflow-x: hidden;
   overflow-y: hidden;
   padding-top: 1.7em;
+  position: fixed;
 }
 
 .interruptions__header{
@@ -27,25 +32,46 @@ body{
   padding: 0;
   height: 1.6em;
   background-color: ghostwhite;
-  z-index: 2;
+  z-index: 4;
   position: fixed;
 }
 .interruptions__symbology{
-  width: 8em;
-  height: 20em;
+  width: auto;
+  height: auto;
   border-radius: 0;
   background-color: rgba(255, 255, 255, 0.6);
   background-blend-mode: screen;
   bottom: 0;
   z-index: 3;
-  padding-left: 1em;
+  padding: 1em;
   position: absolute;
 }
 
-.interruptions__symbology-img{
-  padding: 1em 0em 1em 0.4em;
+// screens for less than 640px
+@media screen and (max-width: 640px ) {
+  .interruptions__symbology-img{
+    width: 3em;
+    height: auto;
+    margin-left: 0em;
+  }
+
+  .interruptions__symbology{
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: screen;
+    bottom: 0;
+    z-index: 3;
+    padding: 1em;
+    position: absolute;
+  }
 }
 
+/*screens for more than 640 px*/
+@media screen and (min-width: 640px) {
+
+}
 
 @import "components/searchbar-component";
 @import "components/statistics";
