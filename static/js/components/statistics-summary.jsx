@@ -39,12 +39,12 @@ class StatisticsSummary extends React.Component {
         getStatisticsRegionPercent();
       //loads the summary percent by office on the 4th tab
         //getStatisticsOfficePercent();
-      setTimeout(foo, 500000);
+      setTimeout(foo, 60000);
       console.log("updating chart");
     };
 
     foo = foo.bind(this);
-    setTimeout(foo, 500000);
+    setTimeout(foo, 60000);
   }
   render(){
     var Tab = ReactTabs.Tab;
