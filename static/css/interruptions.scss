@@ -35,7 +35,7 @@ body{
   z-index: 4;
   position: fixed;
 }
-.interruptions__symbology{
+/*.interruptions__symbology{
   width: auto;
   height: auto;
   border-radius: 0;
@@ -46,9 +46,9 @@ body{
   padding: 1em;
   position: absolute;
 }
-
-// screens for less than 640px
-@media screen and (max-width: 640px ) {
+*/
+// screens for less than 1024px
+@media screen and (max-width: 1024px ) {
   .interruptions__symbology-img{
     width: 3em;
     height: auto;
@@ -68,14 +68,31 @@ body{
   }
 }
 
-/*screens for more than 640 px*/
-@media screen and (min-width: 640px) {
+/*screens for more than 1024px*/
+@media screen and (min-width: 1024px) {
+/*  .interruptions__symbology-img{
+    width: 3em;
+    height: auto;
+    margin-left: 0em;
+  }
+*/
+  .interruptions__symbology{
+    width: auto;
+    height: auto;
+    border-radius: 0;
+    background-color: rgba(255, 255, 255, 0.6);
+    background-blend-mode: screen;
+    bottom: 0;
+    z-index: 3;
+    padding: 1em;
+    position: absolute;
+  }
 
 }
 
 @import "components/searchbar-component";
 @import "components/statistics";
-@import "components/statistics-summary";
-@import "components/griddlegrid-component.scss";
+@import "components/statistics_summary-comp";
+@import "components/griddlegrid-component";
 
 //@import "components/myGrid";

@@ -43,6 +43,7 @@ function addMapsAndLayers(callback){
     0: {infoTemplate: myinfotemplate.getSubFailure()}
   });
   interrClienteSED.refreshInterval = 1;
+  interrClienteSED.setImageFormat("png32");
   mapp.addLayer(interrClienteSED, 1);
 
   callback("done");

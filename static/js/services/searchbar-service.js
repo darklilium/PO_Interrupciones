@@ -322,8 +322,8 @@ function searchBar_SED(sed){
                                       attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden'],
                                       attribute.attributes['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_incidencia'],
                                       attribute.attributes['ARCGIS.DBO.SED_006.alimentador'],
-                                      attribute.attributes['ARCGIS.DBO.POWERON_ORDENES.causa'],
-                                      attribute.attributes['ARCGIS.DBO.POWERON_ORDENES.comentario']);
+                                      attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.comentario'],
+                                      attribute.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.causa']);
     });
 //sed, point, order_id, incident_id, alimentador, cause,commentary
   },(errorSearchSed)=>{

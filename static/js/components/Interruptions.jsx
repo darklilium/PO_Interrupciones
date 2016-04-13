@@ -42,12 +42,17 @@ class Interruptions extends React.Component {
 
   componentDidMount(){
 
-    var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
-    map.disableKeyboardNavigation();
+    var mapp = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
+    mapp.disableKeyboardNavigation();
+    //Put the locate button here.
+    var locateButton = new esri.dijit.LocateButton({
+      map: mapp
+    }, "LocateButton");
+
 
     addMapsAndLayers((callback)=>{console.log(callback);});
 
-    map.on('extent-change', ()=>{
+    mapp.on('extent-change', ()=>{
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
         let nisresults = myresultsNis.map((result)=>{
@@ -114,7 +119,9 @@ class Interruptions extends React.Component {
         <StatisticsToolbar />
       </div>
       {/* The map*/}
-      <div className="map_div" id="map_div"></div>
+      <div className="map_div" id="map_div">
+        <div id="LocateButton"></div>
+      </div>
       {/*Statistics per Region(qtty and percentual), office*/}
         <StatisticsSummary />
       {/*  <MyGrid /> */}

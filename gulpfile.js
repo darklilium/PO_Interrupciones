@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var swig = require('gulp-swig');
+var notify = require("gulp-notify");
+
 
 function defaultError(type){
   return function(err){
@@ -16,11 +18,22 @@ function realPath(xs){
   return './static/' + xs;
 }
 
+var reportError = function (error) {
+    notify({
+        title: 'Gulp Task Error',
+        message: 'Check the console.'
+    }).write(error);
+
+    console.log(error.toString());
+
+    this.emit('end');
+}
 gulp.task('sass', function(){
   return gulp.src('./static/css/*.scss')
     .pipe(sass({ outputStyle: 'compact' }))
-    .on('error', defaultError)
-    .pipe(gulp.dest(dist('css')));
+    .on('error', reportError)
+    .pipe(gulp.dest(dist('css')))
+  
 });
 
 gulp.task('templates', function(){
@@ -37,6 +50,7 @@ gulp.task('libs', function(){
 gulp.task('watch', function(){
   gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
   gulp.watch(['*.html'], ['templates']);
+
 });
 
 gulp.task('default', ['sass', 'templates', 'libs', 'watch']);
