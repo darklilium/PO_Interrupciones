@@ -9,44 +9,36 @@ import GriddleGrid from './GriddleGrid-component.jsx';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
 
+function createDataObject(){
+  return {
+    'Tipo' : 0 ,
+    'ID Orden': 0,
+    'ID Incidencia': 0,
+    'Estado':0,
+    'Fecha creacion': 0 ,
+    'Causa': 0,
+    'Comentario': 0,
+    'Tiempo': 0,
+    'ETR': 0,
+    'Geometry': 0
+  };
+}
+
 class Interruptions extends React.Component {
   constructor(){
     super();
+    // if you are going to use the same object to represent both values
+    // use a factory function to create both objects
     this.state = {
-      mydatanis:[{
-        'Tipo' : 0 ,
-        'ID Orden': 0,
-        'ID Incidencia': 0,
-        'Estado':0,
-        'Fecha creacion': 0 ,
-        'Causa': 0,
-        'Comentario': 0,
-        'Tiempo': 0,
-        'ETR': 0,
-        'Geometry': 0
-      }],
-      mydatased:[{
-        'Tipo' : 0 ,
-        'ID Orden': 0,
-        'ID Incidencia': 0,
-        'Estado':0,
-        'Fecha creacion': 0 ,
-        'Causa': 0,
-        'Comentario': 0,
-        'Tiempo': 0,
-        'ETR': 0,
-        'Geometry': 0,
-      }]
+      mydatanis:[createDataObject()],
+      mydatased:[createDataObject()]
     };
   }
 
   componentDidMount(){
-
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
     //Put the locate button here.
-
-
 
     addMapsAndLayers((callback)=>{console.log(callback);});
 
@@ -71,7 +63,6 @@ class Interruptions extends React.Component {
             'ETR': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3.etr'],
             'Geometry': result.geometry
           }
-
 
           return mynewNis;
         });
