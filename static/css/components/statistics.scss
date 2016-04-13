@@ -1,6 +1,6 @@
 $backg-color: ghostwhite;
 
-/*screens for more than 640 px*/
+/*screens for more than 1024px*/
 @media screen and (min-width: 1024px) {
   .wrapper__statistics{
     width: auto;
@@ -24,9 +24,13 @@ $backg-color: ghostwhite;
   .statistic-h4{
       font-size: smaller;
   }
+
+  .statistic-h6-label{
+    display: inherit;
+  }
 }
 
-// screens for less than 640px
+// screens for less than 1024px
 @media screen and (max-width: 1024px ) {
   .wrapper__statistics{
     float: left;
@@ -39,5 +43,12 @@ $backg-color: ghostwhite;
     height: 1.6em;
   }
 
+  .statistic-h6-label{
+    display: inherit;
+    font-size: 0px;
+  }
 
+  .statistic__kind{
+    display: -webkit-inline-box;
+  }
 }
