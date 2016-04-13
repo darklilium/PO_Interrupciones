@@ -18,8 +18,7 @@ class GriddleGrid extends React.Component{
     map.graphics.clear();
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(gridRow.props.data['Geometry'],pointSymbol));
-    map.centerAndZoom(gridRow.props.data['Geometry'],15);
-
+    console.log(gridRow.props.data['Geometry']);
     makeInfoWindowPerGridInfo(gridRow.props.data['Tipo'],
                               gridRow.props.data['ID Orden'],
                               gridRow.props.data['ID Incidencia'],
@@ -35,6 +34,9 @@ class GriddleGrid extends React.Component{
                               gridRow.props.data['ETR'],
                               gridRow.props.data['Geometry']
                               );
+    map.centerAndZoom(gridRow.props.data['Geometry'],15);
+
+
   }
 
   render(){
