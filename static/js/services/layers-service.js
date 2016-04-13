@@ -2,6 +2,8 @@ import token from '../services/token-service';
 
 function myLayers(){
   const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
+  //change this for external connection:
+  //  const serviceMain = 'http://gisred.chilquinta.cl:5555/arcgis/';
   const serviceURL = serviceMain + 'rest/services/';
   var graphicLayer = new esri.layers.GraphicsLayer();
 
@@ -65,7 +67,10 @@ function myLayers(){
         return serviceURL + "Interrupciones/PO/MapServer/10?f=json&token=" + token.read();
     },
     read_qtty_total_comuna(){  /*using*/
-        return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();;
+        return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();
+    },
+    write_logAccess(){  /*using*/
+        return serviceURL + "Admin/LogAccesos/FeatureServer/1?f=json&token=" + token.read();
     }
 
   };

@@ -26,6 +26,10 @@ function genericLogin(user, pass, token){
          console.log('writing token into system');
          token.write(myToken);
          notifications("Logging in...","Login_Sucess", ".notification-login");
+         var fecha = new Date();
+         var pagina = "REACT_INTERRUPCIONES_WEB";
+         var modulo = "PO_INTERRUPCIONES";
+      //   saveLogin(user,fecha,pagina,modulo);
          window.location.href = "interrupciones.html";
        } else {
          notifications("Login incorrecto, intente nuevamente.","Login_Error",".notification-login");
@@ -40,5 +44,46 @@ function genericLogin(user, pass, token){
   });
   console.log('done');
 }
+
+function saveLogin(user,fecha,pagina,modulo){
+    var attributes = [{
+                        "F" : {},
+                        "attributes" : {
+                          "usuario" : "Evelyn",
+                          "modulo" : "ReactPO"
+                        }
+                      }];
+
+
+
+    jQuery.ajax({
+       type: 'POST',
+       url: 'http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/addFeatures',
+       data: attributes,
+       dataType:'html',
+       success: (success) => {
+         console.log(success);
+       },
+        error: (error) => {
+            console.log(error);
+          notifications("Acceso no autorizado.","Login_Failed", ".notification-login");
+        }
+/*
+  var myFeature = new esri.layers.FeatureLayer(myLayers.write_logAccess());
+  console.log(myFeature);
+  myFeature.applyEdits([newGraphic],null,null,callback,errorBack);
+  function callback(dat){
+    console.log(dat);
+    console.log("registrado");
+    console.log(datos);
+  }
+
+  function errorBack(Error){
+    console.log("error", Error);
+  }
+  */
+});
+}
+
 
 export { genericLogin };
