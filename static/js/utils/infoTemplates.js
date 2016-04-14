@@ -29,7 +29,7 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;><b>Fecha Llegada:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_llegada:DateFormat(datePattern:'dd/MM/yyyy')}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;><b>Tiempo transcurrido:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA}<br></div>"+
-      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr}<br></div>";
+      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr:DateFormat(datePattern:'dd/MM/yyyy')}<br></div>";
       chqSubInfoTemp.setContent(chqSubInfoContent);
       return chqSubInfoTemp;
     },
@@ -60,7 +60,7 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;><b>Fecha Llegada:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_llegada:DateFormat(datePattern:'dd/MM/yyyy')}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;><b>Tiempo transcurrido:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA}<br></div>"+
-      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr}<br></div>";
+      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr:DateFormat(datePattern:'dd/MM/yyyy')}<br></div>";
 
       chqIsolatedNisTemp.setContent(chqIsolatedNisInfoContent);
       return chqIsolatedNisTemp;
@@ -80,7 +80,7 @@ function getInfoTemplate(){
       "<div style=padding-top: 10px;><b>Dirección:</b> ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.direccion_resu}<br></div>"+
   //    "<div style=display:inline-block;width:8px;></div>"+
       "<div style=padding-top: 10px;><b>Comuna:</b> ${ARCGIS.dbo.CLIENTES_DATA_DATOS_006.nm_comuna}<br></div>"+
-      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr}<br></div>"
+      "<div style=padding-top: 10px;><b>ETR:</b> ${ARCGIS.DBO.%view_tiempo_order_po_3_1.etr:DateFormat(datePattern:'dd/MM/yyyy')}<br></div>"
   //    "<div style=display:inline-block;width:8px;></div>";
 
       chqNisInfoTemp.setContent(chqNisInfoContent);
