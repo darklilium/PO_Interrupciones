@@ -1,5 +1,6 @@
 import {notifications} from '../utils/notifications';
 import myLayers from './layers-service';
+import token from '../services/token-service';
 
 function genericLogin(user, pass, token){
   var url = myLayers.read_tokenURL();
@@ -29,8 +30,8 @@ function genericLogin(user, pass, token){
          var fecha = new Date();
          var pagina = "REACT_INTERRUPCIONES_WEB";
          var modulo = "PO_INTERRUPCIONES";
-      //   saveLogin(user,fecha,pagina,modulo);
-         window.location.href = "interrupciones.html";
+         saveLogin();
+        // window.location.href = "interrupciones.html";
        } else {
          notifications("Login incorrecto, intente nuevamente.","Login_Error",".notification-login");
        }
@@ -45,44 +46,50 @@ function genericLogin(user, pass, token){
   console.log('done');
 }
 
-function saveLogin(user,fecha,pagina,modulo){
-    var attributes = [{
-                        "F" : {},
-                        "attributes" : {
-                          "usuario" : "Evelyn",
-                          "modulo" : "ReactPO"
-                        }
-                      }];
+function saveLogin(){
+
+var data = {
+  token: token.read(),
+  adds: [{
+    attributes: {
+      "usuario": "Evelyn3"
+    },
+    geometry: {}
+  }]
+};
 
 
+  jQuery.ajax({
+    type: 'POST',
+    url: myLayers.write_logAccess(),
+    data: JSON.stringify(data),
+    dataType:'jsonp',
+    success: (success) => {
+      console.log(success);
+      console.log("pase");
+    },
+    error: (error) => {
+      console.log(error);
+      console.log("no pase");
+    }
+  });
 
-    jQuery.ajax({
-       type: 'POST',
-       url: 'http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/addFeatures',
-       data: attributes,
-       dataType:'html',
-       success: (success) => {
-         console.log(success);
-       },
-        error: (error) => {
-            console.log(error);
-          notifications("Acceso no autorizado.","Login_Failed", ".notification-login");
-        }
+
 /*
-  var myFeature = new esri.layers.FeatureLayer(myLayers.write_logAccess());
-  console.log(myFeature);
-  myFeature.applyEdits([newGraphic],null,null,callback,errorBack);
-  function callback(dat){
-    console.log(dat);
-    console.log("registrado");
-    console.log(datos);
+  var data = {
+    "usuario": "Evelyn4"
   }
 
-  function errorBack(Error){
-    console.log("error", Error);
-  }
-  */
-});
+  var graphic = new esri.Graphic(null, null, data, null);
+  var mylayer = new esri.layers.FeatureLayer(myLayers.write_logAccess());
+  mylayer.applyEdits([graphic], null, null, function (add, update, del) {
+   array.forEach(add, function (a) {
+    console.log(a.status);
+   });
+  }, function (error) {
+   console.log(error);
+  });
+*/
 }
 
 

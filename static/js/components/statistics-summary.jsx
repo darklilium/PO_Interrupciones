@@ -21,11 +21,8 @@ class StatisticsSummary extends React.Component {
       getStatisticsSummary();
     }else if (index==1) {
       getStatisticPerOffice();
-    }else if (index==2) {
-      getStatisticsRegionPercent();
     }else {
-      //getStatisticsOfficePercent();
-      //console.log("related to possible number 4 tab");
+      getStatisticsRegionPercent();
     }
   }
 
@@ -36,9 +33,8 @@ class StatisticsSummary extends React.Component {
       //loads the summary component second tab (1) each 10s
       getStatisticPerOffice();
       //loads the summary percent by region on the 3r tab
-        getStatisticsRegionPercent();
-      //loads the summary percent by office on the 4th tab
-        //getStatisticsOfficePercent();
+      getStatisticsRegionPercent();
+
       setTimeout(foo, 60000);
       console.log("updating chart");
     };
