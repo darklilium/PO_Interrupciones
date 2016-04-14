@@ -30,8 +30,8 @@ function genericLogin(user, pass, token){
          var fecha = new Date();
          var pagina = "REACT_INTERRUPCIONES_WEB";
          var modulo = "PO_INTERRUPCIONES";
-         saveLogin();
-        // window.location.href = "interrupciones.html";
+         //saveLogin();
+         window.location.href = "interrupciones.html";
        } else {
          notifications("Login incorrecto, intente nuevamente.","Login_Error",".notification-login");
        }
@@ -47,8 +47,6 @@ function genericLogin(user, pass, token){
 }
 
 function saveLogin(){
-
-
 //refs:
 //normal: return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits
 //my url:  return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits?token=" + token.read();
