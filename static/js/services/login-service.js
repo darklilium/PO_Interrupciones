@@ -48,11 +48,14 @@ function genericLogin(user, pass, token){
 
 function saveLogin(){
 
+
+//refs:
+//normal: return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits
+//my url:  return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits?token=" + token.read();
 var data = {
-  token: token.read(),
   adds: [{
     attributes: {
-      "usuario": "Evelyn3"
+      "usuario": "Evelyn4"
     },
     geometry: {}
   }]

@@ -70,7 +70,7 @@ function myLayers(){
         return serviceURL + "Interrupciones/PO/MapServer/11?f=json&token=" + token.read();
     },
     write_logAccess(){  /*using*/
-        return serviceURL + "Admin/LogAccesos/FeatureServer/1?f=json&token=" + token.read();
+        return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits?token=" + token.read();
     }
 
   };
