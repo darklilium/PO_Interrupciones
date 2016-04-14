@@ -21,8 +21,8 @@ class LoginApp extends React.Component {
         <img className="logo" src="images/logo_gisred500x500.png" />
 
         <div className="login">
-          <input className="login__input" ref="username" type="text" placeholder="miusuario"  />
-          <input className="login__input" ref="password" type="password" placeholder="password" />
+          <input className="login__input" ref="username" type="text" placeholder="miusuario" defaultValue="ehernanr"  />
+          <input className="login__input" ref="password" type="password" placeholder="password" defaultValue="Chilquinta5" />
           <input className="login__submit" type="submit" onClick={this.onClick} defaultValue="Entrar" />
         </div>
 

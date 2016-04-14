@@ -1,52 +1,116 @@
 $notification-box-bg: gainsboro;
 $elements_height: 1.6em;
-.wrapper__searchbar{
-  width: auto;
-  float: right;
-  height: inherit;
-}
 
-.searchbar__elements{
-  float: right;
-  height: inherit;
-}
+/*screens for more than 1024px*/
+@media screen and (min-width: 1024px) {
+  .wrapper__searchbar{
+    width: auto;
+    float: right;
+    height: inherit;
+  }
 
-.searchbar__elements-combobox{
-  height:  $elements_height;
-  width: 8em;
-  margin: 0;
-  border-radius: 0.5em;
-  border-color: ghostwhite;
-}
+  .searchbar__elements{
+    float: right;
+    height: inherit;
+  }
 
-.searchbar__elements-input{
-  height:  1.5em;
-  width: 8em;
-}
+  .searchbar__elements-combobox{
+    height:  $elements_height;
+    width: 8em;
+    margin: 0;
+    border-radius: 0.5em;
+    border-color: ghostwhite;
+  }
 
-.searchbar__elements-button{
-  height: auto;
-  width: 2.5em;
-  text-align: center;
-  padding: 0;
-  margin: 0;
-  border-color: ghostwhite;
-}
+  .searchbar__elements-input{
+    height:  1.5em;
+    width: 8em;
+  }
 
-.searchbar__notifications{
-  width: 100%;
-  height: 1.5em;
-  margin-top: 1.6em;
-  padding: 0em;
-  background-color: $notification-box-bg;
-  z-index: 2;
-  position: fixed;
-  right: 0;
-  visibility: hidden;
-}
+  .searchbar__elements-button{
+    height: auto;
+    width: 2.5em;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-color: ghostwhite;
+  }
 
-.searchbar__notifications-text{
-  text-align: right;
-  padding-right: 2em;
-  float: right;
+  .searchbar__notifications{
+    width: 100%;
+    height: 1.5em;
+    margin-top: 1.6em;
+    padding: 0em;
+    background-color: $notification-box-bg;
+    z-index: 2;
+    position: fixed;
+    right: 0;
+    visibility: hidden;
+  }
+
+  .searchbar__notifications-text{
+    text-align: right;
+    padding-right: 2em;
+    float: right;
+  }
+}
+// screens for less than 1024px
+@media screen and (max-width: 1024px ) {
+  .wrapper__searchbar{
+    width: auto;
+    float: right;
+    height: inherit;
+  }
+
+  .searchbar__elements{
+    float: right;
+    height: inherit;
+  }
+
+  .searchbar__elements-combobox{
+    height:  $elements_height;
+    //here it changes
+    width: 4em;
+    margin: 0;
+    border-radius: 0.5em;
+    border-color: ghostwhite;
+    font-size: x-small;
+  }
+
+  .searchbar__elements-input{
+    height:  1.5em;
+    //here it changes
+    width: 5.5em;
+    font-size: 9px;
+  }
+
+  .searchbar__elements-button{
+    height: inherit;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    border-color: ghostwhite;
+    //here it changes
+    width: 2.8em;
+    font-size: xx-small;
+
+  }
+
+  .searchbar__notifications{
+    width: 100%;
+    height: 1.5em;
+    margin-top: 1.6em;
+    padding: 0em;
+    background-color: $notification-box-bg;
+    z-index: 2;
+    position: fixed;
+    right: 0;
+    visibility: hidden;
+  }
+
+  .searchbar__notifications-text{
+    text-align: right;
+    padding-right: 2em;
+    float: right;
+  }
 }

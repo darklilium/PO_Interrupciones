@@ -148,8 +148,8 @@ var content = `<div style=padding-top: 10px;>ID Orden: ${contentVars.order_id}<b
 <div style=padding-top: 10px;>ETR: ${contentVars.ETR}<br/></div>`;
 
 map.infoWindow.resize(450, 250);
-map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(contentVars.geometry), content));
-map.infoWindow.show(contentVars.geometry, map.getInfoWindowAnchor(contentVars.geometry));
+map.infoWindow.setContent(esri.substitute(esri.geometry.webMercatorToGeographic(geometry), content));
+map.infoWindow.show(geometry, map.getInfoWindowAnchor(geometry));
 }
 
 

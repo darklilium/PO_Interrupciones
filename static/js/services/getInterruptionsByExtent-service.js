@@ -40,7 +40,7 @@ function getSEDByExtent(extent, callback){
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
   //this guy returns a featureSet with all the interruptions in an object
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
-      //console.log("for sed", featureSet.features.length);
+    console.log("for sed", featureSet);
     callback(featureSet.features);
   }, (Errorq)=>{
     console.log(Errorq);

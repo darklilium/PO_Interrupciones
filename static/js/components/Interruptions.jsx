@@ -45,6 +45,7 @@ class Interruptions extends React.Component {
     map.on('extent-change', ()=>{
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
+        //console.log(myresultsNis);
         let nisresults = myresultsNis.map((result)=>{
 
           let mynewNis = {
