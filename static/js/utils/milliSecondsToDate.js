@@ -1,4 +1,8 @@
 function formatDate(badDate){
+  //console.log(badDate);
+      if(badDate == null){
+        return str="";
+      }
       if(typeof badDate === 'number'){
         badDate = new Date(badDate);
       }
@@ -22,8 +26,9 @@ function formatDate(badDate){
         .replace('minute', d.getMinutes() <10? '0'+ d.getMinutes() : d.getMinutes())
         .replace('second', d.getSeconds() <10? '0'+ d.getSeconds() : d.getSeconds());
 
+
     return str;
-    }
+}
 
 
 export default formatDate;
