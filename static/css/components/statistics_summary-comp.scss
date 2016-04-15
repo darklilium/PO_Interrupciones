@@ -4,6 +4,8 @@
   z-index: 4;
   position: absolute;
   visibility: hidden;
+  width: auto;
+
 }
 
 
@@ -21,17 +23,24 @@
   }
 }
 
-@media screen and (max-width: 1024px) and (orientation: landscape){
-  width: auto;
-  height: inherit;
-}
-
-@media screen and (max-width: 1024px) and (orientation: portrait){
+@media screen and (min-width: 1024px) and (orientation: landscape){
+  .wrapper_statistics-summary{
   width: auto;
   height: auto;
+  }
+}
+
+@media screen and (min-width: 1024px) and (orientation: portrait){
+  .wrapper_statistics-summary{
+  width: auto;
+  height: auto;
+  }
 }
 
 
-@media screen and (max-width: 1280px){
-
+@media screen and (min-width: 1280px){
+  .wrapper_statistics-summary{
+  width: auto;
+  height: auto;
+  }
 }

@@ -4,12 +4,20 @@ import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
 function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTitle){
+  Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: 'arial'
+        }
+    }
+});
   $("#"+divName).highcharts({
       chart: {
           type: 'bar'
       },
       title: {
-          text: textTitle
+          text: textTitle,
+          fontSize: '9px'
       },
       xAxis: {
           categories: categories,
