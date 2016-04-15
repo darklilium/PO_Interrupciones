@@ -64,7 +64,7 @@ class Interruptions extends React.Component {
             'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
             'Geometry': result.geometry
           }
-          console.log(mynewNis['Fecha Creacion'],mynewNis['ID Orden'] );
+        
           return mynewNis;
         });
         this.setState({mydatanis:nisresults});

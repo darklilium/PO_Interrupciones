@@ -11,8 +11,13 @@ function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTit
       title: {
           text: textTitle
       },
-        xAxis: {
-          categories: categories
+      xAxis: {
+          categories: categories,
+          labels: {
+                style: {
+                    fontSize:'9px'
+                }
+            }
       },
       yAxis: {
           min: 0,

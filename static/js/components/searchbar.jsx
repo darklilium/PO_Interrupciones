@@ -119,7 +119,7 @@ class SearchBar extends React.Component {
       <div className="wrapper__searchbar">
         <div className="searchbar__elements">
         {/* Button for search orders and incidences */}
-          <select className="searchbar__elements-combobox " ref="searchType">
+          <select className="searchbar__elements-combobox" title="Elija una opción de búsqueda" ref="searchType">
             <option value="nis">NIS</option>
             <option value="incidence">INCIDENCIA</option>
             <option value="order">ORDEN</option>
@@ -127,29 +127,29 @@ class SearchBar extends React.Component {
           </select>
 
           {/* Input for searching NIS */}
-            <input className="searchbar__elements-input" ref="searchValue" type="text" placeholder="" />
+            <input className="searchbar__elements-input" ref="searchValue" title="Ingrese NIS o ID a buscar" type="text" placeholder="" />
           {/* Button for searching NIS */}
-            <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickSearch}>
+            <button className="searchbar__elements-button btn btn-default" title="Buscar" type="button" onClick={this.onClickSearch}>
                 <span><i className="fa fa-search"></i></span>
             </button>
           {/* Button for cleaning map */}
-            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickClearMap}>
+            <button className="searchbar__elements-button btn btn-default" title="Limpiar Mapa y Búsqueda" type="button"  onClick={this.onClickClearMap}>
               <span className="searchBox_icon"><i className="fa fa-eraser"></i></span></button>
           {/* Button for statistics per region*/}
-            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickStatistics}>
+            <button className="searchbar__elements-button btn btn-default" title="Ver Gráfico Estadísticas" type="button"  onClick={this.onClickStatistics}>
                 <span><i className="fa fa-pie-chart"></i></span>
             </button>
           {/* Button for Orders*/}
-          <button className="searchbar__elements-button btn btn-default" type="button" onClick={this.onClickOrderTimer}>
+          <button className="searchbar__elements-button btn btn-default" title="Ver Tabla" type="button" onClick={this.onClickOrderTimer}>
                 <span><i className="fa fa-clock-o"></i></span>
           </button>
           {/* Button for maps*/}
-            <button className="searchbar__elements-button btn btn-default" type="button"  onClick={this.onClickChangeMap}>
+            <button className="searchbar__elements-button btn btn-default" title="Cambiar Tipo Mapa" type="button"  onClick={this.onClickChangeMap}>
                 <span><i className="fa fa-globe"></i></span>
             </button>
           {/* Button for export*/}
           <div className="Griddle__export">
-            <button className="Griddle__export-btn btn btn-default" type="button"  onClick={this.onClickExport}>
+            <button className="Griddle__export-btn btn btn-default" title="Exportar Datos" type="button"  onClick={this.onClickExport}>
                 <span><i className="fa fa-file-excel-o"></i></span>
             </button>
           </div>
