@@ -5,7 +5,7 @@ Objetivo: Crear una app web que permita mostrar los clientes interrumpidos y su 
 
 Especificaciones:
 
-OK • Mostrar Subestaciones interrumpidas a escala de zoom (por agrupamiento).
+OK • Mostrar en el mapa las Subestaciones interrumpidas a escala de zoom (por agrupamiento).
 
 OK • Mostrar Clientes interrumpidos a escala de zoom cercano.
 
@@ -15,15 +15,36 @@ OK • Graficar la cantidad de clientes por comuna.
 
 OK • Graficar la cantidad de clientes por oficina.
 
-OK • Buscar un NIS e indicar si está interrumpido o si es perteneciente a una falla aislada o masiva e indicar localización.
+OK • Graficar el % de clientes por comuna.
 
-• Mostrar el tiempo de una orden.
-     • 5 - 10 min
-     • 10++ min
+OK • Buscar los siguientes elementos e indicar si está interrumpido y mostrar localización:
+     • NIS
+     • ID ORDEN
+     • ID INCIDENCIA
+     • SED
 
-• Generar un reporte de clientes interrumpidos según:
-  • NIS (Número de Cliente)
-  • Zona / Comuna
-  • Tiempo de interrupción
-  
-• Mostrar las ordenes segun extent del mapa (la vista zoom del mapa).
+OK • Mostrar el tiempo de las ordenes según un color.
+     • 0 - 1 Hora
+     • 1 - 2
+     • 3 - 24
+     • 24 ++
+
+OK • Generar un reporte de clientes interrumpidos según:
+     • Tipo de Cliente (NIS o SED)
+     • ID Orden
+     • ID Incidencia
+     • Estado
+     • Fechas asociadas al estado de la orden
+     • Tiempo de interrupción
+     • ETR (Estimated Time Reposition)
+
+OK • Mostrar las ordenes en una tabla según extent del mapa (la vista zoom del mapa referente al total de la visualización de la pantalla).
+
+OK • Mostrar dinámicamente la cantidad de:
+     • Total de clientes domiciliarios (DOM) interrumpidos
+     • Total de clientes pertenecientes a una Subestación de Distribución interrumpidos (RED)
+     • Total de clientes interrumpidos
+
+OK • Filtrar resultados en la tabla de ordenes.
+
+OK • Web compatible con dispositivos móviles (Tablet principalmente).
