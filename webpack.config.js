@@ -4,8 +4,7 @@ module.exports = {
   entry: {
     login: './static/js/bundles/login.js',
     dashboard: './static/js/bundles/dashboard.js',
-    interruptions: './static/js/bundles/interruptions.js',
-    interruptions2: './static/js/bundles/interruptions2.js'
+    interruptions: './static/js/bundles/interruptions.js'
   },
   output: {
     path: path.join(path.join(__dirname, 'dist'), 'js'),

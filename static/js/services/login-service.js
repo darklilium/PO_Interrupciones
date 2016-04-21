@@ -35,6 +35,7 @@ function genericLogin(user, pass, token){
 
     notifications("Logging in...","Login_Sucess", ".notification-login");
     window.location.href = "interrupciones.html";
+  
     saveLogin(user,page,module);
   })
   .fail(error => {
