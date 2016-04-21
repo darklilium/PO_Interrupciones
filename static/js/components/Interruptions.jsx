@@ -25,22 +25,18 @@ function createDataObject(){
 }
 
 class Interruptions extends React.Component {
-  constructor(){
-    super();
-    // if you are going to use the same object to represent both values
-    // use a factory function to create both objects
-    this.state = {
-      mydatanis:[createDataObject()],
-      mydatased:[createDataObject()]
-    };
-  }
-
   componentWillMount(){
     console.log("estoy renderizando interrupciones");
     if (!localStorage.getItem('token')){
         window.location.href = "index.html";
         return;
     }
+    // if you are going to use the same object to represent both values
+    // use a factory function to create both objects
+    this.state = {
+      mydatanis:[createDataObject()],
+      mydatased:[createDataObject()]
+    };
   }
   componentDidMount(){
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
@@ -104,11 +100,9 @@ class Interruptions extends React.Component {
   }
 
   render(){
-
     return (
     <div className="interruptions__wrapper">
     <div className="interruptions__symbology"><img className="interruptions__symbology-img" src="images/widget_icons/symbology.png"/></div>
-
       <div className="interruptions__header">
         {/*Search nis and orders with statistics button and table*/}
         <SearchBar data ={[...this.state.mydatased,...this.state.mydatanis]} />
