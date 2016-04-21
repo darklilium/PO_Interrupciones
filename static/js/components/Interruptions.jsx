@@ -35,6 +35,13 @@ class Interruptions extends React.Component {
     };
   }
 
+  componentWillMount(){
+    console.log("estoy renderizando interrupciones");
+    if (!localStorage.getItem('token')){
+        window.location.href = "index.html";
+        return;
+    }
+  }
   componentDidMount(){
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
@@ -64,7 +71,7 @@ class Interruptions extends React.Component {
             'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
             'Geometry': result.geometry
           }
-        
+
           return mynewNis;
         });
         this.setState({mydatanis:nisresults});

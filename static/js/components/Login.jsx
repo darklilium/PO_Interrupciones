@@ -12,6 +12,7 @@ class LoginApp extends React.Component {
     var userValue = "vialactea\\"+this.refs.username.value;
     var passValue = this.refs.password.value;
 
+    
     genericLogin(userValue, passValue, token);
   }
 
