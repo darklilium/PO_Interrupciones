@@ -9,7 +9,7 @@ function genericLogin(user, pass, token){
     username: user,
     password: pass,
     client: 'requestip',
-    expiration: 1440,
+    expiration: 1,
     format: 'jsonp'
   };
 
@@ -35,7 +35,7 @@ function genericLogin(user, pass, token){
 
     notifications("Logging in...","Login_Sucess", ".notification-login");
     window.location.href = "interrupciones.html";
-  
+
     saveLogin(user,page,module);
   })
   .fail(error => {

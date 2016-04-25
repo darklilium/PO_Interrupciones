@@ -23,7 +23,7 @@ function getClieInterruptionsByExtent(extent, callback){
   qTaskInterruptions.execute(qInterruptions, (featureSet)=>{
     callback(featureSet.features);
   }, (Errorq)=>{
-    console.log(Errorq);
+    console.log(Errorq,"Error doing interruptions nis by extent");
       return 0;
   });
 
@@ -43,7 +43,7 @@ function getSEDByExtent(extent, callback){
     //console.log("for sed", featureSet);
     callback(featureSet.features);
   }, (Errorq)=>{
-    console.log(Errorq);
+    console.log(Errorq,"Error doing interruptions sed by extent");
     return 0;
   });
 

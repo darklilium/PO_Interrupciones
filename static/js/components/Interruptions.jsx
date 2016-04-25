@@ -8,7 +8,8 @@ import StatisticsSummary from './Statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
-
+import {tokenValidator} from '../services/token-service';
+import token from '../services/token-service';
 function createDataObject(){
   return {
     'Tipo' : 0 ,
@@ -25,14 +26,17 @@ function createDataObject(){
 }
 
 class Interruptions extends React.Component {
+
   componentWillMount(){
     console.log("estoy renderizando interrupciones");
     if (!localStorage.getItem('token')){
         window.location.href = "index.html";
         return;
     }
+
     // if you are going to use the same object to represent both values
     // use a factory function to create both objects
+
     this.state = {
       mydatanis:[createDataObject()],
       mydatased:[createDataObject()]
@@ -43,7 +47,7 @@ class Interruptions extends React.Component {
     map.disableKeyboardNavigation();
     //Put the locate button here.
 
-    addMapsAndLayers((callback)=>{console.log(callback);});
+    addMapsAndLayers((callback)=>{console.log(callback, "asda");});
 
     map.on('extent-change', ()=>{
 

@@ -45,7 +45,7 @@ function addMapsAndLayers(callback){
   interrClienteSED.refreshInterval = 1;
   interrClienteSED.setImageFormat("png32");
   mapp.addLayer(interrClienteSED, 1);
-
+  
   callback("done");
 }
 
