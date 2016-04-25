@@ -9,7 +9,7 @@ function genericLogin(user, pass, token){
     username: user,
     password: pass,
     client: 'requestip',
-    expiration: 1,
+    expiration: 1440,
     format: 'jsonp'
   };
 

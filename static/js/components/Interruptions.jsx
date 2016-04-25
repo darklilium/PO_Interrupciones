@@ -8,7 +8,7 @@ import StatisticsSummary from './Statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
-import {tokenValidator} from '../services/token-service';
+
 import token from '../services/token-service';
 function createDataObject(){
   return {
@@ -28,7 +28,7 @@ function createDataObject(){
 class Interruptions extends React.Component {
 
   componentWillMount(){
-    console.log("estoy renderizando interrupciones");
+    console.log("Renderizing Interruptions component...");
     if (!localStorage.getItem('token')){
         window.location.href = "index.html";
         return;
@@ -47,7 +47,7 @@ class Interruptions extends React.Component {
     map.disableKeyboardNavigation();
     //Put the locate button here.
 
-    addMapsAndLayers((callback)=>{console.log(callback, "asda");});
+    addMapsAndLayers((callback)=>{console.log(callback);});
 
     map.on('extent-change', ()=>{
 
