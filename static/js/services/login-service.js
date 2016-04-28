@@ -9,7 +9,7 @@ function genericLogin(user, pass, token){
     username: user,
     password: pass,
     client: 'requestip',
-    expiration: 1440,
+    expiration: 10080,
     format: 'jsonp'
   };
 
@@ -36,7 +36,7 @@ function genericLogin(user, pass, token){
     notifications("Logging in...","Login_Sucess", ".notification-login");
     window.location.href = "interrupciones.html";
 
-    saveLogin(user,page,module);
+    saveLogin(user,page,module,myToken);
   })
   .fail(error => {
     console.log("You are not authorized ):");
@@ -47,26 +47,25 @@ function genericLogin(user, pass, token){
   console.log('done');
 }
 
-function saveLogin(user,page,module){
+function saveLogin(user,page,mod, tkn){
 
   const data = {
     f: 'json',
-    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "module": module  }, geometry: {} }])
+    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "module": mod  }, geometry: {} }]),
+    token: tkn
   };
 
   jQuery.ajax({
     method: 'POST',
-    url: myLayers.write_logAccess(),
-    data: data,
-    dataType:'json',
-    success: (success) => {
-      console.log(success);
-      console.log("pase");
-    },
-    error: (error) => {
-      console.log(error);
-      console.log("no pase");
-    }
+    url: "http://gisred.chilquinta.cl:5555/arcgis/rest/services/Admin/LogAccesos/FeatureServer/1/applyedits",
+    dataType:'html',
+    data: data
+  })
+  .done(d =>{
+    console.log(d,"pase");
+  })
+  .fail(f=>{
+    console.log(f,"no pase")
   });
 }
 

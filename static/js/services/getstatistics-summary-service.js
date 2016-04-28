@@ -3,6 +3,58 @@ import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
 import HighchartsExport from 'highcharts/modules/exporting'
 
+function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textTitle){
+  Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: 'arial'
+        }
+    }
+  });
+  $("#"+divName).highcharts({
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: textTitle,
+            fontSize: '9px'
+        },
+        xAxis: {
+            categories: categories,
+            labels: {
+              style: {
+                      fontSize:'9px'
+              }
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: xTitle
+            },
+            stackLabels: {
+              enabled: true,
+              style: {
+                  fontWeight: 'bold',
+                  color:'gray'
+              }
+            }
+        },
+        plotOptions: {
+            series: {
+                stacking: 'normal'
+            }
+        },
+        series: [{
+          name: 'DOM',
+          data: dataRED
+          }, {
+            name: 'RED',
+            data: dataDOM
+        }]
+    });
+}
+
 function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTitle){
   Highcharts.setOptions({
     chart: {
@@ -10,7 +62,7 @@ function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTit
             fontFamily: 'arial'
         }
     }
-});
+  });
   $("#"+divName).highcharts({
       chart: {
           type: 'bar'
@@ -79,11 +131,14 @@ function getStatisticsSummary(){
       var reg = featureSet.features.map((region)=>{
         return region.attributes.nm_comuna;
       });
-      var qtty = featureSet.features.map((q)=>{
-        return q.attributes.Cantidad;
+      var qttyDOM = featureSet.features.map((q)=>{
+        return q.attributes.DOM;
       });
-      makeBarsGraphic(reg, qtty, "container1", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por comuna.")
-
+      var qttyRED = featureSet.features.map((q)=>{
+        return q.attributes.RED;
+      });
+      //makeBarsGraphic(reg, qtty, "container1", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por comuna.")
+        makeStackedGraphic(reg, qttyRED, qttyDOM, "container1", "Cant. Clientes (u)", "Interrupciones por comuna.");
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
   });
@@ -129,11 +184,11 @@ function getStatisticsRegionPercent(){
     var region_qtty_now = featureSet.features.map((region)=>{
       let reg_qtty = {
         comuna: region.attributes.nm_comuna,
-        cantidad: region.attributes.Cantidad
+        cantidad: region.attributes.DOM + region.attributes.RED
       }
       return reg_qtty;
     });
-   //console.log(region_qtty_now, "cantidad de clientes afectados");
+
    getRegionTotal(region_qtty_now);
   },(errorQtty)=>{console.log("Error trying to get the qtty now for calculating region percent");});
 

@@ -45,7 +45,14 @@ function addMapsAndLayers(callback){
   interrClienteSED.refreshInterval = 1;
   interrClienteSED.setImageFormat("png32");
   mapp.addLayer(interrClienteSED, 1);
-  
+
+  interrClienteSED.on('update-end', (obj)=>{
+    if(obj.error){
+      console.log("Redirecting to login page, token for this session is ended...");
+      window.location.href = "index.html";
+    }
+  });
+
   callback("done");
 }
 
