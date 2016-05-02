@@ -8,8 +8,10 @@ import StatisticsSummary from './Statistics-summary.jsx';
 import GriddleGrid from './GriddleGrid-component.jsx';
 import {getClieInterruptionsByExtent} from '../services/getInterruptionsByExtent-service';
 import {getSEDByExtent} from '../services/getInterruptionsByExtent-service';
-
 import token from '../services/token-service';
+import LayerList from './LayerList.jsx';
+
+
 function createDataObject(){
   return {
     'Tipo' : 0 ,
@@ -21,6 +23,9 @@ function createDataObject(){
     'Comentario': 0,
     'Tiempo': 0,
     'ETR': 0,
+    'Alimentador': 0,
+    'Comuna' : 0,
+    'Cantidad': 0,
     'Geometry': 0
   };
 }
@@ -45,7 +50,6 @@ class Interruptions extends React.Component {
   componentDidMount(){
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
-    //Put the locate button here.
 
     addMapsAndLayers((callback)=>{console.log(callback);});
 
@@ -56,7 +60,7 @@ class Interruptions extends React.Component {
         let nisresults = myresultsNis.map((result)=>{
 
           let mynewNis = {
-            'Tipo': 'Cliente',
+            'Tipo': 'DOM',
             'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_orden'],
             'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_incidencia'],
             'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.estado_orden'],
@@ -69,6 +73,9 @@ class Interruptions extends React.Component {
             'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.comentario'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA'],
             'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
+            'Alimentador': 'Por definir',
+            'Comuna' : 'Por definir',
+            'Cantidad': 1,
             'Geometry': result.geometry
           }
 
@@ -81,7 +88,7 @@ class Interruptions extends React.Component {
           let sedresults = myresultsSed.map((result)=>{
 
           let mynewSed = {
-            'Tipo': 'SED',
+            'Tipo': 'RED',
             'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_orden'],
             'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_incidencia'],
             'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.estado_orden'],
@@ -94,6 +101,9 @@ class Interruptions extends React.Component {
             'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.comentario'],
             'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA'],
             'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
+            'Alimentador': result.attributes['ARCGIS.DBO.SED_006.alimentador'],
+            'Comuna' : result.attributes['ARCGIS.DBO.SED_006.comuna'],
+            'Cantidad' : 'Por definir',
             'Geometry': result.geometry
           }
           return mynewSed;
@@ -113,6 +123,8 @@ class Interruptions extends React.Component {
         {/* StatisticsToolbar on top*/}
         <StatisticsToolbar />
       </div>
+      {/* Layer List */}
+      <LayerList />
       {/* The map*/}
       <div className="map_div" id="map_div">
         <div id="LocateButton"></div>

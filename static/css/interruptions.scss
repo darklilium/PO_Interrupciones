@@ -8,6 +8,7 @@ body{
 
 .esriSimpleSliderTL {
     top: 4em;
+    visibility: hidden;
 }
 
 .interruptions__wrapper{
@@ -50,7 +51,7 @@ body{
 // screens for less than 1024px
 @media screen and (max-width: 1024px ) {
   .interruptions__symbology-img{
-    width: 3em;
+    width: 2.8em;
     height: auto;
     margin-left: 0em;
   }
@@ -94,5 +95,5 @@ body{
 @import "components/statistics";
 @import "components/statistics_summary-comp";
 @import "components/griddlegrid-component";
-
+@import "components/layerlist-component";
 //@import "components/myGrid";

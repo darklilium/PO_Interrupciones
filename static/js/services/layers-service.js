@@ -77,6 +77,10 @@ function myLayers(){
     },
     write_logAccess(){  /*using*/
         return serviceURL + "Admin/LogAccesos/FeatureServer/1/applyEdits?f=json&token=" + token.read();
+    },
+
+    read_layerAlimentador(){  /*using*/
+        return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
     }
 
   };

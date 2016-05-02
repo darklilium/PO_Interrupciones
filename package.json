@@ -27,7 +27,8 @@
     "react": "^0.14.7",
     "react-data-grid": "~0.14.18",
     "react-dom": "^0.14.7",
-    "griddle-react": "~0.4.1"
+    "griddle-react": "~0.4.1",
+    "react-native": "~0.24.1"
   },
   "devDependencies": {
     "babel-core": "^6.6.5",

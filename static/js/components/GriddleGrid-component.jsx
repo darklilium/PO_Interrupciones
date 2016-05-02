@@ -32,6 +32,9 @@ class GriddleGrid extends React.Component{
                               gridRow.props.data['Fecha Llegada'],
                               gridRow.props.data['Tiempo'],
                               gridRow.props.data['ETR'],
+                              gridRow.props.data['Alimentador'],
+                              gridRow.props.data['Comuna'],
+                              gridRow.props.data['Cantidad'],
                               gridRow.props.data['Geometry']
                               );
     map.centerAndZoom(gridRow.props.data['Geometry'],15);
@@ -57,7 +60,10 @@ class GriddleGrid extends React.Component{
                       "Fecha Ruta",
                       "Fecha Llegada",
                       "Tiempo",
-                      "ETR"]}/>
+                      "ETR",
+                      "Alimentador",
+                      "Comuna",
+                      "Cantidad"]}/>
       );
   }
 }

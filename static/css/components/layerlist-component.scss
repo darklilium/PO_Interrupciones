@@ -1,0 +1,29 @@
+.layerlist__wrapper{
+  z-index: 4;
+    padding-top: 3.5em;
+    position: absolute;
+    padding-left: 1em;
+    display: inline-block;
+    width: auto;
+}
+.layerlist__fieldset{
+  display: flex;
+}
+.layerlist__legend{
+font-size: 11px;
+padding: 0px;
+    margin: 0px;
+}
+
+.layerlist__checkbox{
+
+}
+.layerlist__h6{
+  font-size: xx-small;
+      margin-bottom: 0px;
+      margin-top: 0.8em;
+}
+.layerlist__checkbox-div{
+  display: inline-flex;
+  width: auto;
+}
