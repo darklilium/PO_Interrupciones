@@ -36,6 +36,7 @@ function addMapsAndLayers(callback){
   var mapp = map.getMap();
   console.log("adding layers and mapabases...");
 
+  //set here layers by default.
   var interrClienteSED = setLayers().interrupciones();
   mapp.addLayer(interrClienteSED, 1);
 
@@ -81,8 +82,6 @@ function setLayers(){
       */
       //interrClienteSED.refreshInterval = 1;
       cuadrillasLayer.setImageFormat("png32");
-
-
       return cuadrillasLayer;
     }
   }

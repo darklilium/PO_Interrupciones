@@ -109,9 +109,10 @@ class SearchBar extends React.Component {
 
   onClickExport(){
     var mydata = translateInfo(this.props.data);
+    console.log(mydata);
     var a = new Date();
     let str = formatDate(a);
-    exportToExcel(mydata, "Interrupciones " + str, true);
+    //exportToExcel(mydata, "Interrupciones " + str, true);
   }
 
   render(){

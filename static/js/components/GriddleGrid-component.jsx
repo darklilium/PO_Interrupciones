@@ -10,9 +10,7 @@ class GriddleGrid extends React.Component{
     super(props);
     this.onRowClick = this.onRowClick.bind(this);
   }
-  componentDidMount(){
-
-  }
+  
   onRowClick(gridRow, event){
     var map = mymap.getMap();
     map.graphics.clear();

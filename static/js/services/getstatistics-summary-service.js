@@ -1,7 +1,39 @@
 import layers from '../services/layers-service';
 import createQueryTask from '../services/createquerytask-service';
 import Highcharts from 'highcharts';
-import HighchartsExport from 'highcharts/modules/exporting'
+import highcharts from 'highcharts/modules/exporting';
+
+
+var graphicResults = {
+  setResultsGraphic1: function(regions,domi,red){
+    this.graphicResults = [regions,domi,red];
+    return this.graphicResults;
+
+  },
+  getResultsGraphic: function(){
+    return this.graphicResults;
+  }
+};
+
+var graphicResults2 = {
+  setResultsGraphic2: function(office,qtty){
+    this.graphicResults2 = [office,qtty];
+    return this.graphicResults2;
+  },
+  getResultsGraphic2: function(){
+    return this.graphicResults2;
+  }
+}
+
+var graphicResults3 = {
+  setResultsGraphic3: function(categories,data){
+    this.graphicResults3 = [categories,data];
+    return this.graphicResults3;
+  },
+  getResultsGraphic3: function(){
+    return this.graphicResults3;
+  }
+}
 
 function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textTitle){
   Highcharts.setOptions({
@@ -12,33 +44,35 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
     }
   });
   $("#"+divName).highcharts({
-        chart: {
+    chart: {
             type: 'bar'
         },
         title: {
-            text: textTitle,
-            fontSize: '9px'
+            text: textTitle
         },
         xAxis: {
-            categories: categories,
-            labels: {
-              style: {
-                      fontSize:'9px'
-              }
-            }
+            categories: categories
         },
         yAxis: {
             min: 0,
             title: {
-                text: xTitle
+                text: xTitle,
+                align: 'high',
+            },
+            labels: {
+                overflow: 'justify'
             },
             stackLabels: {
-              enabled: true,
-              style: {
-                  fontWeight: 'bold',
-                  color:'gray'
-              }
+
+                enabled: true,
+                style: {
+                    fontWeight: 'bold',
+                    color:'black'
+                }
             }
+        },
+        legend: {
+            reversed: true
         },
         plotOptions: {
             series: {
@@ -46,9 +80,9 @@ function makeStackedGraphic(categories, dataDOM, dataRED, divName, xTitle, textT
             }
         },
         series: [{
-          name: 'DOM',
-          data: dataRED
-          }, {
+            name: 'DOM',
+            data: dataRED
+        }, {
             name: 'RED',
             data: dataDOM
         }]
@@ -116,7 +150,10 @@ function makeBarsGraphic(categories, data, divName, xTitle, seriesLabel, textTit
       series: [{
           name: seriesLabel,
           data: data
-      }]
+      }],
+      exporting: {
+          enabled: true
+      }
     });
 }
 
@@ -139,9 +176,12 @@ function getStatisticsSummary(){
       });
       //makeBarsGraphic(reg, qtty, "container1", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por comuna.")
         makeStackedGraphic(reg, qttyRED, qttyDOM, "container1", "Cant. Clientes (u)", "Interrupciones por comuna.");
+        var sav = graphicResults.setResultsGraphic1(reg,qttyDOM,qttyRED);
+
   },(errorQtty)=>{
     console.log("Error doing query for regions quantity");
   });
+
 }
 
 function getStatisticPerOffice(){
@@ -161,7 +201,8 @@ function getStatisticPerOffice(){
       qtty = featureSet.features.map((q)=>{
         return q.attributes.Cantidad;
       });
-      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.")
+      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.");
+      let sav = graphicResults2.setResultsGraphic2(office,qtty);
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
@@ -248,7 +289,8 @@ function calculatePercentaje(totalObj, affectedObj){
   var cat = r.map((res)=>{return res.comuna});
   var dat = r.map((res)=>{return parseFloat(res.porcentajeAfectados)});
 
+  let sav = graphicResults3.setResultsGraphic3(cat, dat);
   makeBarsGraphic(cat, dat, "container3", "% Clientes", "% Clientes", "Interrupciones por comuna.")
 }
 
-export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent};
+export {getStatisticsSummary ,getStatisticPerOffice,getStatisticsRegionPercent, graphicResults, graphicResults2, graphicResults3};

@@ -8,6 +8,12 @@
 
 }
 
+.statistics-export-btn{
+    bottom: 1em;
+    left: 1em;
+    z-index: 4;
+    position: absolute;
+}
 
 @media screen and (max-width: 768px) and (orientation: landscape){
   .wrapper_statistics-summary{
@@ -40,7 +46,7 @@
 
 @media screen and (min-width: 1280px){
   .wrapper_statistics-summary{
-  width: auto;
-  height: auto;
+  width: 317px;
+  height: 444px;
   }
 }
