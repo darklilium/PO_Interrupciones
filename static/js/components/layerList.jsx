@@ -72,9 +72,10 @@ class LayerList extends React.Component {
           <div className="layerlist__checkbox-div">
             <input className="layerlist__checkbox" type="checkbox" id="check_alimentador" ref="check_alimentador" onClick={this.onClick} ></input><h6 className="layerlist__h6">Alimentador</h6>
           </div>
-          <div className="layerlist__checkbox-div">
+          {/*<div className="layerlist__checkbox-div">
             <input className="layerlist__checkbox" type="checkbox" id="check_cuadrillas" ref="check_cuadrillas" onClick={this.onClick}  ></input><h6 className="layerlist__h6">Cuadrillas</h6>
           </div>
+          */}
       </fieldset>
     </div>);
 
