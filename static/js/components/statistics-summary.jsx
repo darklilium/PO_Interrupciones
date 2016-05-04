@@ -13,6 +13,8 @@ import ReactTabs from 'react-tabs';
 import formatDate from '../utils/milliSecondsToDate';
 import {exportToExcel} from '../utils/exportToExcel';
 
+import demoFromHTML from '../utils/exportToPdf';
+
 class StatisticsSummary extends React.Component {
 
   constructor(props){
@@ -55,7 +57,10 @@ class StatisticsSummary extends React.Component {
             };
              return d;
         });
-    exportToExcel(mydata, "Interrupciones_Por_Comuna " + new Date(), true);
+
+
+
+  /*  exportToExcel(mydata, "Interrupciones_Por_Comuna " + new Date(), true);
 
     results = graphicResults2.getResultsGraphic2();
         mydata = results[0].map((comuna,index) =>{
@@ -75,7 +80,7 @@ class StatisticsSummary extends React.Component {
         };
          return d;
     });
-    exportToExcel(mydata, "Interrupciones_Porcentaje_Clientes " + new Date(), true);
+    exportToExcel(mydata, "Interrupciones_Porcentaje_Clientes " + new Date(), true);*/
   }
 
   componentDidMount(){
