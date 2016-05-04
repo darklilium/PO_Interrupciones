@@ -80,7 +80,7 @@ function myLayers(){
     },
 
     read_layerAlimentador(){  /*using*/
-        return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
+        return serviceURL + "Chilquinta_006/Tramos_006/MapServer?f=json&token=" + token.read();
     }
 
   };

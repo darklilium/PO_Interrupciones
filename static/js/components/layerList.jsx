@@ -20,7 +20,7 @@ class LayerList extends React.Component {
       case "check_alimentador":
 
         if (this.refs.check_alimentador.checked){
-          mapp.addLayer(addAlimentadorLayer, 2);
+          mapp.addLayer(addAlimentadorLayer, 1);
           return;
         }
 

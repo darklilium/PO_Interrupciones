@@ -48,9 +48,9 @@ function setLayers(){
     alimentadores(){
       var layerAlimentador = new esri.layers.ArcGISDynamicMapServiceLayer(layers.read_layerAlimentador(),{id:"CHQAlimentadores"});
       layerAlimentador.setImageFormat("png32");
-      layerAlimentador.setInfoTemplates({
+    /*  layerAlimentador.setInfoTemplates({
         0: {infoTemplate: myinfotemplate.getAlimentadorInfoWindow()}
-      });
+      });*/
       layerAlimentador.setVisibleLayers([0]);
 
       return layerAlimentador;
