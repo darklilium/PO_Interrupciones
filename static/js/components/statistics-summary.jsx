@@ -117,19 +117,19 @@ class StatisticsSummary extends React.Component {
           <TabPanel>
             <div id="container1" className="statistics-summary__chart"></div>
             <button className="statistics-export-btn btn btn-default" title="Exportar Datos" type="button"  onClick={this.onClickExport}>
-                <span><i className="fa fa-file-excel-o"></i></span>
+                <span><i className="fa fa-download"></i></span>
             </button>
           </TabPanel>
           <TabPanel>
             <div id="container2" className="statistics-summary__chart"></div>
             <button className="statistics-export-btn btn btn-default" title="Exportar Datos" type="button"  onClick={this.onClickExport}>
-                <span><i className="fa fa-file-excel-o"></i></span>
+                <span><i className="fa fa-download"></i></span>
             </button>
           </TabPanel>
           <TabPanel>
             <div id="container3" className="statistics-summary__chart"></div>
             <button className="statistics-export-btn btn btn-default" title="Exportar Datos" type="button"  onClick={this.onClickExport}>
-                <span><i className="fa fa-file-excel-o"></i></span>
+                <span><i className="fa fa-download"></i></span>
             </button>
           </TabPanel>
     </Tabs>
