@@ -28,7 +28,9 @@
     "react-data-grid": "~0.14.18",
     "react-dom": "^0.14.7",
     "griddle-react": "~0.4.1",
-    "react-native": "~0.24.1"
+    "react-native": "~0.24.1",
+    "jspdf": "~1.2.61",
+    "jspdf-autotable": "~2.0.25"
   },
   "devDependencies": {
     "babel-core": "^6.6.5",

@@ -13,7 +13,7 @@ import ReactTabs from 'react-tabs';
 import formatDate from '../utils/milliSecondsToDate';
 import {exportToExcel} from '../utils/exportToExcel';
 
-import demoFromHTML from '../utils/exportToPdf';
+import exportGraphicsToPDF from '../utils/exportToPDF';
 
 class StatisticsSummary extends React.Component {
 
@@ -45,42 +45,75 @@ class StatisticsSummary extends React.Component {
   }
 
   onClickExport(e){
-    //this export all the results for the 3 graphics in diff. excels.
-    var mydata;
-    var results;
-    results = graphicResults.getResultsGraphic();
-        mydata = results[0].map((comuna,index) =>{
-            let d = {
-              COMUNA: comuna,
-              "DOM": results[1][index],
-              "RED": results[2][index]
-            };
-             return d;
-        });
+
+    //Factories for chart titles and chart data content
+    var chartTitles = {
+      chart1: "Interrupciones por comuna",
+      chart2: "Interrupciones por oficina",
+      chart3: "Porcentaje de interrupciones por comuna"
+    };
+
+    var charts = {
+      chart1: {
+        chartColumns: [
+          {title: "COMUNA", dataKey: "COMUNA"},
+          {title: "DOM", dataKey: "DOM"},
+          {title: "RED", dataKey: "RED"}
+        ],
+        chartData: []
+      },
+      chart2: {
+        chartColumns: [
+          {title: 'COMUNA', dataKey:"COMUNA"},
+          {title:'CANTIDAD CLIENTES', dataKey:"CANTIDAD CLIENTES"}
+        ],
+        chartData: []
+      },
+      chart3: {
+        chartColumns: [
+          {title: 'COMUNA', dataKey:"COMUNA"},
+          {title: 'PORCENTAJE CLIENTES', dataKey: "PORCENTAJE CLIENTES"}
+        ],
+        chartData: []
+      }
+    };
 
 
+    //this export all the results for the 3 graphics in pdf.
 
-  /*  exportToExcel(mydata, "Interrupciones_Por_Comuna " + new Date(), true);
+    var results = graphicResults.getResultsGraphic();
+    charts.chart1.chartData = results[0].map((comuna,index) =>{
+      let d = {
+        COMUNA: comuna,
+        "DOM": results[1][index],
+        "RED": results[2][index]
+        };
+      return d;
+    });
+
+    //console.log(charts.chart1.chartData);
 
     results = graphicResults2.getResultsGraphic2();
-        mydata = results[0].map((comuna,index) =>{
-            let d = {
-              COMUNA: comuna,
-              "CANT. CLIENTES": results[1][index]
-            };
-             return d;
-        });
-    exportToExcel(mydata, "Interrupciones_Por_Oficina " + new Date(), true);
+    charts.chart2.chartData = results[0].map((comuna,index) =>{
+      let d = {
+        COMUNA: comuna,
+        "CANTIDAD CLIENTES": results[1][index]
+        };
+      return d;
+    });
+  //  console.log(charts.chart2.chartData);
 
     results = graphicResults3.getResultsGraphic3();
-    mydata = results[0].map((comuna,index) =>{
-        let d = {
-          COMUNA: comuna,
-          "% CLIENTES": results[1][index]
-        };
-         return d;
+    charts.chart3.chartData = results[0].map((comuna,index) =>{
+      let d = {
+        COMUNA: comuna,
+        "PORCENTAJE CLIENTES": results[1][index]
+      };
+      return d;
     });
-    exportToExcel(mydata, "Interrupciones_Porcentaje_Clientes " + new Date(), true);*/
+
+  //  console.log(charts.chart3.chartData);
+    exportGraphicsToPDF(chartTitles, charts);
   }
 
   componentDidMount(){

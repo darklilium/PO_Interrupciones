@@ -20,7 +20,7 @@ function formatDate(badDate){
 
       var str = "day/month/year, hour:minute:second"
         .replace('day', d.getDate() <10? '0'+ d.getDate() : d.getDate())
-        .replace('month', d.getMonth()+1 <10? '0' + d.getMonth() : d.getMonth())
+        .replace('month', d.getMonth()+1 <10? '0' + (d.getMonth()+1) : (d.getMonth()+1))
         .replace('year', d.getFullYear())
         .replace('hour', d.getHours() <10? '0'+ d.getHours() : d.getHours() )
         .replace('minute', d.getMinutes() <10? '0'+ d.getMinutes() : d.getMinutes())
@@ -30,5 +30,19 @@ function formatDate(badDate){
     return str;
 }
 
+function getFormatedDateNow(){
+  var d = new Date();
+
+  var str = "day/month/year, hour:minute:second"
+    .replace('day', d.getDate() <10? '0'+ d.getDate() : d.getDate())
+    .replace('month', (d.getMonth() + 1) <10? '0' + (d.getMonth()+1) : (d.getMonth()+1))
+    .replace('year', d.getFullYear())
+    .replace('hour', d.getHours() <10? '0'+ d.getHours() : d.getHours() )
+    .replace('minute', d.getMinutes() <10? '0'+ d.getMinutes() : d.getMinutes())
+    .replace('second', d.getSeconds() <10? '0'+ d.getSeconds() : d.getSeconds());
+    console.log(str);
+  return str;
+}
 
 export default formatDate;
+export {getFormatedDateNow};
