@@ -58,7 +58,8 @@ class StatisticsSummary extends React.Component {
         chartColumns: [
           {title: "COMUNA", dataKey: "COMUNA"},
           {title: "DOM", dataKey: "DOM"},
-          {title: "RED", dataKey: "RED"}
+          {title: "RED", dataKey: "RED"},
+          {title: "TOTAL", dataKey: "TOTAL"}
         ],
         chartData: []
       },
@@ -86,7 +87,8 @@ class StatisticsSummary extends React.Component {
       let d = {
         COMUNA: comuna,
         "DOM": results[1][index],
-        "RED": results[2][index]
+        "RED": results[2][index],
+        "TOTAL": results[1][index]+results[2][index]
         };
       return d;
     });

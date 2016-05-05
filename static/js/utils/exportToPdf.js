@@ -13,7 +13,7 @@ function exportGraphicsToPDF(chartTitles, charts){
   doc.autoTable(charts.chart1.chartColumns,charts.chart1.chartData,{
       startY: 100,
       margin: {horizontal: 10},
-        styles: {overflow: 'linebreak'},
+      styles: {overflow: 'linebreak'},
       columnStyles: {text: {columnWidth: 250}}
   });
 
