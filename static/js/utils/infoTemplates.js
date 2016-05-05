@@ -85,10 +85,10 @@ function getInfoTemplate(){
     },
     getAlimentadorInfoWindow(){
       let chqAlimInfoTemp= new esri.InfoTemplate();
-      chqAlimInfoTemp.setTitle("<b>ID Alimentador: ${id_ssee }</b>");
+      chqAlimInfoTemp.setTitle("<b>ID: ${ARCGIS.DBO.Tramos_MT_006.id}</b>");
 
       let chqAlimInfoContent =
-      "<div style=padding-top: 10px;><b>Alimentador:</b> ${nombre}<br></div>";
+      "<div style=padding-top: 10px;><b>Alimentador:</b> ${ARCGIS.DBO.Tramos_MT_006.alimentador}<br></div>";
       chqAlimInfoTemp.setContent(chqAlimInfoContent);
       return chqAlimInfoTemp;
     }
