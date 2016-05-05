@@ -48,9 +48,9 @@ class StatisticsSummary extends React.Component {
 
     //Factories for chart titles and chart data content
     var chartTitles = {
-      chart1: "Interrupciones por comuna",
-      chart2: "Interrupciones por oficina",
-      chart3: "Porcentaje de interrupciones por comuna"
+      chart1: "Interrupciones de clientes por comuna",
+      chart2: "Interrupciones de clientes por oficina",
+      chart3: "Porcentaje de interrupciones de clientes por comuna"
     };
 
     var charts = {
@@ -64,7 +64,7 @@ class StatisticsSummary extends React.Component {
       },
       chart2: {
         chartColumns: [
-          {title: 'COMUNA', dataKey:"COMUNA"},
+          {title: 'OFICINA', dataKey:"COMUNA"},
           {title:'CANTIDAD CLIENTES', dataKey:"CANTIDAD CLIENTES"}
         ],
         chartData: []

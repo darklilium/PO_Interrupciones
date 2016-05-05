@@ -1,5 +1,5 @@
 import token from '../services/token-service';
-
+import myinfotemplate from '../utils/infoTemplates';
 function myLayers(){
   const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
@@ -85,4 +85,69 @@ function myLayers(){
 
   };
 }
+
+//TO DO: this function sets the layers that will be added in the app, integrating the infowindow and their special properties.
+function setLayers(){
+  return {
+    alimentadores(){
+      var layerAlimentador = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_layerAlimentador(),{id:"CHQAlimentadores"});
+      layerAlimentador.setImageFormat("png32");
+      layerAlimentador.setVisibleLayers([0]);
+
+      return layerAlimentador;
+    },
+    interrupciones(){
+      var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"CHQInterruptions"});
+      interrClienteSED.setInfoTemplates({
+        3: {infoTemplate: myinfotemplate.getNisInfo()},
+        1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
+        0: {infoTemplate: myinfotemplate.getSubFailure()}
+      });
+      interrClienteSED.refreshInterval = 1;
+      interrClienteSED.setImageFormat("png32");
+      interrClienteSED.on('update-end', (obj)=>{
+        if(obj.error){
+          console.log("Redirecting to login page, token for this session is ended...");
+          window.location.href = "index.html";
+        }
+      });
+        return interrClienteSED;
+    },
+    cuadrillas(){
+      var cuadrillasLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"CHQCuadrillas"});
+      /*cuadrillasLayer.setInfoTemplates({
+        3: {infoTemplate: myinfotemplate.getNisInfo()},
+        1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
+        0: {infoTemplate: myinfotemplate.getSubFailure()}
+      });
+      */
+      //interrClienteSED.refreshInterval = 1;
+      cuadrillasLayer.setImageFormat("png32");
+      return cuadrillasLayer;
+    }
+  }
+}
+
+//TO DO: this function can be used to know the active layers in the map.
+function layersActivated(){
+  var activeLayers= [];
+  var mapp = map.getMap();
+  var activeLayersLength = mapp.layerIds.length;
+  //console.log(mapp.layerIds.length);
+  return {
+    getMapLayers() {
+      for (var j=0; j<activeLayersLength; j++) {
+        var currentLayer = mapp.getLayer(mapp.layerIds[j]);
+        activeLayers.push(currentLayer.id);
+        //alert("id: " + currentLayer.id);
+      }
+      //console.log(activeLayers);
+      return activeLayers;
+
+    }
+  }
+}
+
+
 export default myLayers();
+export {setLayers,layersActivated};

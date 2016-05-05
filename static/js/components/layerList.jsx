@@ -2,14 +2,16 @@ import React from 'react';
 import mymap from '../services/map-service';
 import {addMapsAndLayers} from '../services/map-service';
 
-import {setLayers} from '../services/map-service';
+import {setLayers} from '../services/layers-service';
 
 class LayerList extends React.Component {
   constructor(props){
     super(props);
     this.onClick = this.onClick.bind(this);
 
-
+  }
+  componentDidMount(){
+      this.setState({activeLayers : {alimentadores: true}});
   }
   onClick(check){
     var mapp = mymap.getMap();
@@ -20,7 +22,7 @@ class LayerList extends React.Component {
       case "check_alimentador":
 
         if (this.refs.check_alimentador.checked){
-          mapp.addLayer(addAlimentadorLayer, 1);
+          mapp.addLayer(addAlimentadorLayer, 10);
           return;
         }
 
@@ -42,26 +44,6 @@ class LayerList extends React.Component {
       default:
 
     }
-    /*
-    var mapp = mymap.getMap();
-    var addAlimentadorLayer = setLayers().alimentadores();
-    var addCuadrillasLayer = setLayers().cuadrillas();
-
-    if (this.refs.check_alimentador.checked){
-      mapp.addLayer(addAlimentadorLayer, 2);
-
-    }else{
-      console.log("entre");
-      mapp.graphics.clear();
-      mapp.removeLayer(mapp.getLayer("CHQAlimentadores"));
-    }
-
-    if(this.refs.check_cuadrillas.checked){
-      //mapp.addLayer(addAlimentadorLayer, 2);
-    }else{
-      //mapp.removeLayer(mapp.getLayer("CHQCuadrillas"));
-    }
-    */
   }
 
   render(){

@@ -10,8 +10,8 @@ import {addMapsAndLayers} from '../services/map-service';
 import {exportToExcel} from '../utils/exportToExcel';
 import {translateInfo} from '../utils/exportToExcel';
 import formatDate from '../utils/milliSecondsToDate';
+import {setLayers} from '../services/layers-service';
 
-//import MyGrid from '../components/MyGrid.jsx';
 
 class SearchBar extends React.Component {
   constructor(props){
@@ -83,6 +83,7 @@ class SearchBar extends React.Component {
 
   onClickChangeMap(){
     var map = mymap.getMap();
+
 
     if (this.state.mapClick==0){
       this.setState({ mapClick : 1 });
