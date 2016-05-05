@@ -6,9 +6,6 @@ import createQueryTask from '../services/createquerytask-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary-service';
 import {getStatisticPerOffice} from '../services/getstatistics-summary-service';
 import {getStatisticsRegionPercent} from '../services/getstatistics-summary-service';
-import {graphicResults} from '../services/getstatistics-summary-service';
-import {graphicResults2} from '../services/getstatistics-summary-service';
-import {graphicResults3} from '../services/getstatistics-summary-service';
 import ReactTabs from 'react-tabs';
 import formatDate from '../utils/milliSecondsToDate';
 import {exportToExcel} from '../utils/exportToExcel';
@@ -27,8 +24,8 @@ class StatisticsSummary extends React.Component {
       selectedTab: 0
     };
     //to make sure the data to export.
+    getStatisticsSummary();
     getStatisticPerOffice();
-
     getStatisticsRegionPercent();
   }
 
@@ -45,77 +42,7 @@ class StatisticsSummary extends React.Component {
   }
 
   onClickExport(e){
-
-    //Factories for chart titles and chart data content
-    var chartTitles = {
-      chart1: "Interrupciones de clientes por comuna",
-      chart2: "Interrupciones de clientes por oficina",
-      chart3: "Porcentaje de interrupciones de clientes por comuna"
-    };
-
-    var charts = {
-      chart1: {
-        chartColumns: [
-          {title: "COMUNA", dataKey: "COMUNA"},
-          {title: "DOM", dataKey: "DOM"},
-          {title: "RED", dataKey: "RED"},
-          {title: "TOTAL", dataKey: "TOTAL"}
-        ],
-        chartData: []
-      },
-      chart2: {
-        chartColumns: [
-          {title: 'OFICINA', dataKey:"COMUNA"},
-          {title:'CANTIDAD CLIENTES', dataKey:"CANTIDAD CLIENTES"}
-        ],
-        chartData: []
-      },
-      chart3: {
-        chartColumns: [
-          {title: 'COMUNA', dataKey:"COMUNA"},
-          {title: 'PORCENTAJE CLIENTES', dataKey: "PORCENTAJE CLIENTES"}
-        ],
-        chartData: []
-      }
-    };
-
-
-    //this export all the results for the 3 graphics in pdf.
-
-    var results = graphicResults.getResultsGraphic();
-    charts.chart1.chartData = results[0].map((comuna,index) =>{
-      let d = {
-        COMUNA: comuna,
-        "DOM": results[1][index],
-        "RED": results[2][index],
-        "TOTAL": results[1][index]+results[2][index]
-        };
-      return d;
-    });
-
-    //console.log(charts.chart1.chartData);
-
-    results = graphicResults2.getResultsGraphic2();
-    charts.chart2.chartData = results[0].map((comuna,index) =>{
-      let d = {
-        COMUNA: comuna,
-        "CANTIDAD CLIENTES": results[1][index]
-        };
-      return d;
-    });
-  //  console.log(charts.chart2.chartData);
-
-    results = graphicResults3.getResultsGraphic3();
-    charts.chart3.chartData = results[0].map((comuna,index) =>{
-      let d = {
-        COMUNA: comuna,
-        "PORCENTAJE CLIENTES": results[1][index]
-      };
-      return d;
-    });
-
-  //  console.log(charts.chart3.chartData);
-    exportGraphicsToPDF(chartTitles, charts);
+    exportGraphicsToPDF();
   }
 
   componentDidMount(){
