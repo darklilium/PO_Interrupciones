@@ -15,7 +15,7 @@ function notifications(message, type, myClass){
       .append('<h4 style="padding-left: 3.5em;">'+message+'</h4>')
       break;
 
-    case 'Login_Sucess':
+    case 'Login_Success':
       $(myClass)
       .empty()
       .css('visibility','visible')

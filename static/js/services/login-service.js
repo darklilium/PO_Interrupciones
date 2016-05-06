@@ -33,10 +33,10 @@ function genericLogin(user, pass, token){
     const page = "REACT_INTERRUPCIONES_WEB";
     const module = "PO_INTERRUPCIONES";
 
-    notifications("Logging in...","Login_Sucess", ".notification-login");
-  //  window.location.href = "interrupciones.html";
+    notifications("Logging in...","Login_Success", ".notification-login");
+    window.location.href = "interrupciones.html";
 
-  //  saveLogin(user,page,module,myToken);
+    saveLogin(user,page,module,myToken);
   })
   .fail(error => {
     console.log("You are not authorized ):");
