@@ -8,6 +8,12 @@ class LoginApp extends React.Component {
     this.onClick = this.onClick.bind(this);
   }
 
+  componentWillMount(){
+    let randomPicNumber = Math.floor((Math.random() * 5) + 1);
+    let randomPicSrc = "/images/login_images/loginwall"+ randomPicNumber+ ".png";
+    $('.login_wrapper').css("background-image", "url("+randomPicSrc+")");
+  }
+
   onClick(){
     var userValue = "vialactea\\"+this.refs.username.value;
     var passValue = this.refs.password.value;
@@ -23,7 +29,7 @@ class LoginApp extends React.Component {
             <input className="login__input" ref="username" type="text" placeholder="miusuario" />
             <input className="login__input" ref="password" type="password" placeholder="password" />
             <input className="login__submit" type="submit" onClick={this.onClick} defaultValue="Entrar" />
-          
+
           </article>
           <aside className="login_aside">
               <img className="login_aside__img" src="images/logo_gisred500x500.png" />

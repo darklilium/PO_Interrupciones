@@ -19,7 +19,7 @@ body  {
   height: 100vh;
   background-size: 100% 100%;
   background-attachment: fixed;
-  background-image: url("/images/Distribucion.png");      background-color: gainsboro;
+  //background-image: url("/images/login_images/loginwall1.jpg");      background-color: gainsboro;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -55,7 +55,8 @@ body  {
 .login_aside{
 	width: 50%;
 	height: 10em;
-	background-color: ghostwhite;
+	//background-color: ghostwhite;
+  background-color:rgba(255, 255, 255, 0.25);
   flex-grow: 2;
   align-items: center;
   display: flex;
@@ -79,7 +80,7 @@ width: 100%;
 
 .login_aside__img{
   height: 5em;
-  padding: 1em;
+  margin: 1em;
 }
 
 .login__input {
@@ -118,8 +119,9 @@ width: 100%;
 }
 
 .login_footer__img{
-  width:1.5em;
-  height:1.5em;
+  width: 1.5em;
+  height: 1.5em;
+  margin: 0.5em;
 }
 
 .login_aside__h1{
@@ -134,7 +136,7 @@ width: 100%;
   font-family: inherit;
   font-style: normal;
   text-align: justify;
-  padding: 2em;
+  margin: 1em;
 }
 
 .notification-login{
@@ -146,8 +148,9 @@ width: 100%;
 }
 
 .login_footer__div{
-display: flex;
-align-items: center;
-padding: 0;
-margin: 0;
+  display: flex;
+  align-items: center;
+  padding: 0em;
+  margin: 0;
+  align-items: center;
 }
