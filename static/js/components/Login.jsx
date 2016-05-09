@@ -43,11 +43,15 @@ class LoginApp extends React.Component {
 
           </article>
           <aside className="login_aside">
-              <img className="login_aside__img" src="images/logo_gisred500x500.png" />
-              <h1 className="login_aside__h1"> Bienvenidos a GISRED PO</h1>
-              <p className="login_aside__p">Página dedicada a la visualización de interrucpciones de suministro de los clientes.<br />
-              Podrás realizar busquedas de órdenes, incidencias y clientes afectados.<br />
-              La información contenida en este sitio se obtiene del sistema PowerOn.</p>
+              <div className="aside_div">
+                <img className="login_aside__img" src="images/57x57.png"/>
+                <h1 className="login_aside__h1"> Bienvenidos a GISRED PO</h1>
+              </div>
+              <div className="aside_div2">
+                <p className="login_aside__p">Visualización de interrucpciones de suministro de los clientes.<br />
+                Búsquedas de órdenes, incidencias y clientes afectados.<br />
+                La información contenida en este sitio se obtiene del sistema PowerOn.</p>
+              </div>
           </aside>
         </div>
 

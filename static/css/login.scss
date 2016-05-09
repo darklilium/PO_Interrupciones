@@ -15,7 +15,7 @@ body  {
 }
 
 .login_wrapper{
-  width: inherit;
+  //width: inherit;
   height: 100vh;
   background-size: 100% 100%;
   background-attachment: fixed;
@@ -36,33 +36,67 @@ body  {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  width: inherit;
+
   flex-grow: 1;
 }
 
 .login_article{
   //flex basis es width o heigh (pero dinámico)
   //flex-basis: 50%;
-  width: 45%;
-  height: 10em;
-  flex-flow: column wrap;
-  align-items: center;
-  justify-content: center;
+  width: 40%;
+  height: 13em;
   display: flex;
+  flex-flow: column wrap;
+  align-items: flex-end;
+  justify-content: center;
+
+  //border-style: solid;
+  //padding-right: 4em;
 }
 
 .login_aside{
-	width: 50%;
-	height: 10em;
+  width: 50%;
+	height: 13em;
 	//background-color: ghostwhite;
-  background-color:rgba(255, 255, 255, 0.25);
+//  background-color:rgba(255, 255, 255, 0.25);
   flex-grow: 2;
-  align-items: center;
+  align-items:flex-start;
   display: flex;
-  justify-content:space-between;
+  justify-content:center;
+  flex-direction: column;
+//  border-style: solid;
+}
+.aside_div{
+  display: flex;
+  flex-direction: row;
+//  border-style: solid;
+
+  height: 50%;
+  align-items: center;
+  font-size: 1.6em;
+  color: #BD0000;
+  font-family: "big_noodle_titling";
+  margin-left: 0.5em;
+}
+.aside_div2{
+  display: flex;
+  //border-style: solid;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 60%;
+
 }
 
+.login_aside__p{
+  font-size: 1.1em;
+  color: #BD0000;
+  font-family: inherit;
+  font-style: normal;
+  text-align: left;
+  margin-left: 1em;
+  margin-top: 0;
+
+}
 
 .login_footer{
   display: flex;
@@ -78,10 +112,6 @@ flex-grow: 3;
 width: 100%;
 }
 
-.login_aside__img{
-  height: 5em;
-  margin: 1em;
-}
 
 .login__input {
   border: 1px solid #c4c4c4;
@@ -125,21 +155,6 @@ width: 100%;
   margin: 0.5em;
 }
 
-.login_aside__h1{
-  font-size: 1.8em;
-  color: #BD0000;
-  font-family: "big_noodle_titling";
-}
-
-.login_aside__p{
-  font-size: 1.1em;
-  color: #BD0000;
-  font-family: inherit;
-  font-style: normal;
-  text-align: justify;
-  margin: 1em;
-}
-
 .notification-login{
   display: inherit;
   flex-direction: row;
@@ -155,12 +170,16 @@ width: 100%;
   margin: 0;
   align-items: center;
 }
+.login_aside__img{
+  margin-right: 0.5em;
+}
 
 
 //MEDIA QUERIES
 @media screen and (max-width: 950px ){
+
   .login_aside__img{
-    height: 3em;
+    height: 5em;
     margin: 1em;
   }
 
@@ -181,17 +200,24 @@ width: 100%;
 }
 
 @media screen and (max-width: 480px) and (orientation: portrait){
+  .aside_div{
+    display: flex;
+    flex-direction: column;
+  }
   .login_aside {
     flex-grow: 2;
     align-items: center;
     display: flex;
     justify-content: center;
     flex-direction: column;
-    background-color:rgba(255, 255, 255, 0.0);;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 0;
+    height: auto;
   }
 
   .login_aside__img {
-    height: 7em;
+    height: 4em;
+    width: 3em;
     margin: 1em;
   }
 
@@ -201,7 +227,9 @@ width: 100%;
     width: 0px;
     padding: 0px;
     margin: 0px;
+
   }
+
 
   .login_wrapper_content {
     background-color: rgba(255, 255, 255, 0.25);
@@ -223,12 +251,61 @@ width: 100%;
     align-items: center;
     justify-content: center;
     display: flex;
+    margin-bottom: 1em;
   }
 
   .login_aside__h1{
     padding: 0px;
     margin: 0px;
-    font-size: 20px;
+    font-size: 24px;
   }
 
+  .login_footer__div{
+    display: flex;
+      justify-content: center;
+      flex-direction: row;
+      align-content: center;
+      flex-wrap: wrap;
+  }
+
+}
+@media screen and (min-width: 600px) and (orientation: landscape){
+  .login_aside__p{
+
+    height: inherit;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+
+  }
+  .aside_div2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+      width: inherit;
+    margin-left: 1em;
+}
+}
+
+@media screen and (min-width: 800px){
+  .login_aside__p{
+
+    height: inherit;
+    width: 100%;
+    padding: 0px;
+    margin: 0px;
+
+  }
+  .aside_div2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+      width: auto;
+    margin-left: 1em;
+}
+.login_aside__img {
+  width: 3em;
+  margin: 1em;
+  height: auto;
+}
 }
