@@ -158,3 +158,77 @@ width: 100%;
 
 
 //MEDIA QUERIES
+@media screen and (max-width: 950px ){
+  .login_aside__img{
+    height: 3em;
+    margin: 1em;
+  }
+
+  .login_aside__h1{
+    font-size: 1.3em;
+    color: #BD0000;
+    font-family: "big_noodle_titling";
+  }
+
+  .login_aside__p{
+    font-size: 12px;
+    color: #BD0000;
+    font-family: inherit;
+    font-style: normal;
+    text-align: justify;
+    margin: 1em;
+  }
+}
+
+@media screen and (max-width: 480px) and (orientation: portrait){
+  .login_aside {
+    flex-grow: 2;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color:rgba(255, 255, 255, 0.0);;
+  }
+
+  .login_aside__img {
+    height: 7em;
+    margin: 1em;
+  }
+
+  .login_aside__p{
+    visibility: hidden;
+    height: 0px;
+    width: 0px;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  .login_wrapper_content {
+    background-color: rgba(255, 255, 255, 0.25);
+    -webkit-box-shadow: 0px 0px 18px 2px rgba(117, 117, 117, 0.3);
+    -moz-box-shadow: 0px 0px 18px 2px rgba(117, 117, 117, 0.3);
+    box-shadow: 0px 0px 18px 2px rgba(117, 117, 117, 0.3);
+    display: flex;
+    flex-direction: column-reverse;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: inherit;
+    flex-grow: 1;
+}
+  .login_article {
+    width: auto;
+    height: 10em;
+    flex-flow: column wrap;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+  }
+
+  .login_aside__h1{
+    padding: 0px;
+    margin: 0px;
+    font-size: 20px;
+  }
+
+}
