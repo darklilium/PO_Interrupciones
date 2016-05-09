@@ -176,7 +176,7 @@ width: 100%;
 
 
 //MEDIA QUERIES
-@media screen and (max-width: 950px ){
+@media screen and (min-width: 950px ){
 
   .login_aside__img{
     height: 5em;
@@ -257,7 +257,7 @@ width: 100%;
   .login_aside__h1{
     padding: 0px;
     margin: 0px;
-    font-size: 24px;
+    font-size: 22px;
   }
 
   .login_footer__div{
@@ -271,20 +271,27 @@ width: 100%;
 }
 @media screen and (min-width: 600px) and (orientation: landscape){
   .login_aside__p{
-
-    height: inherit;
     width: 100%;
     padding: 0px;
-    margin: 0px;
-
+    margin-left: 0em;
   }
   .aside_div2 {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-      width: inherit;
-    margin-left: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: initial;
+  margin-left: 1em;
+  }
 }
+
+@media screen and (min-width: 600px) and (orientation: portrait){
+
+  .aside_div2 {
+  width: auto;
+  }
+  .login_aside__p {
+    font-size: 1em;
+  }
 }
 
 @media screen and (min-width: 800px){
