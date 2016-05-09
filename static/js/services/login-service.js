@@ -20,7 +20,11 @@ function genericLogin(user, pass, token){
     dataType: 'html'
   })
   .done(myToken => {
-    if(myToken.indexOf('Exception') >= 0){
+    if(myToken.indexOf('Exception') >= 0) {
+      notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
+      return;
+    }
+    if (myToken.indexOf('error') >= 0){
       notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
       return;
     }

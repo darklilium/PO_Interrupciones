@@ -1,7 +1,7 @@
 import React from 'react';
 import token from '../services/token-service';
 import { genericLogin } from '../services/login-service';
-
+import {notifications} from '../utils/notifications';
 class LoginApp extends React.Component {
   constructor(){
     super();
@@ -9,17 +9,28 @@ class LoginApp extends React.Component {
   }
 
   componentWillMount(){
+    //change the loginwall dinamically
     let randomPicNumber = Math.floor((Math.random() * 5) + 1);
     let randomPicSrc = "/images/login_images/loginwall"+ randomPicNumber+ ".png";
     $('.login_wrapper').css("background-image", "url("+randomPicSrc+")");
   }
 
   onClick(){
-    var userValue = "vialactea\\"+this.refs.username.value;
+
+    var userValue = this.refs.username.value;
     var passValue = this.refs.password.value;
 
+    if (userValue=="" || passValue==""){
+      notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
+      return;
+    }
+    if (userValue.includes('vialactea\\')){
+      genericLogin(userValue, passValue, token);
+    }else{
+      userValue =  'vialactea\\'+this.refs.username.value;
+      genericLogin(userValue, passValue, token);
+    }
 
-    genericLogin(userValue, passValue, token);
   }
 
   render(){
