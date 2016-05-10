@@ -2,6 +2,7 @@ import React from 'react';
 import token from '../services/token-service';
 import { genericLogin } from '../services/login-service';
 import {notifications} from '../utils/notifications';
+
 class LoginApp extends React.Component {
   constructor(){
     super();
@@ -11,7 +12,8 @@ class LoginApp extends React.Component {
   componentWillMount(){
     //change the loginwall dinamically
     let randomPicNumber = Math.floor((Math.random() * 6) + 1);
-    let randomPicSrc = "/images/login_images/loginwall"+ randomPicNumber+ ".png";
+    //let randomPicSrc = "../css/images/login_images/loginwall"+ randomPicNumber+ ".png";
+    let randomPicSrc = "static/css/images/login_images/loginwall"+ randomPicNumber+ ".png";
     $('.login_wrapper').css("background-image", "url("+randomPicSrc+")");
   }
 
@@ -44,7 +46,7 @@ class LoginApp extends React.Component {
           </article>
           <aside className="login_aside">
               <div className="aside_div">
-                <img className="login_aside__img" src="images/57x57.png"/>
+                <img className="login_aside__img" />
                 <h1 className="login_aside__h1"> Bienvenidos a GISRED PO</h1>
               </div>
               <div className="aside_div2">

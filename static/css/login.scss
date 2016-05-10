@@ -1,12 +1,14 @@
 $notification-box-bg: gainsboro;
+$gisred-img: "images/57x57.png";
+
 
 @font-face {
 	font-family: "Digital-Desolation";
-	src: url("/fonts/Digital-Desolation.ttf") format("truetype");
+	src: url("fonts/Digital-Desolation.ttf") format("truetype");
 }
 @font-face {
 	font-family: "big_noodle_titling";
-	src: url("/fonts/big_noodle_titling.ttf") format("truetype");
+	src: url("fonts/big_noodle_titling.ttf") format("truetype");
 }
 
 body  {
@@ -172,6 +174,7 @@ width: 100%;
 }
 .login_aside__img{
   margin-right: 0.5em;
+	content: url($gisred-img);
 }
 
 
@@ -181,6 +184,7 @@ width: 100%;
   .login_aside__img{
     height: 5em;
     margin: 1em;
+
   }
 
   .login_aside__h1{

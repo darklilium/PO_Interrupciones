@@ -33,9 +33,8 @@ gulp.task('sass', function(){
     .pipe(sass({ outputStyle: 'compact' }))
     .on('error', reportError)
     .pipe(gulp.dest(dist('css')))
-  
-});
 
+});
 gulp.task('templates', function(){
   return gulp.src(['./*.html','!./base.html'])
     .pipe(swig())
@@ -47,10 +46,26 @@ gulp.task('libs', function(){
     .pipe(gulp.dest(dist('js/vendor')));
 });
 
-gulp.task('watch', function(){
-  gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
-  gulp.watch(['*.html'], ['templates']);
+gulp.task('fonts', function(){
+  return gulp.src('./static/css/fonts/*.ttf')
+    .on('error', reportError)
+    .pipe(gulp.dest(dist('css/fonts')))
 
 });
 
-gulp.task('default', ['sass', 'templates', 'libs', 'watch']);
+gulp.task('images', function(){
+  return gulp.src('./static/css/images/**/*.png')
+    .on('error', reportError)
+    .pipe(gulp.dest(dist('css/images')))
+
+});
+
+gulp.task('watch', function(){
+  gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
+  gulp.watch(['*.html'], ['templates']);
+  
+
+});
+
+
+gulp.task('default', ['sass', 'templates', 'libs','fonts','images','watch']);
