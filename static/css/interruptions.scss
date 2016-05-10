@@ -1,3 +1,4 @@
+$symbology-img:"images/widget_icons/symbology.png";
 * {
     box-sizing: border-box;
 }
@@ -36,24 +37,16 @@ body{
   z-index: 4;
   position: fixed;
 }
-/*.interruptions__symbology{
-  width: auto;
-  height: auto;
-  border-radius: 0;
-  background-color: rgba(255, 255, 255, 0.6);
-  background-blend-mode: screen;
-  bottom: 0;
-  z-index: 3;
-  padding: 1em;
-  position: absolute;
+.interruptions__symbology{
+content: url($symbology-img);
 }
-*/
 // screens for less than 1024px
 @media screen and (max-width: 1024px ) {
   .interruptions__symbology-img{
     width: 2.8em;
     height: auto;
     margin-left: 0em;
+
   }
 
   .interruptions__symbology{

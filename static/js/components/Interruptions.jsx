@@ -116,7 +116,7 @@ class Interruptions extends React.Component {
   render(){
     return (
     <div className="interruptions__wrapper">
-    <div className="interruptions__symbology"><img className="interruptions__symbology-img" src="images/widget_icons/symbology.png"/></div>
+    <div className="interruptions__symbology"><img className="interruptions__symbology-img"/></div>
       <div className="interruptions__header">
         {/*Search nis and orders with statistics button and table*/}
         <SearchBar data ={[...this.state.mydatased,...this.state.mydatanis]} />
