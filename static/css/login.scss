@@ -85,12 +85,12 @@ body  {
   //border-style: solid;
   flex-direction: column;
   justify-content: flex-start;
-  width: 60%;
+  width: auto;
 
 }
 
 .login_aside__p{
-  font-size: 1.1em;
+  font-size: 1em;
   color: #BD0000;
   font-family: inherit;
   font-style: normal;
@@ -194,7 +194,7 @@ width: 100%;
   }
 
   .login_aside__p{
-    font-size: 12px;
+    font-size: 1em;
     color: #BD0000;
     font-family: inherit;
     font-style: normal;
@@ -271,6 +271,10 @@ width: 100%;
       align-content: center;
       flex-wrap: wrap;
   }
+
+	.footer__div__p{
+		font-size: smaller;
+	}
 
 }
 @media screen and (min-width: 600px) and (orientation: landscape){
