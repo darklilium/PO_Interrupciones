@@ -28,10 +28,10 @@ function genericLogin(user, pass, token){
       notifications('Login incorrecto, intente nuevamente.', 'Login_Error', '.notification-login');
       return;
     }
-    console.log(myToken);
+
     console.log('Requesting service access');
     console.log('Logging in to gisred-interruptions');
-    console.log('writing token into system');
+    //console.log('writing token into system');
     token.write(myToken);
 
     const page = "REACT_INTERRUPCIONES_WEB";
