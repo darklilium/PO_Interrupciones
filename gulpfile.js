@@ -42,7 +42,17 @@ gulp.task('templates', function(){
 });
 
 gulp.task('libs', function(){
-  return gulp.src('./static/js/vendor/*.js')
+  return gulp.src('./static/js/vendor/**/*.js')
+    .pipe(gulp.dest(dist('js/vendor')));
+});
+
+gulp.task('libs2', function(){
+  return gulp.src('./static/js/vendor/**/*.css')
+    .pipe(gulp.dest(dist('js/vendor')));
+});
+
+gulp.task('vendorlibs', function(){
+  return gulp.src('./static/js/vendor/**')
     .pipe(gulp.dest(dist('js/vendor')));
 });
 
@@ -54,7 +64,7 @@ gulp.task('fonts', function(){
 });
 
 gulp.task('images', function(){
-  return gulp.src('./static/css/images/**/*.png')
+  return gulp.src('./static/css/images/**/*.jpg')
     .on('error', reportError)
     .pipe(gulp.dest(dist('css/images')))
 
@@ -63,9 +73,9 @@ gulp.task('images', function(){
 gulp.task('watch', function(){
   gulp.watch(['css/**/*.scss'].map(realPath), ['sass']);
   gulp.watch(['*.html'], ['templates']);
-  
+
 
 });
 
 
-gulp.task('default', ['sass', 'templates', 'libs','fonts','images','watch']);
+gulp.task('default', ['sass', 'templates', 'libs','libs2','vendorlibs','fonts','images','watch']);
