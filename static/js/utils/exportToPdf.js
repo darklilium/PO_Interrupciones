@@ -17,8 +17,10 @@ function createChartsColumns(){
     },
     chart2: {
       chartColumns: [
-        {title: 'OFICINA', dataKey:"COMUNA"},
-        {title:'CANTIDAD CLIENTES', dataKey:"CANTIDAD CLIENTES"}
+        {title: 'OFICINA', dataKey:"OFICINA"},
+        {title: "DOM", dataKey: "DOM"},
+        {title: "RED", dataKey: "RED"},
+        {title: "TOTAL", dataKey: "TOTAL"}
       ],
       chartData: []
     },
@@ -92,13 +94,17 @@ function exportGraphicsToPDF(){
 
   //SECOND TABLE: CHART 2
   results = graphicResults2.getResultsGraphic2();
-  charts.chart2.chartData = results[0].map((comuna,index) =>{
+  charts.chart2.chartData = results[0].map((oficina,index) =>{
     let d = {
-      COMUNA: comuna,
-      "CANTIDAD CLIENTES": results[1][index]
+      OFICINA: oficina,
+      "DOM": results[1][index],
+      "RED": results[2][index],
+      "TOTAL": results[1][index] + results[2][index]
       };
     return d;
   });
+
+  console.log(results);
 
   //THIRD TABLE: CHART 3
   results = graphicResults3.getResultsGraphic3();

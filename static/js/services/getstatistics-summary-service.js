@@ -16,8 +16,8 @@ var graphicResults = {
 };
 
 var graphicResults2 = {
-  setResultsGraphic2: function(office,qtty){
-    this.graphicResults2 = [office,qtty];
+  setResultsGraphic2: function(regions,domi,red){
+    this.graphicResults2 = [regions,domi,red];
     return this.graphicResults2;
   },
   getResultsGraphic2: function(){
@@ -195,14 +195,19 @@ function getStatisticPerOffice(){
   });
 
   getoffice((map,featureSet)=>{
-      office = featureSet.features.map((region)=>{
-        return region.attributes.oficina;
+      var offices = featureSet.features.map((office)=>{
+        return office.attributes.oficina;
       });
-      qtty = featureSet.features.map((q)=>{
-        return q.attributes.Cantidad;
+      var qttyDOM = featureSet.features.map((q)=>{
+        return q.attributes.DOM;
       });
-      makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.");
-      let sav = graphicResults2.setResultsGraphic2(office,qtty);
+      var qttyRED = featureSet.features.map((q)=>{
+        return q.attributes.RED;
+      });
+
+      //makeBarsGraphic(office, qtty, "container2", "Cant. Clientes (u)", "Cant. Clientes", "Interrupciones por oficina.");
+      makeStackedGraphic(offices, qttyRED, qttyDOM, "container2", "Cant. Clientes (u)", "Interrupciones por Oficina.");
+      let sav = graphicResults2.setResultsGraphic2(offices,qttyDOM,qttyRED);
 
   },(errorQtty)=>{
     console.log("Error doing query for office quantity");
