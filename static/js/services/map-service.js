@@ -41,10 +41,10 @@ function addMapsAndLayers(callback){
 
   //set here layers by default.
   var interrClienteSED = setLayers().interrupciones();
-  mapp.addLayer(interrClienteSED, 2);
+  mapp.addLayer(interrClienteSED, 10);
   //Set here if you add more layers in the layerlist. Starting with a index position of 10.
   if (check_alimentador.checked){
-    mapp.addLayer(setLayers().alimentadores(), 10);
+    mapp.addLayer(setLayers().alimentadores(), 1);
   }
   callback("done");
 }
