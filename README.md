@@ -64,3 +64,6 @@
 <li> Web compatible con dispositivos móviles (Tablet principalmente).</li>
 
 </ul>
+
+<hr></hr>
+<i>English</i>
