@@ -29,12 +29,15 @@
     </li>
 
 <li>Mostrar el tiempo de las ordenes según un color.
-    <ul>
-    <li>0 - 1 Hora</li>
-    <li>1 - 2</li>
-    <li>3 - 24</li>
-    <li> 24 ++</li>
-    </ul>
+        <ul>
+        <li>0 - 2   (verde claro)</li>
+        <li>2 - 4   (verde oscuro)</li>
+        <li>4 - 8   (gris)</li>
+        <li>8 - 12  (amarillo)</li>
+        <li>12 - 24 (naranja)</li>
+        <li>24 - 48 (rojo)</li>
+        <li>+  48   (púrpura)</li>
+        </ul>
     </li>
 
 <li>Generar un reporte de clientes interrumpidos según:
@@ -66,4 +69,71 @@
 </ul>
 
 <hr></hr>
+
 <i>English</i>
+
+<h1>Customers Interruptions Project.</h1>
+
+<strong>Objetive: Create a web app to show the customers electricity interruptions and the info related to them orders number.</strong>
+
+<b>Specifications:</b>
+
+<ul>
+<li>Show in the map the interrupted distribution substations, also show the electricity network and costumers associated to them when you zoom in. (Group them when u zoom out)</li>
+
+<li>Show the interrupted customers to a closest zoom scale</li>
+
+<li>Show the informacion about a NIS (customers unique ID) or distribution substations when the user clics on them in the map.</li>
+
+<li>Make a chart with the quantity of customers affected by zone (region).</li>
+
+<li>Make a chart with the quantity of customers affected by office.</li>
+
+<li>Make a chart with the percent of customers affected group by a more extensive zone (comuna).</li>
+
+<li>Search the following elements and alert if they are affected for an interruption (also show localization):
+    <ul><li>NIS</li>
+    <li>ORDER ID</li>
+    <li>INCIDENT ID</li>
+    <li>SED</li>
+    </ul></li>
+
+<li>Show the order current time with color according of how much time has been spent (in hours)
+    <ul>
+    <li>0 - 2   (lightgreen)</li>
+    <li>2 - 4   (darkgreen)</li>
+    <li>4 - 8   (gray)</li>
+    <li>8 - 12  (yellow)</li>
+    <li>12 - 24 (orange)</li>
+    <li>24 - 48 (red)</li>
+    <li>+  48   (purple)</li>
+    </ul>
+    </li>
+
+<li>Make a report with the interrupted customers according to:
+    <ul>
+    <li>Interruption type: NIS or SED</li>
+    <li>Order ID</li>
+    <li>Incident ID</li>
+    <li>Current State</li>
+    <li>Date and time according to the order status</li>
+    <li>Current interruption time</li>
+    <li>ETR (Estimated Time Reposition)</li>
+    </ul>
+    </li>
+
+<li>Show in a table the orders and the info associated to them according to the current map zoom.</li>
+
+<li>Show dinamically the quantity of:
+     <ul>
+     <li>Total of domiciliary customers affected by interruptions (DOM)</li>
+     <li>Total of customers associated to a distribution substation interrupted.(RED)</li>
+     <li>Total of customers affected for interruptions</li>
+     </ul>
+    </li>
+
+<li>Filter the results and information in the orders table.</li>
+
+<li>Make a responsive web with compatibility with mobile dispositives (mainly tablet).</li>
+
+</ul>
