@@ -1,50 +1,59 @@
 # react_jsapi
-Para proyecto inicial de Clientes Interrumpidos.
 
-Objetivo: Crear una app web que permita mostrar los clientes interrumpidos y su información de acuerdo a la orden.
+<i>Español</i>
+<h1>Proyecto inicial de Clientes Interrumpidos.</h1>
 
-Especificaciones:
+<strong>Objetivo: Crear una app web que permita mostrar los clientes interrumpidos y su información de acuerdo a la orden.</strong>
 
-OK • Mostrar en el mapa las Subestaciones interrumpidas a escala de zoom (por agrupamiento).
+<b>Especificaciones:</b>
 
-OK • Mostrar Clientes interrumpidos a escala de zoom cercano.
+<ul>
+<li>Mostrar en el mapa las Subestaciones interrumpidas a escala de zoom (por agrupamiento).</li>
 
-OK • Mostrar la información de un NIS o SED al hacer clic.
+<li> Mostrar Clientes interrumpidos a escala de zoom cercano.</li>
 
-OK • Graficar la cantidad de clientes por comuna.
+<li> Mostrar la información de un NIS o SED al hacer clic.</li>
 
-OK • Graficar la cantidad de clientes por oficina.
+<li>Graficar la cantidad de clientes por comuna.</li>
 
-OK • Graficar el % de clientes por comuna.
+<li>Graficar la cantidad de clientes por oficina.</li>
 
-OK • Buscar los siguientes elementos e indicar si está interrumpido y mostrar localización:
-     • NIS
-     • ID ORDEN
-     • ID INCIDENCIA
-     • SED
+<li>Graficar el % de clientes por comuna.</li>
 
-OK • Mostrar el tiempo de las ordenes según un color.
-     • 0 - 1 Hora
-     • 1 - 2
-     • 3 - 24
-     • 24 ++
+<li><ul>Buscar los siguientes elementos e indicar si está interrumpido y mostrar localización:
+     <li>NIS</li>
+     <li>ID ORDEN</li>
+     <li>ID INCIDENCIA</li>
+     <li>SED</li>
+     </ul></li>
 
-OK • Generar un reporte de clientes interrumpidos según:
-     • Tipo de Cliente (NIS o SED)
-     • ID Orden
-     • ID Incidencia
-     • Estado
-     • Fechas asociadas al estado de la orden
-     • Tiempo de interrupción
-     • ETR (Estimated Time Reposition)
+<li><ul>Mostrar el tiempo de las ordenes según un color.
+    <li>0 - 1 Hora</li>
+    <li>1 - 2</li>
+    <li>3 - 24</li>
+    <li> 24 ++</li>
+    </ul></li>
 
-OK • Mostrar las ordenes en una tabla según extent del mapa (la vista zoom del mapa referente al total de la visualización de la pantalla).
+<li><ul>Generar un reporte de clientes interrumpidos según:
+    <li>Tipo de Cliente (NIS o SED)</li>
+    <li>ID Orden</li>
+    <li>ID Incidencia</li>
+    <li>Estado</li>
+    <li>Fechas asociadas al estado de la orden</li>
+    <li>Tiempo de interrupción</li>
+    <li>ETR (Estimated Time Reposition)</li>
+    <ul></li>
 
-OK • Mostrar dinámicamente la cantidad de:
-     • Total de clientes domiciliarios (DOM) interrumpidos
-     • Total de clientes pertenecientes a una Subestación de Distribución interrumpidos (RED)
-     • Total de clientes interrumpidos
+<li> Mostrar las ordenes en una tabla según extent del mapa (la vista zoom del mapa referente al total de la visualización de la pantalla).</li>
 
-OK • Filtrar resultados en la tabla de ordenes.
+<li><ul>Mostrar dinámicamente la cantidad de:
+     <li>Total de clientes domiciliarios (DOM) interrumpidos</li>
+     <li>Total de clientes pertenecientes a una Subestación de Distribución interrumpidos (RED)</li>
+     <li>Total de clientes interrumpidos</li>
+    </ul></li>
 
-OK • Web compatible con dispositivos móviles (Tablet principalmente).
+<li>Filtrar resultados en la tabla de ordenes.</li>
+
+<li> Web compatible con dispositivos móviles (Tablet principalmente).</li>
+
+</ul>
