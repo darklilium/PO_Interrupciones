@@ -124,7 +124,7 @@ class Interruptions extends React.Component {
         <StatisticsToolbar />
       </div>
       {/* Layer List */}
-      <LayerList />
+      <LayerList show={["check_alimentador"]}/>
       {/* The map*/}
       <div className="map_div" id="map_div">
         <div id="LocateButton"></div>
