@@ -107,7 +107,7 @@
     </ul>
     </li>
 
-<li>Make a report with the customers affected by power outage according to::
+<li>Make a report with the customers affected by power outage according to:
     <ul>
     <li>NIS or SED</li>
     <li>Order ID</li>
@@ -119,18 +119,17 @@
     </ul>
     </li>
 
-<li>Show in a table orders id and info associated to them according to the current map zoom.</li>
+<li>Show in a table: orders and their info. according to the current map zoom.</li>
 
 <li>Show dynamically the quantity of:
      <ul>
      <li>Total of domiciliary customers affected (DOM)</li>
-     <li>Total of customers associated to a distribution substation(RED)</li>
-     <li>Total of customers affected for PO</li>
+     <li>Total of customers affected from distribution substations (RED)</li>
+     <li>Total DOM + RED affected by PO</li>
      </ul>
     </li>
 
-<li>Filter the results and information in the orders table.</li>
+<li>Filter results and info. in the orders table.</li>
 
-<li>Make a responsive website with compatibility with mobile dispositives (mainly tablet).</li>
-
+<li>Make a responsive website compatible with mobile dispositives (mainly tablet and desktop).</li>
 </ul>
