@@ -72,16 +72,16 @@
 
 <i>English</i>
 
-<h1>Customers Interruptions Project.</h1>
+<h1>Customers Power Outage Project.</h1>
 
-<strong>Objetive: Create a web app to show the customers electricity interruptions and the info related to them orders number.</strong>
+<strong>Objective: Create a web app to show the customers power outage and the info related to their order id.</strong>
 
 <b>Specifications:</b>
 
 <ul>
-<li>Show in the map the interrupted distribution substations, also show the electricity network and costumers associated to them when you zoom in. (Group them when u zoom out)</li>
+<li>Show in the map distribution substations affected by Power Outage, also show the electricity network and costumers associated to them when you zoom in. (Group them when u zoom out)</li>
 
-<li>Show the interrupted customers to a closest zoom scale</li>
+<li>Show the customers power outages to a closest zoom scale</li>
 
 <li>Show the informacion about a NIS (customers unique ID) or distribution substations when the user clics on them in the map.</li>
 
@@ -98,7 +98,7 @@
     <li>SED</li>
     </ul></li>
 
-<li>Show the order current time with color according of how much time has been spent (in hours)
+<li>Display the elapsed time of an order in colors (in hours)
     <ul>
     <li>0 - 2   (lightgreen)</li>
     <li>2 - 4   (darkgreen)</li>
@@ -110,7 +110,7 @@
     </ul>
     </li>
 
-<li>Make a report with the interrupted customers according to:
+<li>Make a report with the customers affected by power outage according to::
     <ul>
     <li>Interruption type: NIS or SED</li>
     <li>Order ID</li>
@@ -122,9 +122,9 @@
     </ul>
     </li>
 
-<li>Show in a table the orders and the info associated to them according to the current map zoom.</li>
+<li>Show in a table the orders id and info associated to them according to the current map zoom.</li>
 
-<li>Show dinamically the quantity of:
+<li>Show dynamically the quantity of:
      <ul>
      <li>Total of domiciliary customers affected by interruptions (DOM)</li>
      <li>Total of customers associated to a distribution substation interrupted.(RED)</li>
@@ -134,6 +134,6 @@
 
 <li>Filter the results and information in the orders table.</li>
 
-<li>Make a responsive web with compatibility with mobile dispositives (mainly tablet).</li>
+<li>Make a responsive website with compatibility with mobile dispositives (mainly tablet).</li>
 
 </ul>
