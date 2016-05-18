@@ -83,7 +83,7 @@
 
 <li>Show the electricity network and costumers affected by PO when you zoom in. (Group them when u zoom out)</li>
 
-<li>Show information about NIS (customers unique ID) or distribution substations (SED) when the user clicks on them in the map.</li>
+<li>Show details of NIS (customers unique ID) or distribution substations (SED) when the user clicks on them in the map.</li>
 
 <li>Make a chart with the quantity of customers affected by: zone (region), per office and percentaje</li>
 
