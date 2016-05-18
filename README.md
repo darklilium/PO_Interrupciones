@@ -81,15 +81,12 @@
 <ul>
 <li>Show in the map distribution substations affected by Power Outage, also show the electricity network and costumers associated to them when you zoom in. (Group them when u zoom out)</li>
 
-<li>Show the customers power outages to a closest zoom scale</li>
+<li>Show the POs in a closest zoom scale</li>
 
-<li>Show the informacion about a NIS (customers unique ID) or distribution substations when the user clicks on them in the map.</li>
+<li>Show the information about NIS (customers unique ID) or distribution substations (SED) when the user clicks on them in the map.</li>
 
-<li>Make a chart with the quantity of customers affected by zone (region).</li>
+<li>Make a chart with the quantity of customers affected by: zone (region), per office and percentaje</li>
 
-<li>Make a chart with the quantity of customers affected by office.</li>
-
-<li>Make a chart with the percent of customers affected group by a more extensive zone (comuna).</li>
 
 <li>Search the following elements and alert if they are affected for an PO (also show localization):
     <ul><li>NIS</li>
@@ -112,22 +109,22 @@
 
 <li>Make a report with the customers affected by power outage according to::
     <ul>
-    <li>Interruption type: NIS or SED</li>
+    <li>NIS or SED</li>
     <li>Order ID</li>
     <li>Incident ID</li>
     <li>Current State</li>
     <li>Date and time according to the order status</li>
-    <li>Current interruption time</li>
+    <li>Elapsed time</li>
     <li>ETR (Estimated Time Reposition)</li>
     </ul>
     </li>
 
-<li>Show in a table the orders id and info associated to them according to the current map zoom.</li>
+<li>Show in a table orders id and info associated to them according to the current map zoom.</li>
 
 <li>Show dynamically the quantity of:
      <ul>
-     <li>Total of domiciliary customers affected by interruptions (DOM)</li>
-     <li>Total of customers associated to a distribution substation interrupted.(RED)</li>
+     <li>Total of domiciliary customers affected (DOM)</li>
+     <li>Total of customers associated to a distribution substation(RED)</li>
      <li>Total of customers affected for interruptions</li>
      </ul>
     </li>
