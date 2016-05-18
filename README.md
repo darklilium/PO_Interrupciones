@@ -79,7 +79,7 @@
 <b>Specifications:</b>
 
 <ul>
-<li>Show in the map distribution substations affected by Power Outage</li>
+<li>Show distribution substations affected by power outage  in the map</li>
 
 <li>Show the electricity network and costumers affected by PO when you zoom in. (Group them when u zoom out)</li>
 
