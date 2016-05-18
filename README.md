@@ -81,9 +81,9 @@
 <ul>
 <li>Show in the map distribution substations affected by Power Outage, also show the electricity network and costumers associated to them when you zoom in. (Group them when u zoom out)</li>
 
-<li>Show the POs in a closest zoom scale</li>
+<li>Show POs in a closest zoom scale</li>
 
-<li>Show the information about NIS (customers unique ID) or distribution substations (SED) when the user clicks on them in the map.</li>
+<li>Show information about NIS (customers unique ID) or distribution substations (SED) when the user clicks on them in the map.</li>
 
 <li>Make a chart with the quantity of customers affected by: zone (region), per office and percentaje</li>
 
