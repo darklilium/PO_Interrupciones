@@ -74,7 +74,7 @@
 
 <h1>Customers Power Outage Project.</h1>
 
-<strong>Objective: Create a web app to show the customers power outage and the info related to their order id.</strong>
+<strong>Objective: Create an APP for power outage reporting and status updates.</strong>
 
 <b>Specifications:</b>
 
@@ -83,7 +83,7 @@
 
 <li>Show the customers power outages to a closest zoom scale</li>
 
-<li>Show the informacion about a NIS (customers unique ID) or distribution substations when the user clics on them in the map.</li>
+<li>Show the informacion about a NIS (customers unique ID) or distribution substations when the user clicks on them in the map.</li>
 
 <li>Make a chart with the quantity of customers affected by zone (region).</li>
 
@@ -91,7 +91,7 @@
 
 <li>Make a chart with the percent of customers affected group by a more extensive zone (comuna).</li>
 
-<li>Search the following elements and alert if they are affected for an interruption (also show localization):
+<li>Search the following elements and alert if they are affected for an PO (also show localization):
     <ul><li>NIS</li>
     <li>ORDER ID</li>
     <li>INCIDENT ID</li>
