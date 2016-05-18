@@ -88,7 +88,7 @@
 <li>Make a chart with the quantity of customers affected by: zone (region), per office and percentaje</li>
 
 
-<li>Search the following elements and alert if they are affected for an PO (also show localization):
+<li>Search the following elements and alert if they are affected for a PO (also show localization):
     <ul><li>NIS</li>
     <li>ORDER ID</li>
     <li>INCIDENT ID</li>
@@ -125,7 +125,7 @@
      <ul>
      <li>Total of domiciliary customers affected (DOM)</li>
      <li>Total of customers associated to a distribution substation(RED)</li>
-     <li>Total of customers affected for interruptions</li>
+     <li>Total of customers affected for PO</li>
      </ul>
     </li>
 
