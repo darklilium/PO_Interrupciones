@@ -3,6 +3,7 @@ import token from '../services/token-service';
 import {setLayers} from '../services/layers-service';
 import {addCertainLayer} from '../services/layers-service';
 import {layersActivated} from '../services/layers-service';
+
 //TO DO: this var sets the map to be used in the whole app.
 var map = {
     createMap: function(div,basemap,centerx,centery,zoom){
@@ -30,7 +31,7 @@ var map = {
       //if bm is not chilquinta basemap, remove all the layers and add them again
       if(bm!='Chilquinta'){
           this.map.removeAllLayers();
-        
+
           myActiveLayers.forEach(activeLayer =>{
             addCertainLayer(activeLayer,10,"");
           });
@@ -49,10 +50,5 @@ var map = {
 
     }
 };
-
-
-
-
-
 
 export default map;
