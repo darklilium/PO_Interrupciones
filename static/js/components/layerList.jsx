@@ -1,6 +1,6 @@
 import React from 'react';
 import mymap from '../services/map-service';
-import {addMapsAndLayers} from '../services/map-service';
+
 
 import {setLayers} from '../services/layers-service';
 

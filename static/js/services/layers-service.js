@@ -1,5 +1,7 @@
 import token from '../services/token-service';
 import myinfotemplate from '../utils/infoTemplates';
+import mymap from '../services/map-service';
+
 function myLayers(){
   const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
@@ -100,7 +102,7 @@ function setLayers(){
       return layerAlimentador;
     },
     interrupciones(){
-      var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"CHQInterruptions"});
+      var interrClienteSED = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"po_interrupciones"});
       interrClienteSED.setInfoTemplates({
         3: {infoTemplate: myinfotemplate.getNisInfo()},
         1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
@@ -134,7 +136,7 @@ function setLayers(){
 //TO DO: this function can be used to know the active layers in the map.
 function layersActivated(){
   var activeLayers= [];
-  var mapp = map.getMap();
+  var mapp = mymap.getMap();
   var activeLayersLength = mapp.layerIds.length;
   //console.log(mapp.layerIds.length);
   return {
@@ -142,7 +144,7 @@ function layersActivated(){
       for (var j=0; j<activeLayersLength; j++) {
         var currentLayer = mapp.getLayer(mapp.layerIds[j]);
         activeLayers.push(currentLayer.id);
-        //alert("id: " + currentLayer.id);
+      //  alert("id: " + currentLayer.id);
       }
       //console.log(activeLayers);
       return activeLayers;
@@ -151,6 +153,43 @@ function layersActivated(){
   }
 }
 
+// TO DO: this function add the default and not defaults layer (from the layerlist) in the app.
+function addCertainLayer(layerNameToAdd, order, where){
+  var mapp = mymap.getMap();
+  var myLayerToAdd;
+
+  console.log("adding layer: ", layerNameToAdd);
+
+  switch (layerNameToAdd) {
+    case 'ap_comuna':
+      where = 'LA CRUZ';
+      myLayerToAdd = setLayers().ap_comuna(where, 4);
+      break;
+
+
+    case 'po_interrupciones':
+      myLayerToAdd = setLayers().interrupciones();
+      break;
+
+    case 'gis_alimentadores':
+      myLayerToAdd = setLayers().alimentadores();
+      break;
+    default:
+  }
+
+  mapp.addLayer(myLayerToAdd);
+
+  //Set here if you add more layers in the layerlist. 
+  if (check_alimentador.checked){
+    mapp.addLayer(setLayers().alimentadores(),1);
+  }
+  if (check_ap_modificaciones.checked){
+    //mapp.addLayer(setLayers().check_ap_modificaciones(), 1);
+  }
+
+
+}
+
 
 export default myLayers();
-export {setLayers,layersActivated};
+export {setLayers,layersActivated,addCertainLayer};
