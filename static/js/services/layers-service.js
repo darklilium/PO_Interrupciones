@@ -106,7 +106,7 @@ function myLayers(){
 function setLayers(){
   return {
     alimentadores(){
-      var layerAlimentador = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_layerAlimentador(),{id:"CHQAlimentadores"});
+      var layerAlimentador = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_layerAlimentador(),{id:"gis_alimentadores"});
       layerAlimentador.setImageFormat("png32");
       layerAlimentador.setVisibleLayers([0]);
       layerAlimentador.setInfoTemplates({
@@ -133,7 +133,7 @@ function setLayers(){
         return interrClienteSED;
     },
     cuadrillas(){
-      var cuadrillasLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"CHQCuadrillas"});
+      var cuadrillasLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_dyn_layerClieSED(),{id:"po_cuadrillas"});
       /*cuadrillasLayer.setInfoTemplates({
         3: {infoTemplate: myinfotemplate.getNisInfo()},
         1: {infoTemplate: myinfotemplate.getIsolatedNisFailure()},
@@ -145,7 +145,7 @@ function setLayers(){
       return cuadrillasLayer;
     },
     ap_comuna(whereRegion, layerNumber){
-      var apComunaLayer = new esri.layers.FeatureLayer(myLayers().read_ap_comuna(),{id:"CHQAPComuna"});
+      var apComunaLayer = new esri.layers.FeatureLayer(myLayers().read_ap_comuna(),{id:"ap_comuna"});
       apComunaLayer.setDefinitionExpression(whereRegion);
       console.log(whereRegion);
       return apComunaLayer;

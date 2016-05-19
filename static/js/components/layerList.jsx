@@ -31,7 +31,7 @@ class LayerList extends React.Component {
         }
 
         mapp.graphics.clear();
-        mapp.removeLayer(mapp.getLayer("CHQAlimentadores"));
+        mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
         break;
 
       case "check_cuadrillas":
@@ -52,7 +52,7 @@ class LayerList extends React.Component {
           }
 
           mapp.graphics.clear();
-          mapp.removeLayer(mapp.getLayer("CHQAlimentadores"));
+          mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
 
       break;
       default:
