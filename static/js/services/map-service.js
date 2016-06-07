@@ -1,6 +1,8 @@
 import mylayers from '../services/layers-service';
 import token from '../services/token-service';
 import {setLayers} from '../services/layers-service';
+import {addCertainLayer} from '../services/layers-service';
+import {layersActivated} from '../services/layers-service';
 
 //TO DO: this var sets the map to be used in the whole app.
 var map = {
@@ -17,41 +19,36 @@ var map = {
       return this.map;
     },
     changeBasemap: function(bm){
+      //get all the active layers on the map:
+      var myActiveLayers = layersActivated().getMapLayers();
+      console.log(myActiveLayers);
+      console.log("my basemap is", bm);
+
       /* Removing all the layers first and then if chilquinta add the layer simulating a basemap.
       In other cases, set the esri basemap  */
       var baseMapLayer = new esri.layers.ArcGISDynamicMapServiceLayer(mylayers.read_mapabase(),{id:"CHQBasemap"});
 
+      //if bm is not chilquinta basemap, remove all the layers and add them again
       if(bm!='Chilquinta'){
           this.map.removeAllLayers();
-          addMapsAndLayers((callback)=>{console.log("chilquinta layer added again");});
+
+          myActiveLayers.forEach(activeLayer =>{
+            addCertainLayer(activeLayer,10,"");
+          });
+
           this.map.setBasemap(bm);
           return;
         }
-
+      //if bm is chilquinta, remove all the layers and then add chilquinta basemap layer in first(0) position.
+      //also add the activeLayers on the map (depending on default layers for each app).
       this.map.removeAllLayers();
-      addMapsAndLayers((callback)=>{console.log("interrupciones layer added again");});
+
+      myActiveLayers.forEach(activeLayer =>{
+        addCertainLayer(activeLayer,10,"");
+      });
       this.map.addLayer(baseMapLayer,0);
 
     }
 };
-// TO DO: this function add the default and not defaults layer (from the layerlist) in the app.
-function addMapsAndLayers(callback){
-  var mapp = map.getMap();
-  console.log("adding layers and mapabases...");
-
-  //set here layers by default.
-  var interrClienteSED = setLayers().interrupciones();
-  mapp.addLayer(interrClienteSED, 10);
-  //Set here if you add more layers in the layerlist. Starting with a index position of 10.
-  if (check_alimentador.checked){
-    mapp.addLayer(setLayers().alimentadores(), 1);
-  }
-  callback("done");
-}
-
-
-
-
 
 export default map;
-export {addMapsAndLayers};

@@ -6,7 +6,6 @@ import {searchBar_Order} from '../services/searchbar-service';
 import {searchBar_Incidence} from '../services/searchbar-service';
 import {searchBar_SED} from '../services/searchbar-service';
 import {getStatisticsSummary} from '../services/getstatistics-summary-service';
-import {addMapsAndLayers} from '../services/map-service';
 import {exportToExcel} from '../utils/exportToExcel';
 import {translateInfo} from '../utils/exportToExcel';
 import formatDate from '../utils/milliSecondsToDate';

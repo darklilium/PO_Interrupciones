@@ -28,11 +28,9 @@ function makeSymbol(){
       return mySymbol;
     },
     makeLine(){
-      var mySymbol = new esri.symbol.CartographicLineSymbol(
-        esri.symbol.CartographicLineSymbol.STYLE_SOLID,
-        new esri.Color([64, 0, 255]), 5,
-        esri.symbol.CartographicLineSymbol.CAP_ROUND,
-        esri.symbol.CartographicLineSymbol.JOIN_MITER, 5
+      var mySymbol = new esri.symbol.SimpleLineSymbol(
+        esri.symbol.SimpleLineSymbol.STYLE_DASH,
+        new esri.Color([255,0,0]), 5
       );
 
       return mySymbol;

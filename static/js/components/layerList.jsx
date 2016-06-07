@@ -1,6 +1,6 @@
 import React from 'react';
 import mymap from '../services/map-service';
-import {addMapsAndLayers} from '../services/map-service';
+
 
 import {setLayers} from '../services/layers-service';
 
@@ -9,9 +9,13 @@ class LayerList extends React.Component {
     super(props);
     this.onClick = this.onClick.bind(this);
 
+    this.state = {
+      activeChecks: this.props.show
+    }
   }
   componentDidMount(){
-      this.setState({activeLayers : {alimentadores: true}});
+    console.log(this.state.activeChecks);
+
   }
   onClick(check){
     var mapp = mymap.getMap();
@@ -27,7 +31,7 @@ class LayerList extends React.Component {
         }
 
         mapp.graphics.clear();
-        mapp.removeLayer(mapp.getLayer("CHQAlimentadores"));
+        mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
         break;
 
       case "check_cuadrillas":
@@ -41,23 +45,81 @@ class LayerList extends React.Component {
         */
         break;
 
+      case "check_ap_modificaciones":
+          if (this.refs.check_ap_modificaciones.checked){
+            mapp.addLayer(addAlimentadorLayer, 10);
+          return;
+          }
+
+          mapp.graphics.clear();
+          mapp.removeLayer(mapp.getLayer("gis_alimentadores"));
+
+      break;
       default:
 
     }
   }
 
   render(){
+    var visibilityStyle = {
+      check_alimentador: {
+        visibility: 'hidden',
+        display: 'none'
+      },
+      check_cuadrillas:{
+          visibility: 'hidden',
+          display: 'none'
+      },
+      check_ap_modificaciones:{
+          visibility: 'hidden',
+          display: 'none'
+      }
+    };
+
+    this.state.activeChecks.forEach(visible =>{
+
+      switch (visible) {
+        case "check_alimentador":
+
+          visibilityStyle.check_alimentador.visibility= 'visible';
+          visibilityStyle.check_alimentador.display= 'flex';
+        break;
+
+        case "check_cuadrillas":
+
+          visibilityStyle.check_cuadrillas.visibility= 'visible';
+            visibilityStyle.check_cuadrillas.display= 'flex';
+        break;
+
+        case "check_ap_modificaciones":
+
+          visibilityStyle.check_ap_modificaciones.visibility= 'visible';
+          visibilityStyle.check_ap_modificaciones.display= 'flex';
+        break;
+
+        default:
+
+      }
+
+    });
+
     return (
     <div className="layerlist__wrapper">
       <fieldset className="layerlist__fieldset">
         <legend className="layerlist__legend">Layers</legend>
           <div className="layerlist__checkbox-div">
-            <input className="layerlist__checkbox" type="checkbox" id="check_alimentador" ref="check_alimentador" onClick={this.onClick} ></input><h6 className="layerlist__h6">Alimentador</h6>
+            <input style={visibilityStyle.check_alimentador} className="layerlist__checkbox" type="checkbox" id="check_alimentador" ref="check_alimentador" onClick={this.onClick} ></input>
+            <h6 style={visibilityStyle.check_alimentador} className="layerlist__h6">Alimentador</h6>
           </div>
-          {/*<div className="layerlist__checkbox-div">
-            <input className="layerlist__checkbox" type="checkbox" id="check_cuadrillas" ref="check_cuadrillas" onClick={this.onClick}  ></input><h6 className="layerlist__h6">Cuadrillas</h6>
+          <div className="layerlist__checkbox-div">
+            <input style={visibilityStyle.check_cuadrillas} className="layerlist__checkbox" type="checkbox" id="check_cuadrillas" ref="check_cuadrillas" onClick={this.onClick} ></input>
+            <h6 style={visibilityStyle.check_cuadrillas} className="layerlist__h6">Cuadrillas</h6>
           </div>
-          */}
+          <div className="layerlist__checkbox-div">
+            <input style={visibilityStyle.check_ap_modificaciones} className="layerlist__checkbox" type="checkbox" id="check_ap_modificaciones" ref="check_ap_modificaciones" onClick={this.onClick}  ></input>
+            <h6 style={visibilityStyle.check_ap_modificaciones} className="layerlist__h6">Modificaciones</h6>
+          </div>
+
       </fieldset>
     </div>);
 

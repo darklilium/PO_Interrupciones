@@ -1,6 +1,6 @@
 import React from 'react';
 import mymap from '../services/map-service';
-import {addMapsAndLayers} from '../services/map-service';
+import {addCertainLayer} from '../services/layers-service';
 import formatDate from '../utils/milliSecondsToDate';
 import StatisticsToolbar from './StatisticsToolbar.jsx';
 import SearchBar from './Searchbar.jsx';
@@ -51,8 +51,8 @@ class Interruptions extends React.Component {
     var map = mymap.createMap("map_div","topo",-71.2905 ,-33.1009,9);
     map.disableKeyboardNavigation();
 
-    addMapsAndLayers((callback)=>{console.log(callback);});
-
+    addCertainLayer('po_interrupciones',9,"");
+    
     map.on('extent-change', ()=>{
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
@@ -124,7 +124,7 @@ class Interruptions extends React.Component {
         <StatisticsToolbar />
       </div>
       {/* Layer List */}
-      <LayerList />
+      <LayerList show={["check_alimentador"]}/>
       {/* The map*/}
       <div className="map_div" id="map_div">
         <div id="LocateButton"></div>
