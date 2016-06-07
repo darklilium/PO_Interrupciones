@@ -1,6 +1,6 @@
 import mymap from '../services/map-service';
 
-function makeInfoWindow(nis,order,incident_id,sed, point, time, address, etr){
+function makeInfowindow(nis,order,incident_id,sed, point, time, address, etr){
   var map = mymap.getMap();
 
   var contentVars = {
@@ -28,7 +28,7 @@ function makeInfoWindow(nis,order,incident_id,sed, point, time, address, etr){
   map.infoWindow.show(point, map.getInfoWindowAnchor(point));
 }
 
-function makeInfoWindowPerSED(sed, point, name, region, alimentador, property){
+function makeInfowindowPerSED(sed, point, name, region, alimentador, property){
   var map = mymap.getMap();
 
   var contentVars = {
@@ -52,7 +52,7 @@ function makeInfoWindowPerSED(sed, point, name, region, alimentador, property){
   map.infoWindow.show(point, map.getInfoWindowAnchor(point));
 }
 
-function makeInfoWindowPerSEDInterrupted(sed, point, order_id, incident_id, alimentador, cause,commentary){
+function makeInfowindowPerSEDInterrupted(sed, point, order_id, incident_id, alimentador, cause,commentary){
   var map = mymap.getMap();
 
   var contentVars = {
@@ -78,7 +78,7 @@ function makeInfoWindowPerSEDInterrupted(sed, point, order_id, incident_id, alim
   map.infoWindow.show(point, map.getInfoWindowAnchor(point));
 }
 
-function makeInfoWindowPerNisInfo(nis,sed, point,address){
+function makeInfowindowPerNisInfo(nis,sed, point,address){
   var map = mymap.getMap();
 
   var contentVars = {
@@ -99,7 +99,7 @@ function makeInfoWindowPerNisInfo(nis,sed, point,address){
 
 }
 
-function makeInfoWindowPerGridInfo(type,
+function makeInfowindowPerGridInfo(type,
                                   order_id,
                                   incident_id,
                                   cause,
@@ -153,4 +153,4 @@ map.infoWindow.show(geometry, map.getInfoWindowAnchor(geometry));
 }
 
 
-export {makeInfoWindow, makeInfoWindowPerSED, makeInfoWindowPerSEDInterrupted,makeInfoWindowPerNisInfo,makeInfoWindowPerGridInfo };
+export {makeInfowindow, makeInfowindowPerSED, makeInfowindowPerSEDInterrupted,makeInfowindowPerNisInfo,makeInfowindowPerGridInfo };

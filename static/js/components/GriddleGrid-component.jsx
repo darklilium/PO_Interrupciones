@@ -3,7 +3,7 @@ import Griddle from 'griddle-react';
 import getInterruptionsByExtent from '../services/getInterruptionsByExtent-service';
 import mymap from '../services/map-service';
 import makeSymbol from '../utils/makeSymbol';
-import {makeInfoWindowPerGridInfo} from '../utils/makeInfowindow';
+import {makeInfowindowPerGridInfo} from '../utils/makeInfowindow';
 
 class GriddleGrid extends React.Component{
   constructor(props){
@@ -17,7 +17,7 @@ class GriddleGrid extends React.Component{
     let pointSymbol = makeSymbol.makePoint();
     map.graphics.add(new esri.Graphic(gridRow.props.data['Geometry'],pointSymbol));
     console.log(gridRow.props.data['Geometry']);
-    makeInfoWindowPerGridInfo(gridRow.props.data['Tipo'],
+    makeInfowindowPerGridInfo(gridRow.props.data['Tipo'],
                               gridRow.props.data['ID Orden'],
                               gridRow.props.data['ID Incidencia'],
                               gridRow.props.data['Causa'],
