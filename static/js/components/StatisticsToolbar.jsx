@@ -57,7 +57,7 @@ class StatisticsToolbar extends React.Component {
 
         <div className="statistic__kind">
           <div className="statistic__kind-elem">
-            <span title="Clientes Domiciliarios" className="statistic-h4"><i title="Clientes Domiciliarios" className="fa fa-home"></i><h6 title="Clientes Domiciliarios" className="statistic-h6-label"> DOM:</h6> {this.state.CLIEDOM}  | </span>
+            <span title="Clientes Domiciliarios" className="statistic-h4"><i title="Clientes Domiciliarios" className="fa fa-home"></i><h6 title="Clientes Domiciliarios" className="statistic-h6-label"> DOM: </h6> {this.state.CLIEDOM}  | </span>
           </div>
           <div className="statistic__kind-elem">
 
