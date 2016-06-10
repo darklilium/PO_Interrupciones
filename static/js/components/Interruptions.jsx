@@ -52,7 +52,7 @@ class Interruptions extends React.Component {
     map.disableKeyboardNavigation();
 
     addCertainLayer('po_interrupciones',9,"");
-    
+
     map.on('extent-change', ()=>{
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
@@ -124,7 +124,7 @@ class Interruptions extends React.Component {
         <StatisticsToolbar />
       </div>
       {/* Layer List */}
-      <LayerList show={["check_alimentador"]}/>
+      <LayerList show={["check_alimentador","check_SSEE"]}/>
       {/* The map*/}
       <div className="map_div" id="map_div">
         <div id="LocateButton"></div>

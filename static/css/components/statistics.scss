@@ -25,38 +25,6 @@ $backg-color: ghostwhite;
 .statistic__kind{
   display: flex;
 }
-
-
-  /*screens for more than 1024px*/
-/*
-@media screen and (min-width: 1024px) {
-  .wrapper__statistics{
-    width: auto;
-    float: left;
-    background-color: $backg-color;
-    position: fixed;
-    top: 0;
-    padding-top: 0.2em;
-    display: inline-flex;
-    height: 1.6em;
-  }
-
-  .statistic__kind{
-    display: inline-flex;
-  }
-
-  .statistic__kind-elem{
-    margin-left: 0.5em;
-  }
-
-  /*
-  .statistic-h4{
-      font-size: smaller;
-  }
-  */
-
-//}
-
 // screens for less than 1024px
 @media screen and (max-width: 1024px ) {
   .wrapper__statistics{
@@ -74,7 +42,6 @@ $backg-color: ghostwhite;
     display: inherit;
     font-size: 0px;
   }
-
 
 }
 

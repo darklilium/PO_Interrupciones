@@ -1,4 +1,4 @@
-.layerlist__wrapper{
+.LayerList__wrapper{
   z-index: 4;
   margin-top: 3.5em;
   position: absolute;
@@ -9,25 +9,12 @@
   border-radius: 0;
   background-color: rgba(255, 255, 255, 0.6);
 }
-.layerlist__fieldset{
+.LayerList__checkbox-div{
   display: flex;
 }
-.layerlist__legend{
-  font-size: 11px;
-  padding: 0px;
-  margin: 0px;
-}
 
-.layerlist__checkbox{
-
-}
-.layerlist__h6{
-  font-size: xx-small;
-  margin-bottom: 0px;
-  margin-top: 0.8em;
-}
-.layerlist__checkbox-div{
-  display: flex;
-  width: auto;
-  flex-direction: row;
+.LayerList__legend{
+  font-size: inherit;
+  margin-bottom: 0em;
+  font-weight: 700;
 }

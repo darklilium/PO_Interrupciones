@@ -2,7 +2,7 @@ import token from '../services/token-service';
 import myinfotemplate from '../utils/infoTemplates';
 import mymap from '../services/map-service';
 import {ap_infoWindow} from '../utils/makeInfowindow';
-
+//import {ap_showEditor} from '../services/ap_services/ap_editData-service';
 function myLayers(){
   const serviceMain = 'http://gisred.chilquinta/arcgis/';
   //change this for external connection:
@@ -10,6 +10,7 @@ function myLayers(){
   const serviceURL = serviceMain + 'rest/services/';
   var graphicLayer = new esri.layers.GraphicsLayer();
 
+  //check 8 and last one
   return {
     //The following layers are for common use in any gisred app.
     read_tokenURL(){
@@ -106,6 +107,38 @@ function myLayers(){
     },
     read_ap_luminarias(){
       return serviceURL + "AP_Municipal/AP_MUNICIPAL/FeatureServer/1?f=json&token=" + token.read();
+    },
+    //20/05/2016
+    read_ap_rotulos(){
+      return serviceURL + "Chilquinta_006/Nodos_006/MapServer/0?f=json&token=" + token.read();
+    },
+    read_ap_equipos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer/3?f=json&token=" + token.read();
+    },
+    read_ap_tramos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/MapServer/2?f=json&token=" + token.read();
+    },
+    read_ap_catastro_fotos(){
+        return serviceURL + "AP_Municipal/AP_MUNICIPAL/FeatureServer/10?f=json&token=" + token.read();
+    },
+    /* FACTIGIS LAYERS*/
+    read_factigis_transmision(){
+        return serviceURL + "PMS/Concesiones/MapServer/0?f=json&token=" + token.read();
+    },
+    read_factigis_distrubucion(){
+        return serviceURL + "PMS/Concesiones/MapServer/1?f=json&token=" + token.read();
+    },
+    read_factigis_vialidad(){
+        return serviceURL + "PMS/Vialidad/MapServer/0?f=json&token=" + token.read();
+    },
+    read_factigis(){
+        return serviceURL + "PMS/Concesiones/MapServer?f=json&token=" + token.read();
+    },
+    read_factigis2(){
+        return serviceURL + "PMS/Vialidad/MapServer?f=json&token=" + token.read();
+    },
+    read_SSEE(){
+      return serviceURL + "Chilquinta_006/Equipos_pto_006/MapServer?f=json&token=" + token.read();
 
     }
 
@@ -114,6 +147,7 @@ function myLayers(){
 
 //TO DO: this function sets the layers that will be added in the app, integrating the infowindow and their special properties.
 function setLayers(){
+  //check n°7
   return {
     alimentadores(){
       var layerAlimentador = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_layerAlimentador(),{id:"gis_alimentadores"});
@@ -177,6 +211,7 @@ function setLayers(){
       outFields: ["*"]});
       apLuminariasLayer.setDefinitionExpression(whereRegion);
 
+      //ON MOUSE OVER EVENT
       apLuminariasLayer.on('mouse-over',(evt)=>{
 
         ap_infoWindow(evt.graphic.attributes['ID_LUMINARIA'],
@@ -188,8 +223,49 @@ function setLayers(){
           evt.graphic.geometry);
 
       });
+      apLuminariasLayer.on('click', (evt)=>{
+        //ap_showEditor(evt);
+      });
 
       return apLuminariasLayer;
+    },
+    ap_tramos(whereRegion, layerNumber){
+      var apTramosLayer = new esri.layers.FeatureLayer(myLayers().read_ap_tramos(),{id:"ap_tramos",
+      mode: esri.layers.FeatureLayer.MODE_ONDEMAND,
+      minScale: 9000});
+
+      apTramosLayer.setDefinitionExpression(whereRegion);
+      console.log(whereRegion);
+
+      return apTramosLayer;
+    },
+    /* factigis module */
+    factigis_transmision(whereRegion, layerNumber){
+      var fDistribucionsLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_factigis(),{id:"factigis_transmision",
+      opacity:0.3});
+      fDistribucionsLayer.setImageFormat("png32");
+      fDistribucionsLayer.setVisibleLayers([0]);
+      return fDistribucionsLayer;
+    },
+    factigis_distribucion(whereRegion, layerNumber){
+      var fTransmisionLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_factigis(),{id:"factigis_distribucion",
+      opacity:0.3});
+      fTransmisionLayer.setImageFormat("png32");
+      fTransmisionLayer.setVisibleLayers([1]);
+      return fTransmisionLayer;
+    },
+    factigis_vialidad(whereRegion, layerNumber){
+      var fVialidadsLayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_factigis2(),{id:"factigis_vialidad",
+      opacity:0.3});
+      fVialidadsLayer.setVisibleLayers([0]);
+      fVialidadsLayer.setImageFormat("png32");
+      return fVialidadsLayer;
+    },
+    gis_SSEE(whereRegion, layerNumber){
+      var fSSEELayer = new esri.layers.ArcGISDynamicMapServiceLayer(myLayers().read_SSEE(),{id:"gis_SSEE"});
+      fSSEELayer.setVisibleLayers([0]);
+      fSSEELayer.setImageFormat("png32");
+      return fSSEELayer;
     }
   }
 }
@@ -216,6 +292,7 @@ function layersActivated(){
 
 // TO DO: this function add the default and not defaults layer (from the layerlist) in the app.
 function addCertainLayer(layerNameToAdd, order, where){
+  //checkbox setup n° 6
   var mapp = mymap.getMap();
   var myLayerToAdd;
 
@@ -242,19 +319,52 @@ function addCertainLayer(layerNameToAdd, order, where){
     case 'ap_modificaciones':
       myLayerToAdd = setLayers().ap_modificaciones(where,5);
     break;
+
+    case 'ap_tramos':
+      myLayerToAdd = setLayers().ap_tramos(where,5);
+    break;
+
+    case 'factigis_transmision':
+      myLayerToAdd = setLayers().factigis_transmision(where,order);
+    break;
+
+    case 'factigis_distribucion':
+      myLayerToAdd = setLayers().factigis_distribucion(where,order);
+    break;
+
+    case 'factigis_vialidad':
+      myLayerToAdd = setLayers().factigis_vialidad(where,order);
+    break;
+
+    case 'gis_SSEE':
+      myLayerToAdd = setLayers().read_SSEE(where,order);
+    break;
+
     default:
   }
 
   mapp.addLayer(myLayerToAdd);
 
   //Set here if you add more layers in the layerlist.
+  //checkbox setup n° 5
   if (check_alimentador.checked){
     mapp.addLayer(setLayers().alimentadores(),1);
   }
   if (check_ap_modificaciones.checked){
     mapp.addLayer(setLayers().ap_modificaciones(), 1);
   }
-
+  if (check_factigis_distribucion.checked){
+    mapp.addLayer(setLayers().factigis_distribucion(), 1);
+  }
+  if (check_factigis_transmision.checked){
+    mapp.addLayer(setLayers().factigis_transmision(), 1);
+  }
+  if (check_factigis_vialidad.checked){
+    mapp.addLayer(setLayers().factigis_vialidad(), 1);
+  }
+  if (check_SSEE.checked){
+    mapp.addLayer(setLayers().SSEE(), 1);
+  }
 }
 export default myLayers();
 export {setLayers,layersActivated,addCertainLayer};
