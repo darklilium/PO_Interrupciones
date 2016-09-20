@@ -1,4 +1,4 @@
-# react_jsapi
+# PO_Interrupciones
 
 <i>Español</i>
 <h1>Proyecto inicial de Clientes Interrumpidos.</h1>
