@@ -4,6 +4,7 @@ import {setLayers} from '../services/layers-service';
 import {addCertainLayer} from '../services/layers-service';
 import {layersActivated} from '../services/layers-service';
 
+
 //TO DO: this var sets the map to be used in the whole app.
 var map = {
     createMap: function(div,basemap,centerx,centery,zoom){
