@@ -1,6 +1,8 @@
 import {notifications} from '../utils/notifications';
 import myLayers from './layers-service';
 import token from '../services/token-service';
+import env from '../services/config';
+import {getTodaysDate} from '../utils/milliSecondsToDate';
 
 function genericLogin(user, pass, token){
   const url = myLayers.read_tokenURL();
@@ -34,8 +36,8 @@ function genericLogin(user, pass, token){
     //console.log('writing token into system');
     token.write(myToken);
 
-    const page = "REACT_INTERRUPCIONES_WEB";
-    const module = "PO_INTERRUPCIONES";
+    const page = env.SAVEAPPLICATIONMODULE
+    const module = env.SAVEAPPLICATIONNAME;
 
     notifications("Logging in...","Login_Success", ".notification-login");
     window.location.href = "interrupciones.html";
@@ -55,7 +57,7 @@ function saveLogin(user,page,mod, tkn){
 
   const data = {
     f: 'json',
-    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "module": mod  }, geometry: {} }]),
+    adds: JSON.stringify([{ attributes: { "usuario": user, "pagina": page, "modulo": mod, fecha: getTodaysDate()  }, geometry: {} }]),
     token: tkn
   };
 

@@ -56,23 +56,23 @@ class Interruptions extends React.Component {
     map.on('extent-change', ()=>{
 
       getClieInterruptionsByExtent((map.extent), (myresultsNis)=>{
-        //console.log(myresultsNis);
+        //console.log("CLIENTES", myresultsNis);
         let nisresults = myresultsNis.map((result)=>{
 
           let mynewNis = {
             'Tipo': 'DOM',
-            'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_orden'],
-            'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_incidencia'],
-            'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.estado_orden'],
-            'Fecha Creacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_creacion']),
-            'Fecha Asignacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_asignacion']),
-            'Fecha Despacho': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_despacho']),
-            'Fecha Ruta': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_ruta']),
-            'Fecha Llegada': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_llegada']),
-            'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.causa'],
-            'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.comentario'],
-            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA'],
-            'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
+            'ID Orden': result.attributes['ARCGIS.dbo.view_tiempo_order_po.id_orden'],
+            'ID Incidencia': result.attributes['ARCGIS.dbo.view_tiempo_order_po.id_incidencia'],
+            'Estado': result.attributes['ARCGIS.dbo.view_tiempo_order_po.estado_orden'],
+            'Fecha Creacion': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_creacion']),
+            'Fecha Asignacion': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_asignacion']),
+            'Fecha Despacho': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_despacho']),
+            'Fecha Ruta': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_ruta']),
+            'Fecha Llegada': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_llegada']),
+            'Causa': result.attributes['ARCGIS.dbo.view_tiempo_order_po.causa'],
+            'Comentario': result.attributes['ARCGIS.dbo.view_tiempo_order_po.comentario'],
+            'Tiempo': result.attributes['ARCGIS.dbo.view_tiempo_order_po.TIEMPO_TRA'],
+            'ETR': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.etr']),
             'Alimentador': 'Por definir',
             'Comuna' : 'Por definir',
             'Cantidad': 1,
@@ -85,22 +85,23 @@ class Interruptions extends React.Component {
       });
 
       getSEDByExtent((map.extent), (myresultsSed)=>{
+          //console.log("SED", myresultsSed);
           let sedresults = myresultsSed.map((result)=>{
 
           let mynewSed = {
             'Tipo': 'RED',
-            'ID Orden': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_orden'],
-            'ID Incidencia': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.id_incidencia'],
-            'Estado': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.estado_orden'],
-            'Fecha Creacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_creacion']),
-            'Fecha Asignacion': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_asignacion']),
-            'Fecha Despacho': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_despacho']),
-            'Fecha Ruta': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_ruta']),
-            'Fecha Llegada': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.fecha_llegada']),
-            'Causa': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.causa'],
-            'Comentario': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.comentario'],
-            'Tiempo': result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.TIEMPO_TRA'],
-            'ETR': formatDate(result.attributes['ARCGIS.DBO.%view_tiempo_order_po_3_1.etr']),
+            'ID Orden': result.attributes['ARCGIS.dbo.view_tiempo_order_po.id_orden'],
+            'ID Incidencia': result.attributes['ARCGIS.dbo.view_tiempo_order_po.id_incidencia'],
+            'Estado': result.attributes['ARCGIS.dbo.view_tiempo_order_po.estado_orden'],
+            'Fecha Creacion': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_creacion']),
+            'Fecha Asignacion': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_asignacion']),
+            'Fecha Despacho': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_despacho']),
+            'Fecha Ruta': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_ruta']),
+            'Fecha Llegada': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.fecha_llegada']),
+            'Causa': result.attributes['ARCGIS.dbo.view_tiempo_order_po.causa'],
+            'Comentario': result.attributes['ARCGIS.dbo.view_tiempo_order_po.comentario'],
+            'Tiempo': result.attributes['ARCGIS.dbo.view_tiempo_order_po.TIEMPO_TRA'],
+            'ETR': formatDate(result.attributes['ARCGIS.dbo.view_tiempo_order_po.etr']),
             'Alimentador': result.attributes['ARCGIS.DBO.SED_006.alimentador'],
             'Comuna' : result.attributes['ARCGIS.DBO.SED_006.comuna'],
             'Cantidad' : 'Por definir',

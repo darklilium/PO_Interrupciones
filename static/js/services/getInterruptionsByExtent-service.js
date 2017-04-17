@@ -16,7 +16,7 @@ function getClieInterruptionsByExtent(extent, callback){
   qInterruptions.where = "1=1";
   qInterruptions.returnGeometry = true;
   qInterruptions.outFields=["*"];
-  qInterruptions.groupByFields = ['ARCGIS.dbo.POWERON_TRANSFORMADORES.id_orden']
+  qInterruptions.groupByFields = ['ARCGIS.dbo.POWERON_CLIENTES.id_orden']
   qInterruptions.geometry = extent;
   qInterruptions.spatialRelationship = esri.tasks.Query.SPATIAL_REL_CONTAINS;
 
